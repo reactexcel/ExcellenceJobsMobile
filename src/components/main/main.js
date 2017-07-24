@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 
-export default class MainPage extends Component {
+export default class LoginPage extends Component {
   render() {
     return (
       <View style={styles.container}>

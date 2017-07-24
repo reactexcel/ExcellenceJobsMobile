@@ -5,39 +5,28 @@
  */
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import CustomHeader from '../header/header';
+import { Container } from 'native-base';
+import { View, Text } from 'react-native';
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this._drawerHandle = this._drawerHandle.bind(this);
+  }
+  _drawerHandle() {
+    this.props.navigation.navigate('DrawerOpen');
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          THIS IS HOME PAGE
-        </Text>
-      </View>
+      <Container>
+        <CustomHeader onPress={() => this._drawerHandle()} />
+        <View style={{ margin: 10 }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'grey' }}>
+            ROUNDS
+          </Text>
+        </View>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});

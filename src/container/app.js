@@ -1,10 +1,10 @@
 import { StackNavigator } from 'react-navigation';
-import MainPage from '../components/main/main';
-import Home from '../components/home/home';
+import LoginPage from '../components/main/main';
+import Main from './router';
 
 const App = StackNavigator({
-  Main: { screen: MainPage },
-  Home: { screen: Home },
+  // Main: { screen: LoginPage },
+  Drawer: { screen: Main },
 },
 {
   headerMode: 'screen',
