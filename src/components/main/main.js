@@ -18,6 +18,11 @@ export default class MainPage extends Component {
     if (this.state.email === 'arun@gmail.com') {
       const success = data.SUCCESS;
       this.setState({ isloading: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(`welcome ${success.data.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(`welcome ${success.data.name}`);
+      }
       this.props.navigation.navigate('Drawer', { data: success });
     } else {
       this.setState({ isloading: false, email: '' });
