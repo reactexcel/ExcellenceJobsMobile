@@ -1,43 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, View, AlertIOS, ActivityIndicator } from 'react-native';
+import { Container, Content, Text, Body, Button, Form, Item, Input, Label } from 'native-base';
 
-export default class MainPage extends Component {
+import style from './styles';
+
+export default class Home extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      isloading: false,
+    };
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          THIS IS MAINPAGE
-        </Text>
-      </View>
+      <Container style={{ backgroundColor: 'white' }}>
+        <Content>
+          <View style={style.container}>
+            <Text style={style.text}>
+              HR Recruit
+            </Text>
+            <Image source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }} resizeMode="contain" style={style.logo} />
+          </View>
+          <View style={style.content}>
+            <Item floatingLabel>
+              <Label style={style.label}> Enter Your Email.......</Label>
+              <Input />
+            </Item>
+            <Button rounded style={style.button}>
+              <Text style={{ alignSelf: 'center' }}>Go</Text>
+            </Button>
+          </View>
+        </Content>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
