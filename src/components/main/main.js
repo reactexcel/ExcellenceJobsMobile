@@ -4,7 +4,7 @@ import { Container, Content, Text, Body, Button, Form, Item, Input, Label } from
 
 import style from './styles';
 
-export default class Home extends Component {
+export default class MainPage extends Component {
   constructor() {
     super();
     this.state = {
