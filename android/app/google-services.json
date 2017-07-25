@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "968117996720-4rthpo5l7r64jidjm691f7lr7bntleka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hrrecruit",
+            "certificate_hash": "052dda60050c34c0b99738dcb0ebed0bbea1f628"
+          }
+        },
+        {
           "client_id": "968117996720-6div64e7pih3ni57j8f9dd0flba3d5su.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
