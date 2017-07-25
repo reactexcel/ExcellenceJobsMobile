@@ -4,7 +4,7 @@ axios.defaults.baseURL = '<link>';
 
 export function getData(email) {
   return new Promise((resolve, reject) => {
-    const url = 'http://192.168.1.126:8091/app_get_candidate';
+    const url = 'http://144.76.34.244:8090/app_get_candidate';
     axios({
       method: 'post',
       url,
@@ -21,7 +21,7 @@ export function getData(email) {
 
 export function saveDevice(email, deviceId, token) {
   return new Promise((resolve, reject) => {
-    const url = 'http://192.168.1.126:8091/app_save_candidate_device';
+    const url = 'http://144.76.34.244:8090/app_save_candidate_device';
     axios({
       method: 'post',
       url,

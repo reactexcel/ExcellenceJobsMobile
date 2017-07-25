@@ -6,10 +6,10 @@ export default class CustomHeader extends Component {
     return (
       <Header>
         <Left>
-          <Thumbnail small source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2fwk9JyQY3DPTvY5H8E_xE5Hu0wRYECzjS3sy0zYqut1cn5nLcK7PO0uu' }} />
+          <Thumbnail small source={{ uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png' }} />
         </Left>
         <Body>
-          <Title>Hi,  Arun</Title>
+          <Title>{this.props.name}</Title>
         </Body>
         <Right>
           <Button transparent>
