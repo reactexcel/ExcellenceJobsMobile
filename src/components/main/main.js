@@ -13,14 +13,25 @@ export default class MainPage extends Component {
       isloading: false,
     };
   }
+  componentWillMount() {
+    AsyncStorage.getItem('user', (err, result) => {
+      if (result !== null) {
+        const user = JSON.parse(result);
+        if (user.email !== '') {
+          AsyncStorage.setItem('userdata', JSON.stringify(data.SUCCESS));
+          this.props.navigation.navigate('Drawer', { data: data.SUCCESS });
+        }
+      }
+    });
+  }
   handleSubmit() {
     this.setState({ isloading: true });
     if (this.state.email === 'arun@gmail.com') {
       const success = data.SUCCESS;
       const email = { email: this.state.email };
-      AsyncStorage.setItem('user', email);
-      AsyncStorage.setItem('userdata', data);
-      this.setState({ isloading: false });
+      AsyncStorage.setItem('user', JSON.stringify(email));
+      AsyncStorage.setItem('userdata', JSON.stringify(success));
+      this.setState({ isloading: false, email: '' });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(`welcome ${success.data.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
@@ -47,7 +58,7 @@ export default class MainPage extends Component {
           <View style={style.content}>
             <Item floatingLabel>
               <Label style={{ marginLeft: 5, justifyContent: 'center', color: 'white' }}> Enter Your Email.......</Label>
-              <Input style={{ color: 'white' }} onChangeText={(text) => { this.setState({ email: text }); }} />
+              <Input style={{ color: 'white' }} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
             </Item>
             <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
               <Text style={{ alignSelf: 'center' }}>Go</Text>
