@@ -39,9 +39,9 @@ export default class MainPage extends Component {
   }
   render() {
     return (
-      <Container style={{ backgroundColor: '#1e3750' }}>
+      <Container style={{ flex: 1, backgroundColor: '#1e3750' }}>
         <Content>
-          <View style={style.container}>
+          <View style={{ flex: 1 }}>
             <Image source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }} resizeMode="contain" style={style.logo} />
           </View>
           <View style={style.content}>

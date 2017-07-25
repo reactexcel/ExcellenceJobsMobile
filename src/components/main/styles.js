@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
   logo: {
+    flex: 1,
     height: 180,
     width: 220,
     alignSelf: 'center',
-    marginTop: 20,
+    // marginTop: 5,
   },
   text: {
     fontSize: 30,
