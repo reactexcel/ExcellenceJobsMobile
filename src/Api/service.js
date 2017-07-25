@@ -10,8 +10,10 @@ export function getData(email) {
         email_id: email,
       },
     }).then((data) => {
+      console.log(data);
       resolve(data);
     }, (error) => {
+      console.log(error);
       reject(error);
     });
   });
@@ -30,6 +32,7 @@ export function saveDevice(email, deviceId, token) {
     }).then((data) => {
       resolve(data);
     }, (error) => {
+      console.log(error);
       reject(error);
     });
   });

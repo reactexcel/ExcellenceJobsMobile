@@ -32,7 +32,7 @@ export default class HomePage extends Component {
             dataArray={items}
             renderRow={item =>
               (<ListItem style={style.listitem} >
-                <Body >
+                <Body>
                   <Text>{item}</Text>
                   <Text note>20-July-2017</Text>
                 </Body>
