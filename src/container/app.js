@@ -1,9 +1,9 @@
 import { StackNavigator } from 'react-navigation';
-import LoginPage from '../components/main/main';
+import MainPage from '../components/main/main';
 import Main from './router';
 
 const App = StackNavigator({
-  // Main: { screen: LoginPage },
+  Main: { screen: MainPage },
   Drawer: { screen: Main },
 },
 {
