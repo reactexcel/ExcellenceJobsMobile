@@ -6,7 +6,6 @@ import DeviceInfo from 'react-native-device-info';
 
 import style from './styles';
 import * as services from '../../Api/service';
-import * as data from '../../Api/data';
 
 export default class MainPage extends Component {
   constructor() {
@@ -17,9 +16,6 @@ export default class MainPage extends Component {
       isAvailable: true,
     };
     this.handleNotification = this.handleNotification.bind(this);
-    this.handleAppStatus = this.handleAppStatus.bind(this);
-    this.foregroundListener = this.foregroundListener.bind(this);
-    this.backgroundListener = this.backgroundListener.bind(this);
   }
   componentWillMount() {
     this.setState({ isAvailable: false });
@@ -36,53 +32,29 @@ export default class MainPage extends Component {
       }
     });
     FCM.getInitialNotification().then((notif) => {
+      console.log(notif);
       if (notif && notif.body !== undefined) {
         this.handleNotification(notif);
       }
     });
-    AppState.addEventListener('change', this.handleAppStatus);
   }
   handleNotification(data) {
     FCM.removeAllDeliveredNotifications(data);
     FCM.cancelAllLocalNotifications();
-    console.log(data, 'data');
-    const id = JSON.parse(data.body);
-  // navigator.push({
-  //   name: 'scrapproduct',
-  //   payload: {
-  //     id: id.id,
-  //   },
-  // });
-  }
-  handleAppStatus() {
-    if (AppState.currentState === 'active') {
-      if (this.state.back === false) {
-        this.foregroundListener();
-      }
-    } else {
-      this.backgroundListener();
-      this.setState({ back: true });
-    }
-  }
-  backgroundListener() {
-    FCM.on(FCMEvent.Notification, (notif) => {
-      if (AppState.currentState !== 'active' && notif && notif.body !== undefined && notif.body !== null) {
-        console.log(notif);
-        console.log('backgroundListener found body');
-        this.handleNotification(notif);
+    AsyncStorage.getItem('user', (err, result) => {
+      if (result !== null) {
+        const user = JSON.parse(result);
+        if (user.email !== '') {
+          services.getData(user.email).then((result) => {
+            if (result.data.error === 0) {
+              const success = result.data.data;
+              AsyncStorage.setItem('userdata', JSON.stringify(success));
+            }
+          });
+        }
       }
     });
   }
-  foregroundListener() {
-    FCM.on(FCMEvent.Notification, (notif) => {
-      if (AppState.currentState === 'active' && notif && notif.body !== undefined && notif.body !== null) {
-        console.log('foregroundListener found body');
-        this.state.notify.push(notif);
-        // this.handleNotification(notif);
-      }
-    });
-  }
-
   handleSubmit() {
     this.setState({ isloading: true });
     const emailid = this.state.email;
