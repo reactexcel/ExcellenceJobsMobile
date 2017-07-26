@@ -32,7 +32,6 @@ export default class MainPage extends Component {
       }
     });
     FCM.getInitialNotification().then((notif) => {
-      console.log(notif);
       if (notif && notif.body !== undefined) {
         this.handleNotification(notif);
       }
