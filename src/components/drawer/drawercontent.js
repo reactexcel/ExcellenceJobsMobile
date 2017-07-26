@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 import { Button, Icon } from 'native-base';
+import { NavigationActions } from 'react-navigation';
+import FCM from 'react-native-fcm';
 
 const styles = {
   container: {
@@ -20,7 +22,15 @@ class DrawerContent extends Component {
     const data = '';
     AsyncStorage.setItem('user', JSON.stringify(email));
     AsyncStorage.setItem('userdata', JSON.stringify(data));
-    this.props.navigation.navigate('Main');
+    FCM.removeAllDeliveredNotifications();
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Main' }),
+      ],
+      key: 'Main',
+    });
+    this.props.navigation.dispatch(resetAction);
   }
   render() {
     return (

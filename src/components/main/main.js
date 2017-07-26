@@ -3,6 +3,7 @@ import { Image, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIn
 import { Container, Content, Text, Button, Item, Input, Label } from 'native-base';
 import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
 import DeviceInfo from 'react-native-device-info';
+import { NavigationActions } from 'react-navigation';
 
 import style from './styles';
 import * as services from '../../Api/service';
@@ -27,7 +28,14 @@ export default class MainPage extends Component {
       if (result !== null) {
         const user = JSON.parse(result);
         if (user.email !== '') {
-          this.props.navigation.navigate('Drawer');
+          const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Drawer' }),
+            ],
+            key: 'Drawer',
+          });
+          this.props.navigation.dispatch(resetAction);
         } else {
           this.setState({ isAvailable: true });
         }
@@ -45,7 +53,6 @@ export default class MainPage extends Component {
   handleNotification(data) {
     FCM.removeAllDeliveredNotifications(data);
     FCM.cancelAllLocalNotifications();
-    console.log(data, 'data');
     const id = JSON.parse(data.body);
   // navigator.push({
   //   name: 'scrapproduct',
@@ -67,8 +74,6 @@ export default class MainPage extends Component {
   backgroundListener() {
     FCM.on(FCMEvent.Notification, (notif) => {
       if (AppState.currentState !== 'active' && notif && notif.body !== undefined && notif.body !== null) {
-        console.log(notif);
-        console.log('backgroundListener found body');
         this.handleNotification(notif);
       }
     });
@@ -76,7 +81,6 @@ export default class MainPage extends Component {
   foregroundListener() {
     FCM.on(FCMEvent.Notification, (notif) => {
       if (AppState.currentState === 'active' && notif && notif.body !== undefined && notif.body !== null) {
-        console.log('foregroundListener found body');
         this.state.notify.push(notif);
         // this.handleNotification(notif);
       }
@@ -84,7 +88,6 @@ export default class MainPage extends Component {
   }
 
   handleSubmit() {
-    console.log('Dasdasdsad');
     this.setState({ isloading: true });
     const emailid = this.state.email;
     services.getData(emailid).then((result) => {
@@ -94,6 +97,7 @@ export default class MainPage extends Component {
         AsyncStorage.setItem('user', JSON.stringify(email));
         AsyncStorage.setItem('userdata', JSON.stringify(success));
         FCM.getFCMToken().then((token) => {
+          console.log(token);
           const fcmToken = token;
           const deviceId = DeviceInfo.getUniqueID();
           services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
@@ -104,7 +108,14 @@ export default class MainPage extends Component {
           AlertIOS.alert(`welcome ${success.name}`);
         }
         this.setState({ isloading: false, email: '' });
-        this.props.navigation.navigate('Drawer');
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Drawer' }),
+          ],
+          key: 'Drawer',
+        });
+        this.props.navigation.dispatch(resetAction);
       } else {
         this.setState({ isloading: false, email: '' });
         const error = result.data;
