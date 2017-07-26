@@ -55,7 +55,6 @@ export default class MainPage extends Component {
     });
   }
   handleSubmit() {
-    console.log('Dasdasdsad');
     this.setState({ isloading: true });
     const emailid = this.state.email;
     services.getData(emailid).then((result) => {
@@ -99,7 +98,7 @@ export default class MainPage extends Component {
       <Container style={{ flex: 1, backgroundColor: '#1e3750' }}>
         <Content>
           <View style={{ flex: 1 }}>
-            <Image source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }} resizeMode="contain" style={style.logo} />
+            <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
           </View>
           {this.state.isAvailable ? (<View style={style.content}>
             <Item floatingLabel>

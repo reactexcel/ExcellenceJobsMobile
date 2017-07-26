@@ -30,7 +30,6 @@ export function saveDevice(email, deviceId, token) {
     }).then((data) => {
       resolve(data);
     }, (error) => {
-      console.log(error);
       reject(error);
     });
   });
