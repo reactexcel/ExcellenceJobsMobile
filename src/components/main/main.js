@@ -21,6 +21,11 @@ export default class MainPage extends Component {
     this.setState({ isAvailable: false });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
+        FCM.getInitialNotification().then((notif) => {
+          if (notif && notif.body !== undefined) {
+            this.handleNotification(notif);
+          }
+        });
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.props.navigation.navigate('Drawer');
@@ -29,11 +34,6 @@ export default class MainPage extends Component {
         }
       } else {
         this.setState({ isAvailable: true });
-      }
-    });
-    FCM.getInitialNotification().then((notif) => {
-      if (notif && notif.body !== undefined) {
-        this.handleNotification(notif);
       }
     });
   }
@@ -98,7 +98,7 @@ export default class MainPage extends Component {
       <Container style={{ flex: 1, backgroundColor: '#1e3750' }}>
         <Content>
           <View style={{ flex: 1 }}>
-            <Image source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }} resizeMode="contain" style={style.logo} />
+            <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
           </View>
           {this.state.isAvailable ? (<View style={style.content}>
             <Item floatingLabel>
