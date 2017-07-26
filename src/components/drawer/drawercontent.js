@@ -4,6 +4,7 @@ import {
   AsyncStorage,
   Text,
   View,
+  Image,
 } from 'react-native';
 import { Button, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
@@ -13,7 +14,14 @@ const styles = {
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#1e3750',
+  },
+  logo: {
+    flex: 1,
+    height: 180,
+    width: 175,
+    alignSelf: 'center',
+    // marginTop: 5,
   },
 };
 class DrawerContent extends Component {
@@ -28,18 +36,21 @@ class DrawerContent extends Component {
       actions: [
         NavigationActions.navigate({ routeName: 'Main' }),
       ],
-      key: 'Main',
+      key: null,
     });
     this.props.navigation.dispatch(resetAction);
   }
   render() {
     return (
       <ScrollView style={styles.container}>
-        <View style={{ flex: 1 }}>
-          <Button transparent info onPress={() => { this.handlechange(); }}>
-            <Text style={{ fontSize: 16 }}>Change Email</Text>
-          </Button>
-        </View>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }}
+        />
+        <Button transparent info onPress={() => { this.handlechange(); }}>
+          <Text style={{ fontSize: 16, color: 'white' }}>Change Email</Text>
+        </Button>
       </ScrollView>
     );
   }

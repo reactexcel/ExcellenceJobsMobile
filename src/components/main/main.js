@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState } from 'react-native';
+import { Image, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
 import { Container, Content, Text, Button, Item, Input, Label } from 'native-base';
 import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
 import DeviceInfo from 'react-native-device-info';
@@ -97,7 +97,6 @@ export default class MainPage extends Component {
         AsyncStorage.setItem('user', JSON.stringify(email));
         AsyncStorage.setItem('userdata', JSON.stringify(success));
         FCM.getFCMToken().then((token) => {
-          console.log(token);
           const fcmToken = token;
           const deviceId = DeviceInfo.getUniqueID();
           services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
@@ -136,7 +135,9 @@ export default class MainPage extends Component {
   }
   render() {
     return (
+
       <Container style={{ flex: 1, backgroundColor: '#1e3750' }}>
+        <StatusBar backgroundColor="#34495e" barStyle="light-content" />
         <Content>
           <View style={{ flex: 1 }}>
             <Image source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }} resizeMode="contain" style={style.logo} />
