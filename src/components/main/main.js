@@ -55,6 +55,7 @@ export default class MainPage extends Component {
     });
   }
   handleSubmit() {
+    console.log('Dasdasdsad');
     this.setState({ isloading: true });
     const emailid = this.state.email;
     services.getData(emailid).then((result) => {
