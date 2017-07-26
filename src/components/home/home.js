@@ -26,7 +26,6 @@ export default class HomePage extends Component {
     AsyncStorage.getItem('userdata', (err, result) => {
       const rounds = JSON.parse(result);
       this.setState({ username: rounds });
-
       this.setState({ userinfo: rounds.rounds });
     });
   }
