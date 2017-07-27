@@ -14,6 +14,7 @@ module.exports = StyleSheet.create({
     marginLeft: 0,
   },
   selectedlistitem: {
+    flex: 1,
     marginLeft: 0,
     backgroundColor: '#87D37C',
   },

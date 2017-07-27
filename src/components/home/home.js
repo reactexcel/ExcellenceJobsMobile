@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import CustomHeader from '../header/header';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, AsyncStorage, FlatList } from 'react-native';
+import { View, AsyncStorage, FlatList, Platform } from 'react-native';
 import style from './styles';
 import * as services from '../../Api/service';
 
@@ -42,13 +42,10 @@ export default class HomePage extends Component {
     });
   }
   render() {
-    // const items = this.state.userinfo.length > 0 ? this.state.userinfo.map((round, index) => (
-    //   )) : null;
-    console.log(this.state.userinfo);
     return (
-      <Container>
+      <View style={{ flex: 1 }}>
         <CustomHeader name={this.state.username.name} onPress={() => this._drawerHandle()} />
-        <Content>
+        <View style={{ flex: 1 }}>
           <Text style={style.Contentheader}>
             Job Applied For - {this.state.username.subject}
           </Text>
@@ -56,28 +53,26 @@ export default class HomePage extends Component {
             <Text style={{ margin: 12, fontWeight: 'bold' }}>
               Application Status
             </Text>
-            <View style={{ borderWidth: 0.17, borderColor: '#BDC3C7' }} />
+            <View style={{ borderWidth: (Platform.OS === 'ios') ? 3 : 3, borderColor: '#BDC3C7' }} />
           </View>
-          <List>
-            <FlatList
-              keyExtractor={item => item.text}
-              data={this.state.userinfo}
-              refreshing={this.state.refreshing}
-              onRefresh={() => { this._handleRefresh(); }}
-              renderItem={({ item, index }) => (<ListItem key={index} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
-                <Body>
-                  <Text>{item.text}</Text>
-                  <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
-                </Body>
-                {item.status == '1' ?
-                  <Right style={style.listright}>
-                    <Icon name="star" active style={style.selected} />
-                  </Right> : null}
-              </ListItem>)}
-            />
-          </List>
-        </Content>
-      </Container>
+          <FlatList
+            keyExtractor={item => item.text}
+            data={this.state.userinfo}
+            refreshing={this.state.refreshing}
+            onRefresh={() => { this._handleRefresh(); }}
+            renderItem={({ item, index }) => (<ListItem key={index} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
+              <Body>
+                <Text>{item.text}</Text>
+                <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
+              </Body>
+              {item.status == '1' ?
+                <Right style={style.listright}>
+                  <Icon name="star" active style={style.selected} />
+                </Right> : null}
+            </ListItem>)}
+          />
+        </View>
+      </View>
     );
   }
 }
