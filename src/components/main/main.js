@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Image, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState } from 'react-native';
+import { Image, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
 import { Container, Content, Text, Button, Item, Input, Label } from 'native-base';
 import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
 import DeviceInfo from 'react-native-device-info';
+import { NavigationActions } from 'react-navigation';
 
 import style from './styles';
 import * as services from '../../Api/service';
@@ -28,7 +29,14 @@ export default class MainPage extends Component {
         });
         const user = JSON.parse(result);
         if (user.email !== '') {
-          this.props.navigation.navigate('Drawer');
+          const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Drawer' }),
+            ],
+            key: 'Drawer',
+          });
+          this.props.navigation.dispatch(resetAction);
         } else {
           this.setState({ isAvailable: true });
         }
@@ -85,8 +93,18 @@ export default class MainPage extends Component {
             AlertIOS.alert(error.message);
           }
         }
-      }, (error) => {
-        this.setState({ isloading: false });
+        this.setState({ isloading: false, email: '' });
+        const resetAction = NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Drawer' }),
+          ],
+          key: 'Drawer',
+        });
+        this.props.navigation.dispatch(resetAction);
+      } else {
+        this.setState({ isloading: false, email: '' });
+        const error = result.data;
         if (Platform.OS === 'android') {
           ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
         } else if (Platform.OS === 'ios') {
@@ -104,7 +122,9 @@ export default class MainPage extends Component {
   }
   render() {
     return (
+
       <Container style={{ flex: 1, backgroundColor: '#1e3750' }}>
+        <StatusBar backgroundColor="#34495e" barStyle="light-content" />
         <Content>
           <View style={{ flex: 1 }}>
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
