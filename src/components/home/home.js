@@ -25,14 +25,11 @@ export default class HomePage extends Component {
   componentWillMount() {
     AsyncStorage.getItem('userdata', (err, result) => {
       const rounds = JSON.parse(result);
-      // console.log(rounds.rounds);
       this.setState({ username: rounds });
-
       this.setState({ userinfo: rounds.rounds });
     });
   }
   render() {
-    console.log(this.state.username);
     const items = this.state.userinfo.length > 0 ? this.state.userinfo.map((round, index) => (
       <ListItem key={index} style={round.status == '1' ? style.selectedlistitem : style.listitem} >
         <Body>
