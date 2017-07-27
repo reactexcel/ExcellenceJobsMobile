@@ -46,7 +46,7 @@ class DrawerContent extends Component {
         <Image
           style={styles.logo}
           resizeMode="contain"
-          source={{ uri: 'http://recruit.excellencetechnologies.in/assets/logo.png' }}
+          source={require('../../image/logo.jpg')}
         />
         <Button transparent info onPress={() => { this.handlechange(); }}>
           <Text style={{ fontSize: 16, color: 'white' }}>Change Email</Text>
