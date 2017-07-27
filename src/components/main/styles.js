@@ -18,12 +18,10 @@ const style = StyleSheet.create({
   button: {
     alignSelf: 'center',
     width: 300,
-    flex: 1,
     justifyContent: 'center',
     marginTop: 30,
   },
   content: {
-    flex: 1,
     marginLeft: 20,
     marginRight: 20,
   },
