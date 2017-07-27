@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { Header, Left, Body, Right, Button, Icon, Title, Thumbnail } from 'native-base';
 
 export default class CustomHeader extends Component {
@@ -9,7 +10,9 @@ export default class CustomHeader extends Component {
           <Thumbnail small source={{ uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png' }} />
         </Left>
         <Body>
-          <Title>{this.props.name}</Title>
+          <Title>
+            <Text style={{ color: 'white' }}>{this.props.name}</Text>
+          </Title>
         </Body>
         <Right>
           <Button transparent>
