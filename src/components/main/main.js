@@ -83,7 +83,14 @@ export default class MainPage extends Component {
             AlertIOS.alert(`welcome ${success.name}`);
           }
           this.setState({ isloading: false, email: '' });
-          this.props.navigation.navigate('Drawer');
+          const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Drawer' }),
+            ],
+            key: 'Drawer',
+          });
+          this.props.navigation.dispatch(resetAction);
         } else {
           this.setState({ isloading: false, email: '' });
           const error = result.data;
@@ -93,18 +100,8 @@ export default class MainPage extends Component {
             AlertIOS.alert(error.message);
           }
         }
+      }, (error) => {
         this.setState({ isloading: false, email: '' });
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Drawer' }),
-          ],
-          key: 'Drawer',
-        });
-        this.props.navigation.dispatch(resetAction);
-      } else {
-        this.setState({ isloading: false, email: '' });
-        const error = result.data;
         if (Platform.OS === 'android') {
           ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
         } else if (Platform.OS === 'ios') {
