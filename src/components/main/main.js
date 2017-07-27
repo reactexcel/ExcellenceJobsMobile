@@ -55,44 +55,52 @@ export default class MainPage extends Component {
     });
   }
   handleSubmit() {
-    console.log('Dasdasdsad');
     this.setState({ isloading: true });
     const emailid = this.state.email;
-    services.getData(emailid).then((result) => {
-      if (result.data.error === 0) {
-        const success = result.data.data;
-        const email = { email: emailid };
-        AsyncStorage.setItem('user', JSON.stringify(email));
-        AsyncStorage.setItem('userdata', JSON.stringify(success));
-        FCM.getFCMToken().then((token) => {
-          const fcmToken = token;
-          const deviceId = DeviceInfo.getUniqueID();
-          services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
-        });
-        if (Platform.OS === 'android') {
-          ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-        } else if (Platform.OS === 'ios') {
-          AlertIOS.alert(`welcome ${success.name}`);
+    if (emailid !== '') {
+      services.getData(emailid).then((result) => {
+        if (result.data.error === 0) {
+          const success = result.data.data;
+          const email = { email: emailid };
+          AsyncStorage.setItem('user', JSON.stringify(email));
+          AsyncStorage.setItem('userdata', JSON.stringify(success));
+          FCM.getFCMToken().then((token) => {
+            const fcmToken = token;
+            const deviceId = DeviceInfo.getUniqueID();
+            services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
+          });
+          if (Platform.OS === 'android') {
+            ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+          } else if (Platform.OS === 'ios') {
+            AlertIOS.alert(`welcome ${success.name}`);
+          }
+          this.setState({ isloading: false, email: '' });
+          this.props.navigation.navigate('Drawer');
+        } else {
+          this.setState({ isloading: false, email: '' });
+          const error = result.data;
+          if (Platform.OS === 'android') {
+            ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+          } else if (Platform.OS === 'ios') {
+            AlertIOS.alert(error.message);
+          }
         }
-        this.setState({ isloading: false, email: '' });
-        this.props.navigation.navigate('Drawer');
-      } else {
-        this.setState({ isloading: false, email: '' });
-        const error = result.data;
+      }, (error) => {
+        this.setState({ isloading: false });
         if (Platform.OS === 'android') {
-          ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+          ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
         } else if (Platform.OS === 'ios') {
-          AlertIOS.alert(error.message);
+          AlertIOS.alert('Enter Vaild Email');
         }
-      }
-    }, (error) => {
-      this.setState({ isloading: false });
+      });
+    } else {
+      this.setState({ isloading: false, email: '' });
       if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+        ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Vaild Email');
+        AlertIOS.alert('Enter Your Email');
       }
-    });
+    }
   }
   render() {
     return (
