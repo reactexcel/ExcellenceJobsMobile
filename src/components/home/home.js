@@ -5,39 +5,57 @@
  */
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import CustomHeader from '../header/header';
+import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
+import { View, AsyncStorage } from 'react-native';
+import style from './styles';
 
 export default class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userinfo: '',
+      username: '',
+    };
+    this._drawerHandle = this._drawerHandle.bind(this);
+  }
+  _drawerHandle() {
+    this.props.navigation.navigate('DrawerOpen');
+  }
+  componentWillMount() {
+    AsyncStorage.getItem('userdata', (err, result) => {
+      const rounds = JSON.parse(result);
+      this.setState({ username: rounds });
+      this.setState({ userinfo: rounds.rounds });
+    });
+  }
   render() {
+    const items = this.state.userinfo.length > 0 ? this.state.userinfo.map((round, index) => (
+      <ListItem key={index} style={round.status == '1' ? style.selectedlistitem : style.listitem} >
+        <Body>
+          <Text>{round.text}</Text>
+          <Text note>{round.scheduled_date} {round.scheduled_date.length > 0 ? 'at' : null } {round.scheduled_time}</Text>
+        </Body>
+        {round.status == '1' ?
+          <Right style={style.listright}>
+            <Icon name="star" active style={style.selected} />
+          </Right> : null}
+      </ListItem>)) : null;
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          THIS IS HOME PAGE
-        </Text>
-      </View>
+      <Container>
+        <CustomHeader name={this.state.username.name} onPress={() => this._drawerHandle()} />
+        <Content>
+          <Text style={style.Contentheader}>
+            Job Applied For - {this.state.username.subject}
+          </Text>
+          <View>
+            <Text style={{ margin: 12, fontWeight: 'bold' }}>
+              Application Status
+            </Text>
+          </View>
+          {items}
+        </Content>
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
