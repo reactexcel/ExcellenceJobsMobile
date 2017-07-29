@@ -9,6 +9,8 @@ import { Button } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import FCM from 'react-native-fcm';
 import style from './style';
+import * as avatarimage from '../../api/config';
+
 
 class DrawerContent extends Component {
   handlechange() {
@@ -32,7 +34,7 @@ class DrawerContent extends Component {
         <Image
           style={style.drawerLogo}
           resizeMode="contain"
-          source={require('../../image/logo.jpg')}
+          source={avatarimage}
         />
         <Button transparent info onPress={() => { this.handlechange(); }}>
           <Text style={style.drawerText}>Change Email</Text>
