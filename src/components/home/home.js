@@ -9,7 +9,7 @@ import CustomHeader from '../header/header';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { View, AsyncStorage, FlatList, Platform } from 'react-native';
 import style from './styles';
-import * as services from '../../Api/service';
+import * as services from '../../api/services';
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -43,17 +43,17 @@ export default class HomePage extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={style.mainContainer}>
         <CustomHeader name={this.state.username.name} onPress={() => this._drawerHandle()} />
-        <View style={{ flex: 1 }}>
-          <Text style={style.Contentheader}>
+        <View style={style.mainContainer}>
+          <Text style={style.contentHeader}>
             Job Applied For - {this.state.username.subject}
           </Text>
           <View>
-            <Text style={{ margin: 12, fontWeight: 'bold' }}>
+            <Text style={style.titleText}>
               Application Status
             </Text>
-            <View style={{ borderWidth: (Platform.OS === 'ios') ? 3 : 3, borderColor: '#BDC3C7' }} />
+            <View style={style.viewBorder} />
           </View>
           <FlatList
             keyExtractor={item => item.text}

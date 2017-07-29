@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
-  Contentheader: {
+  mainContainer: {
+    flex: 1,
+  },
+  contentHeader: {
     alignSelf: 'center',
     marginLeft: 10,
     marginTop: 10,
@@ -24,4 +27,11 @@ module.exports = StyleSheet.create({
   selected: {
     color: '#446CB3',
   },
+  titleText: {
+    margin: 12,
+    fontWeight: 'bold',
+  },
+  viewBorder: {
+    borderWidth: 3,
+    borderColor: '#BDC3C7' },
 });

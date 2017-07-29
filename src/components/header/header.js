@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Header, Left, Body, Right, Button, Icon, Title, Thumbnail } from 'native-base';
+import style from './style';
 
 export default class CustomHeader extends Component {
   render() {
     return (
-      <Header androidStatusBarColor="#34495e" style={{ backgroundColor: '#1e3750' }}>
+      <Header androidStatusBarColor="#34495e" style={style.headerColor}>
         <Left>
           <Thumbnail small source={require('../../image/avatar.png')} />
         </Left>
         <Body>
           <Title>
-            <Text style={{ color: 'white' }}>{this.props.name}</Text>
+            <Text style={style.headerTitle}>{this.props.name}</Text>
           </Title>
         </Body>
         <Right>
