@@ -11,6 +11,11 @@ export const userDataRequest = createAction(constants.USER_DATA_REQUEST);
 export const userDataSuccess = createAction(constants.USER_DATA_SUCCESS);
 export const userDataFailed = createAction(constants.USER_DATA_FAILED);
 
+// Saving Device Data
+export const deviceDataRequest = createAction(constants.DEVICE_DATA_REQUEST);
+export const deviceDataSuccess = createAction(constants.DEVICE_DATA_SUCCESS);
+export const deviceDataFailed = createAction(constants.DEVICE_DATA_FAILED);
+
 // Signout Actions
 export const userLogoutRequest = createAction(constants.USER_LOGOUT_REQUEST);
 export const userLogoutSuccess = createAction(constants.USER_LOGOUT_SUCCESS);

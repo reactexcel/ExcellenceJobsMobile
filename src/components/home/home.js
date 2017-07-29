@@ -9,7 +9,7 @@ import CustomHeader from '../header/header';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { View, AsyncStorage, FlatList, Platform } from 'react-native';
 import style from './styles';
-import * as services from '../../Api/service';
+import * as services from '../../api/service';
 
 export default class HomePage extends Component {
   constructor(props) {

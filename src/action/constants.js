@@ -12,3 +12,8 @@ export const USER_DATA_FAILED = 'auth/data/failed';
 export const USER_LOGOUT_REQUEST = 'auth/logout/request';
 export const USER_LOGOUT_SUCCESS = 'auth/logout/success';
 export const USER_LOGOUT_FAILED = 'auth/logout/failed';
+
+// Saving Device data
+export const DEVICE_DATA_REQUEST = 'auth/deviceData/request';
+export const DEVICE_DATA_SUCCESS = 'auth/deviceData/success';
+export const DEVICE_DATA_FAILED = 'auth/deviceData/failed';
