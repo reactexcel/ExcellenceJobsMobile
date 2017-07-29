@@ -7,7 +7,7 @@ export default class CustomHeader extends Component {
     return (
       <Header androidStatusBarColor="#34495e" style={{ backgroundColor: '#1e3750' }}>
         <Left>
-          <Thumbnail small source={{ uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png' }} />
+          <Thumbnail small source={require('../../image/avatar.png')} />
         </Left>
         <Body>
           <Title>
