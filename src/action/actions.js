@@ -6,11 +6,6 @@ export const userLoginRequest = createAction(constants.USER_LOGIN_REQUEST);
 export const userLoginSuccess = createAction(constants.USER_LOGIN_SUCCESS);
 export const userLoginFailed = createAction(constants.USER_LOGIN_FAILED);
 
-// Fetching User Data Actions
-export const userDataRequest = createAction(constants.USER_DATA_REQUEST);
-export const userDataSuccess = createAction(constants.USER_DATA_SUCCESS);
-export const userDataFailed = createAction(constants.USER_DATA_FAILED);
-
 // Saving Device Data
 export const deviceDataRequest = createAction(constants.DEVICE_DATA_REQUEST);
 export const deviceDataSuccess = createAction(constants.DEVICE_DATA_SUCCESS);

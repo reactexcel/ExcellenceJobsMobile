@@ -3,14 +3,7 @@ import update from 'immutability-helper';
 import * as constants from '../action/constants';
 
 export const initialState = {
-  login: {
-    data: [],
-    error: [],
-    isSuccess: false,
-    isError: false,
-    isLoading: true,
-  },
-  userData: {
+  userLogin: {
     data: [],
     error: [],
     isSuccess: false,
@@ -26,7 +19,7 @@ export const initialState = {
 };
 
 const userLoginSuccess = (state, action) => update(state, {
-  login: {
+  userLogin: {
     data: { $set: action.payload.data },
     isLoading: { $set: false },
     isSuccess: { $set: true },
@@ -36,34 +29,15 @@ const userLoginSuccess = (state, action) => update(state, {
 });
 
 const userLoginFailed = (state, action) => update(state, {
-  login: {
+  userLogin: {
     data: { $set: [] },
     isLoading: { $set: false },
     isSuccess: { $set: false },
-    errors: { $set: action.payload.data },
+    error: { $set: action.payload.data },
     isError: { $set: true },
   },
 });
 
-const userDataSuccess = (state, action) => update(state, {
-  userData: {
-    data: { $set: action.payload.data },
-    isLoading: { $set: false },
-    isSuccess: { $set: true },
-    isError: { $set: false },
-    errors: { $set: [] },
-  },
-});
-
-const userDataFailed = (state, action) => update(state, {
-  userData: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: false },
-    errors: { $set: action.payload.data },
-    isError: { $set: true },
-  },
-});
 
 const deviceDataSuccess = (state, action) => update(state, {
   deviceData: {
@@ -123,9 +97,6 @@ const userLogoutFailed = (state, action) => update(state, {
 export default handleActions({
   [constants.USER_LOGIN_SUCCESS]: userLoginSuccess,
   [constants.USER_LOGIN_FAILED]: userLoginFailed,
-
-  [constants.USER_DATA_SUCCESS]: userDataSuccess,
-  [constants.USER_DATA_FAILED]: userDataFailed,
 
   [constants.USER_LOGOUT_SUCCESS]: userLogoutSuccess,
   [constants.USER_LOGOUT_FAILED]: userLogoutFailed,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Image, TextInput, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
 import { Container, Content, Text, Button, Item, Input, Label, Form } from 'native-base';
@@ -22,6 +21,13 @@ class MainPage extends Component {
     this.handleNotification = this.handleNotification.bind(this);
   }
   componentWillMount() {
+    FCM.getFCMToken().then((token) => {
+      this.setState({
+        token,
+        deviceId: DeviceInfo.getUniqueID(),
+      });
+    });
+
     this.setState({ isAvailable: false });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
@@ -32,18 +38,20 @@ class MainPage extends Component {
         });
         const user = JSON.parse(result);
         if (user.email !== '') {
-          services.getData(user.email).then((results) => {
-            const success = results.data.data;
-            AsyncStorage.setItem('userdata', JSON.stringify(success));
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'Drawer' }),
-              ],
-              key: 'Drawer',
-            });
-            this.props.navigation.dispatch(resetAction);
-          });
+          this.setState({ email: user.email });
+          this.props.onLogin({ email: user.email });
+          // services.getData(user.email).then((results) => {
+          //   const success = results.data.data;
+          //   AsyncStorage.setItem('userdata', JSON.stringify(success));
+          //   const resetAction = NavigationActions.reset({
+          //     index: 0,
+          //     actions: [
+          //       NavigationActions.navigate({ routeName: 'Drawer' }),
+          //     ],
+          //     key: 'Drawer',
+          //   });
+          //   this.props.navigation.dispatch(resetAction);
+          // });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -51,6 +59,37 @@ class MainPage extends Component {
         this.setState({ isAvailable: true });
       }
     });
+  }
+  componentWillReceiveProps(props) {
+    if (props.user.userLogin.isSuccess) {
+      this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
+      const success = props.user.userLogin.data.data;
+      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email }));
+      AsyncStorage.setItem('userdata', JSON.stringify(success));
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(`welcome ${success.name}`);
+      }
+      this.setState({ isAvailable: true, email: '' });
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Drawer' }),
+        ],
+        key: 'Drawer',
+      });
+      this.props.navigation.dispatch(resetAction);
+    } else if (props.user.userLogin.isError) {
+      console.log(props.user.userLogin, 'error');
+      this.setState({ isAvailable: true, email: '' });
+      const error = props.user.userLogin.error;
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(error.message);
+      }
+    }
   }
   handleNotification(data) {
     FCM.removeAllDeliveredNotifications(data);
@@ -70,8 +109,17 @@ class MainPage extends Component {
     });
   }
   handleSubmit() {
-    const emailid = this.state.email;
-    this.props.onLogin(emailid);
+    this.setState({ isAvailable: false });
+    if (this.state.email !== '') {
+      this.props.onLogin({ email: this.state.email });
+    } else {
+      this.setState({ isAvailable: true, email: '' });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Your Email');
+      }
+    }
     // this.setState({ isAvailable: false });
     // const emailid = this.state.email;
     // if (emailid !== '') {
@@ -127,7 +175,6 @@ class MainPage extends Component {
     // }
   }
   render() {
-    console.log(this.props);
     return (
       <View style={{ flex: 1, backgroundColor: '#1e3750' }}>
         <StatusBar backgroundColor="#34495e" barStyle="light-content" />
@@ -153,14 +200,14 @@ class MainPage extends Component {
     );
   }
 }
-function mapToProps(state) {
-  console.log(state);
+function mapStateToProps(state) {
   return {
     user: state.user,
   };
 }
 const mapDispatchToProps = dispatch => ({
   onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 
-export default connect(mapToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
