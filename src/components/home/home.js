@@ -35,7 +35,6 @@ class HomePage extends Component {
     }
   }
   componentWillReceiveProps(props) {
-    console.log(props);
     if (props.user.userLogin.isSuccess) {
       const success = props.user.userLogin.data.data;
       this.setState({ username: success, userinfo: success.rounds, refreshing: false });

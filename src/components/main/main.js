@@ -40,18 +40,6 @@ class MainPage extends Component {
         if (user.email !== '') {
           this.setState({ email: user.email });
           this.props.onLogin({ email: user.email });
-          // services.getData(user.email).then((results) => {
-          //   const success = results.data.data;
-          //   AsyncStorage.setItem('userdata', JSON.stringify(success));
-          //   const resetAction = NavigationActions.reset({
-          //     index: 0,
-          //     actions: [
-          //       NavigationActions.navigate({ routeName: 'Drawer' }),
-          //     ],
-          //     key: 'Drawer',
-          //   });
-          //   this.props.navigation.dispatch(resetAction);
-          // });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -81,7 +69,6 @@ class MainPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      console.log(props.user.userLogin, 'error');
       this.setState({ isAvailable: true, email: '' });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
@@ -98,12 +85,8 @@ class MainPage extends Component {
       if (result !== null) {
         const user = JSON.parse(result);
         if (user.email !== '') {
-          services.getData(user.email).then((result) => {
-            if (result.data.error === 0) {
-              const success = result.data.data;
-              AsyncStorage.setItem('userdata', JSON.stringify(success));
-            }
-          });
+          this.setState({ email: user.email });
+          this.props.onLogin({ email: user.email });
         }
       }
     });
@@ -120,59 +103,6 @@ class MainPage extends Component {
         AlertIOS.alert('Enter Your Email');
       }
     }
-    // this.setState({ isAvailable: false });
-    // const emailid = this.state.email;
-    // if (emailid !== '') {
-    //   services.getData(emailid).then((result) => {
-    //     if (result.data.error === 0) {
-    //       const success = result.data.data;
-    //       const email = { email: emailid };
-    //       AsyncStorage.setItem('user', JSON.stringify(email));
-    //       AsyncStorage.setItem('userdata', JSON.stringify(success));
-    //       FCM.getFCMToken().then((token) => {
-    //         const fcmToken = token;
-    //         const deviceId = DeviceInfo.getUniqueID();
-    //         services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
-    //       });
-    //       if (Platform.OS === 'android') {
-    //         ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    //       } else if (Platform.OS === 'ios') {
-    //         AlertIOS.alert(`welcome ${success.name}`);
-    //       }
-    //       this.setState({ isAvailable: false, email: '' });
-    //       const resetAction = NavigationActions.reset({
-    //         index: 0,
-    //         actions: [
-    //           NavigationActions.navigate({ routeName: 'Drawer' }),
-    //         ],
-    //         key: 'Drawer',
-    //       });
-    //       this.props.navigation.dispatch(resetAction);
-    //     } else {
-    //       this.setState({ isAvailable: true, email: '' });
-    //       const error = result.data;
-    //       if (Platform.OS === 'android') {
-    //         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    //       } else if (Platform.OS === 'ios') {
-    //         AlertIOS.alert(error.message);
-    //       }
-    //     }
-    //   }, (error) => {
-    //     this.setState({ isAvailable: true, email: '' });
-    //     if (Platform.OS === 'android') {
-    //       ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    //     } else if (Platform.OS === 'ios') {
-    //       AlertIOS.alert('Enter Vaild Email');
-    //     }
-    //   });
-    // } else {
-    //   this.setState({ isAvailable: true, email: '' });
-    //   if (Platform.OS === 'android') {
-    //     ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-    //   } else if (Platform.OS === 'ios') {
-    //     AlertIOS.alert('Enter Your Email');
-    //   }
-    // }
   }
   render() {
     return (
