@@ -1,21 +1,19 @@
 import axios from 'axios';
+import * as config from './config';
 
-axios.defaults.baseURL = 'http://144.76.34.244:8090/';
-
-export const loginApi = action => axios({
-  method: 'post',
-  url: 'app_get_candidate',
-  data: {
-    email_id: action.payload.email,
-  },
-});
-
-export const devieDataApi = action => axios({
-  method: 'post',
-  url: 'app_save_candidate_device',
-  data: {
-    email_id: action.payload.email,
-    device_id: action.payload.device,
-    token: action.payload.token,
-  },
-});
+export default function fireApi(method, url, data) {
+  let URL = url;
+  if (data.action === 'login') {
+    delete (data.action);
+    URL = config.login;
+  } else if (data.action === 'deviceData') {
+    delete (data.action);
+    URL = config.deviceData;
+  }
+  const header = {
+    method,
+    url: URL,
+    data,
+  };
+  return axios(header);
+}

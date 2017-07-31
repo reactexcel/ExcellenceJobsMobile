@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import * as constants from '../action/constants';
-import { createLoginRequest } from '../api/sagaworker/loginworker';
+import createLoginRequest from '../api/sagaworker/loginworker';
 import submitDeviceData from '../api/sagaworker/devicedataworker';
 
 export function* watcherSaga() {
