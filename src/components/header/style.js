@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import '../../style/string';
 
 const style = StyleSheet.create({
   headerColor: {
-    backgroundColor: '#1e3750',
+    backgroundColor: STRING.CloudBurst,
   },
   headerTitle: {
-    color: 'white',
+    color: STRING.WhiteColor,
   },
 });
 

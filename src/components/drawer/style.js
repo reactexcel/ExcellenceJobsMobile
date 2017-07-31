@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import '../../style/string';
 
 const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#1e3750',
+    backgroundColor: STRING.CloudBurst,
   },
   drawerLogo: {
     flex: 1,
@@ -14,7 +15,7 @@ const style = StyleSheet.create({
   },
   drawerText: {
     fontSize: 16,
-    color: 'white',
+    color: STRING.WhiteColor,
   },
 });
 export default style;

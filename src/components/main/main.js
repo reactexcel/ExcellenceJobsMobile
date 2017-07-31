@@ -4,7 +4,6 @@ import { Container, Content, Text, Button, Item, Input, Label, Form } from 'nati
 import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
 import DeviceInfo from 'react-native-device-info';
 import { NavigationActions } from 'react-navigation';
-
 import style from './styles';
 import * as services from '../../api/services';
 
@@ -125,7 +124,7 @@ export default class MainPage extends Component {
     return (
 
       <View style={style.outerContainer}>
-        <StatusBar backgroundColor="#34495e" barStyle="light-content" />
+        <StatusBar backgroundColor={STRING.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
           <View style={style.viewHeight} >
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
@@ -133,7 +132,7 @@ export default class MainPage extends Component {
           {this.state.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
-                <Label style={{ marginLeft: 5, justifyContent: 'center', color: 'white' }}> Enter Your Email</Label>
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: STRING.WhiteColor }}> Enter Your Email</Label>
                 <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
@@ -141,7 +140,7 @@ export default class MainPage extends Component {
               </Button>
             </Form>
           </View>) : (
-            <ActivityIndicator animating color="#01579b" size="large" />
+            <ActivityIndicator animating color={STRING.BahamaBlue} size="large" />
           )}
         </View>
       </View>

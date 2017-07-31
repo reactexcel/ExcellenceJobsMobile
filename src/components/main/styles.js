@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import '../../style/string';
 
 const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    backgroundColor: '#1e3750',
+    backgroundColor: STRING.CloudBurst,
   },
   innerContainer: {
     flex: 1,
@@ -14,10 +15,10 @@ const style = StyleSheet.create({
   textinputLabel: {
     marginLeft: 5,
     justifyContent: 'center',
-    color: 'white',
+    color: STRING.WhiteColor,
   },
   inputStyle: {
-    color: 'white',
+    color: STRING.WhiteColor,
   },
   buttonText: {
     alignSelf: 'center',

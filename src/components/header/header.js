@@ -6,7 +6,7 @@ import style from './style';
 export default class CustomHeader extends Component {
   render() {
     return (
-      <Header androidStatusBarColor="#34495e" style={style.headerColor}>
+      <Header androidStatusBarColor={STRING.PickledBluewood} style={style.headerColor}>
         <Left>
           <Thumbnail small source={require('../../image/avatar.png')} />
         </Left>

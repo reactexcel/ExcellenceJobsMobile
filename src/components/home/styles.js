@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import '../../style/string';
 
 module.exports = StyleSheet.create({
   mainContainer: {
@@ -9,8 +10,7 @@ module.exports = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     fontSize: 16.5,
-    // fontWeight: 'bold',
-    color: 'grey',
+    color: STRING.GreyColor,
     marginBottom: 10,
   },
   listitem: {
@@ -19,13 +19,13 @@ module.exports = StyleSheet.create({
   selectedlistitem: {
     flex: 1,
     marginLeft: 0,
-    backgroundColor: '#87D37C',
+    backgroundColor: STRING.FeijoaColor,
   },
   listright: {
     marginBottom: 10,
   },
   selected: {
-    color: '#446CB3',
+    color: STRING.SanMarino,
   },
   titleText: {
     margin: 12,
@@ -33,5 +33,6 @@ module.exports = StyleSheet.create({
   },
   viewBorder: {
     borderWidth: 3,
-    borderColor: '#BDC3C7' },
+    borderColor: STRING.SilverSand,
+  },
 });
