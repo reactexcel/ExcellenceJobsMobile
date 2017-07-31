@@ -2,14 +2,13 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://144.76.34.244:8090/';
 
-export const loginApi = action => (axios({
+export const loginApi = action => axios({
   method: 'post',
   url: 'app_get_candidate',
   data: {
     email_id: action.payload.email,
   },
-})
-);
+});
 
 export const devieDataApi = action => axios({
   method: 'post',

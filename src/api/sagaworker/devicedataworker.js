@@ -12,7 +12,6 @@ export default function* submitDeviceData(action) {
       yield put(actions.deviceDataFailed(response));
     }
   } catch (e) {
-    console.log(e);
     // handle error if any
   }
 }

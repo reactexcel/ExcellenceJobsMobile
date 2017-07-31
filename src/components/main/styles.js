@@ -1,6 +1,27 @@
 import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    backgroundColor: '#1e3750',
+  },
+  innerContainer: {
+    flex: 1,
+  },
+  viewHeight: {
+    height: 180,
+  },
+  textinputLabel: {
+    marginLeft: 5,
+    justifyContent: 'center',
+    color: 'white',
+  },
+  inputStyle: {
+    color: 'white',
+  },
+  buttonText: {
+    alignSelf: 'center',
+  },
   logo: {
     flex: 1,
     height: 180,

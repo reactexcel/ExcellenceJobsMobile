@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info';
 import { NavigationActions } from 'react-navigation';
 
 import style from './styles';
-import * as services from '../../api/service';
+import * as services from '../../api/services';
 import * as action from '../../action/actions';
 
 class MainPage extends Component {
@@ -106,20 +106,20 @@ class MainPage extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: '#1e3750' }}>
+      <View style={style.outerContainer}>
         <StatusBar backgroundColor="#34495e" barStyle="light-content" />
-        <View style={{ flex: 1 }}>
-          <View style={{ height: 180 }} >
+        <View style={style.innerContainer}>
+          <View style={style.viewHeight} >
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
           </View>
           {this.state.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: 'white' }}> Enter Your Email</Label>
-                <Input style={{ color: 'white' }} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
+                <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
-                <Text style={{ alignSelf: 'center' }}>Go</Text>
+                <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>
           </View>) : (

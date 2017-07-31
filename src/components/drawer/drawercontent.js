@@ -3,27 +3,14 @@ import {
   ScrollView,
   AsyncStorage,
   Text,
-  View,
   Image,
 } from 'react-native';
-import { Button, Icon } from 'native-base';
+import { Button } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import FCM from 'react-native-fcm';
+import style from './style';
+import * as avatarimage from '../../api/config';
 
-const styles = {
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#1e3750',
-  },
-  logo: {
-    flex: 1,
-    height: 180,
-    width: 175,
-    alignSelf: 'center',
-    // marginTop: 5,
-  },
-};
 class DrawerContent extends Component {
   handlechange() {
     const email = { email: '' };
@@ -42,14 +29,14 @@ class DrawerContent extends Component {
   }
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={style.outerContainer}>
         <Image
-          style={styles.logo}
+          style={style.drawerLogo}
           resizeMode="contain"
-          source={require('../../image/logo.jpg')}
+          source={avatarimage}
         />
         <Button transparent info onPress={() => { this.handlechange(); }}>
-          <Text style={{ fontSize: 16, color: 'white' }}>Change Email</Text>
+          <Text style={style.drawerText}>Log Out</Text>
         </Button>
       </ScrollView>
     );

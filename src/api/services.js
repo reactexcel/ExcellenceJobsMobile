@@ -1,11 +1,11 @@
 import axios from 'axios';
-import * as config from './config';
+import * as baseUrl from './config';
 
 export function getData(email) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
-      url: config.getUserData,
+      url: baseUrl.getUserData,
       data: {
         email_id: email,
       },
@@ -21,7 +21,7 @@ export function saveDevice(email, deviceId, token) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
-      url: config.saveDeviceData,
+      url: baseUrl.saveDeviceData,
       data: {
         email_id: email,
         device_id: deviceId,
