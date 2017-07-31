@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    backgroundColor: '#1e3750',
+    backgroundColor: HEXCOLOR.CloudBurst,
   },
   innerContainer: {
     flex: 1,
@@ -14,10 +15,10 @@ const style = StyleSheet.create({
   textinputLabel: {
     marginLeft: 5,
     justifyContent: 'center',
-    color: 'white',
+    color: HEXCOLOR.WhiteColor,
   },
   inputStyle: {
-    color: 'white',
+    color: HEXCOLOR.WhiteColor,
   },
   buttonText: {
     alignSelf: 'center',

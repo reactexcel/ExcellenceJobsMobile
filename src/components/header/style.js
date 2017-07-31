@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 const style = StyleSheet.create({
   headerColor: {
-    backgroundColor: '#1e3750',
+    backgroundColor: HEXCOLOR.CloudBurst,
   },
   headerTitle: {
-    color: 'white',
+    color: HEXCOLOR.WhiteColor,
   },
 });
 
