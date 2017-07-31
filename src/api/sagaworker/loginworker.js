@@ -1,10 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import * as actions from '../../action/actions';
-import fireApi from '../api';
+import * as url from '../config';
+import fireApi from '../generic';
 
 export default function* createLoginRequest(action) {
   try {
-    const response = yield call(fireApi, 'POST', '', { action: 'login', email_id: action.payload.email });
+    const response = yield call(fireApi, 'POST', url.login, { email_id: action.payload.email });
     if (response.data.error === 0) {
       yield put(actions.userLoginSuccess(response));
     } else if (response.data.error === 1) {

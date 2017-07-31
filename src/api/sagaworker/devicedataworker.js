@@ -1,11 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import * as actions from '../../action/actions';
-import fireApi from '../api';
+import * as url from '../config';
+import fireApi from '../generic';
 
 export default function* submitDeviceData(action) {
   try {
-    const response = yield call(fireApi, 'POST', '', {
-      action: 'deviceData',
+    const response = yield call(fireApi, 'POST', url.deviceData, {
       email_id: action.payload.email,
       device_id: action.payload.device,
       token: action.payload.token });

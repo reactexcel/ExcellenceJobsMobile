@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { call, put } from 'redux-saga/effects';
 import * as actions from '../../action/actions';
-import * as api from '../api';
+import * as api from '../generic';
 
 export function* createLogoutRequest(action) {
   try {

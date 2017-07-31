@@ -6,7 +6,6 @@ import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult,
 import DeviceInfo from 'react-native-device-info';
 import { NavigationActions } from 'react-navigation';
 import style from './styles';
-import * as services from '../../api/services';
 import * as action from '../../action/actions';
 import { HEXCOLOR } from '../../style/hexcolor';
 

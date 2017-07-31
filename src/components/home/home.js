@@ -11,7 +11,6 @@ import { View, AsyncStorage, FlatList, Platform } from 'react-native';
 import CustomHeader from '../header/header';
 
 import style from './styles';
-import * as services from '../../api/services';
 import * as action from '../../action/actions';
 
 class HomePage extends Component {
