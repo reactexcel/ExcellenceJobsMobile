@@ -11,7 +11,6 @@ import FCM from 'react-native-fcm';
 import style from './style';
 import * as avatarimage from '../../api/config';
 
-
 class DrawerContent extends Component {
   handlechange() {
     const email = { email: '' };
@@ -37,7 +36,7 @@ class DrawerContent extends Component {
           source={avatarimage}
         />
         <Button transparent info onPress={() => { this.handlechange(); }}>
-          <Text style={style.drawerText}>Change Email</Text>
+          <Text style={style.drawerText}>Log Out</Text>
         </Button>
       </ScrollView>
     );
