@@ -1,4 +1,4 @@
-STRING = {
+export const HEXCOLOR = {
   PickledBluewood: '#34495e',
   BahamaBlue: '#01579b',
   CloudBurst: '#1e3750',

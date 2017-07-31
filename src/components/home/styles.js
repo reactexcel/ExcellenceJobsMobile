@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import '../../style/string';
+import { HEXCOLOR } from '../../style/hexcolor';
+
 
 module.exports = StyleSheet.create({
   mainContainer: {
@@ -10,7 +11,7 @@ module.exports = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     fontSize: 16.5,
-    color: STRING.GreyColor,
+    color: HEXCOLOR.GreyColor,
     marginBottom: 10,
   },
   listitem: {
@@ -19,13 +20,13 @@ module.exports = StyleSheet.create({
   selectedlistitem: {
     flex: 1,
     marginLeft: 0,
-    backgroundColor: STRING.FeijoaColor,
+    backgroundColor: HEXCOLOR.FeijoaColor,
   },
   listright: {
     marginBottom: 10,
   },
   selected: {
-    color: STRING.SanMarino,
+    color: HEXCOLOR.SanMarino,
   },
   titleText: {
     margin: 12,
@@ -33,6 +34,6 @@ module.exports = StyleSheet.create({
   },
   viewBorder: {
     borderWidth: 3,
-    borderColor: STRING.SilverSand,
+    borderColor: HEXCOLOR.SilverSand,
   },
 });

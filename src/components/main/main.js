@@ -6,6 +6,7 @@ import DeviceInfo from 'react-native-device-info';
 import { NavigationActions } from 'react-navigation';
 import style from './styles';
 import * as services from '../../api/services';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 export default class MainPage extends Component {
   constructor() {
@@ -124,7 +125,7 @@ export default class MainPage extends Component {
     return (
 
       <View style={style.outerContainer}>
-        <StatusBar backgroundColor={STRING.PickledBluewood} barStyle="light-content" />
+        <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
           <View style={style.viewHeight} >
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
@@ -132,7 +133,7 @@ export default class MainPage extends Component {
           {this.state.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
-                <Label style={{ marginLeft: 5, justifyContent: 'center', color: STRING.WhiteColor }}> Enter Your Email</Label>
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
                 <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
@@ -140,7 +141,7 @@ export default class MainPage extends Component {
               </Button>
             </Form>
           </View>) : (
-            <ActivityIndicator animating color={STRING.BahamaBlue} size="large" />
+            <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
           )}
         </View>
       </View>

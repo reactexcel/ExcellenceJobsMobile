@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import '../../style/string';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
     padding: 20,
-    backgroundColor: STRING.CloudBurst,
+    backgroundColor: HEXCOLOR.CloudBurst,
   },
   drawerLogo: {
     flex: 1,
@@ -15,7 +15,7 @@ const style = StyleSheet.create({
   },
   drawerText: {
     fontSize: 16,
-    color: STRING.WhiteColor,
+    color: HEXCOLOR.WhiteColor,
   },
 });
 export default style;
