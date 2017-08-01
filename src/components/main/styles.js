@@ -25,7 +25,7 @@ const style = StyleSheet.create({
   },
   logo: {
     flex: 1,
-    height: 180,
+    height: 150,
     width: 220,
     alignSelf: 'center',
     // marginTop: 5,

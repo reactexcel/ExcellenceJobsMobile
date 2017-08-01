@@ -88,7 +88,7 @@ export default class MainPage extends Component {
           } else if (Platform.OS === 'ios') {
             AlertIOS.alert(`welcome ${success.name}`);
           }
-          this.setState({ isAvailable: false, email: '' });
+          this.setState({ isAvailable: false, email: '', password: '' });
           const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
@@ -98,7 +98,7 @@ export default class MainPage extends Component {
           });
           this.props.navigation.dispatch(resetAction);
         } else {
-          this.setState({ isAvailable: true, email: '' });
+          this.setState({ isAvailable: true, email: '', password: '' });
           const error = result.data;
           if (Platform.OS === 'android') {
             ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -107,7 +107,7 @@ export default class MainPage extends Component {
           }
         }
       }, (error) => {
-        this.setState({ isAvailable: true, email: '' });
+        this.setState({ isAvailable: true, email: '', password: '' });
         if (Platform.OS === 'android') {
           ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
         } else if (Platform.OS === 'ios') {
@@ -115,7 +115,7 @@ export default class MainPage extends Component {
         }
       });
     } else {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', password: '' });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
@@ -124,7 +124,6 @@ export default class MainPage extends Component {
     }
   }
   render() {
-    console.log(this.state);
     return (
       <View style={style.outerContainer}>
         <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
