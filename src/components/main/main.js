@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Image, TextInput, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
 import { Container, Content, Text, Button, Item, Input, Label, Form } from 'native-base';
 import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
 import DeviceInfo from 'react-native-device-info';
 import { NavigationActions } from 'react-navigation';
 import style from './styles';
-import * as services from '../../api/services';
+import * as action from '../../action/actions';
 import { HEXCOLOR } from '../../style/hexcolor';
 
-export default class MainPage extends Component {
+class MainPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -19,6 +20,13 @@ export default class MainPage extends Component {
     this.handleNotification = this.handleNotification.bind(this);
   }
   componentWillMount() {
+    FCM.getFCMToken().then((token) => {
+      this.setState({
+        token,
+        deviceId: DeviceInfo.getUniqueID(),
+      });
+    });
+
     this.setState({ isAvailable: false });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
@@ -29,18 +37,8 @@ export default class MainPage extends Component {
         });
         const user = JSON.parse(result);
         if (user.email !== '') {
-          services.getData(user.email).then((results) => {
-            const success = results.data.data;
-            AsyncStorage.setItem('userdata', JSON.stringify(success));
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'Drawer' }),
-              ],
-              key: 'Drawer',
-            });
-            this.props.navigation.dispatch(resetAction);
-          });
+          this.setState({ email: user.email });
+          this.props.onLogin({ email: user.email });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -49,6 +47,36 @@ export default class MainPage extends Component {
       }
     });
   }
+  componentWillReceiveProps(props) {
+    if (props.user.userLogin.isSuccess) {
+      this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
+      const success = props.user.userLogin.data.data;
+      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email }));
+      AsyncStorage.setItem('userdata', JSON.stringify(success));
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(`welcome ${success.name}`);
+      }
+      this.setState({ isAvailable: true, email: '' });
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Drawer' }),
+        ],
+        key: 'Drawer',
+      });
+      this.props.navigation.dispatch(resetAction);
+    } else if (props.user.userLogin.isError) {
+      this.setState({ isAvailable: true, email: '' });
+      const error = props.user.userLogin.error;
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(error.message);
+      }
+    }
+  }
   handleNotification(data) {
     FCM.removeAllDeliveredNotifications(data);
     FCM.cancelAllLocalNotifications();
@@ -56,62 +84,16 @@ export default class MainPage extends Component {
       if (result !== null) {
         const user = JSON.parse(result);
         if (user.email !== '') {
-          services.getData(user.email).then((result) => {
-            if (result.data.error === 0) {
-              const success = result.data.data;
-              AsyncStorage.setItem('userdata', JSON.stringify(success));
-            }
-          });
+          this.setState({ email: user.email });
+          this.props.onLogin({ email: user.email });
         }
       }
     });
   }
   handleSubmit() {
     this.setState({ isAvailable: false });
-    const emailid = this.state.email;
-    if (emailid !== '') {
-      services.getData(emailid).then((result) => {
-        if (result.data.error === 0) {
-          const success = result.data.data;
-          const email = { email: emailid };
-          AsyncStorage.setItem('user', JSON.stringify(email));
-          AsyncStorage.setItem('userdata', JSON.stringify(success));
-          FCM.getFCMToken().then((token) => {
-            const fcmToken = token;
-            const deviceId = DeviceInfo.getUniqueID();
-            services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
-          });
-          if (Platform.OS === 'android') {
-            ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-          } else if (Platform.OS === 'ios') {
-            AlertIOS.alert(`welcome ${success.name}`);
-          }
-          this.setState({ isAvailable: false, email: '' });
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'Drawer' }),
-            ],
-            key: 'Drawer',
-          });
-          this.props.navigation.dispatch(resetAction);
-        } else {
-          this.setState({ isAvailable: true, email: '' });
-          const error = result.data;
-          if (Platform.OS === 'android') {
-            ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-          } else if (Platform.OS === 'ios') {
-            AlertIOS.alert(error.message);
-          }
-        }
-      }, (error) => {
-        this.setState({ isAvailable: true, email: '' });
-        if (Platform.OS === 'android') {
-          ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-        } else if (Platform.OS === 'ios') {
-          AlertIOS.alert('Enter Vaild Email');
-        }
-      });
+    if (this.state.email !== '') {
+      this.props.onLogin({ email: this.state.email });
     } else {
       this.setState({ isAvailable: true, email: '' });
       if (Platform.OS === 'android') {
@@ -123,7 +105,6 @@ export default class MainPage extends Component {
   }
   render() {
     return (
-
       <View style={style.outerContainer}>
         <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
@@ -148,3 +129,14 @@ export default class MainPage extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+const mapDispatchToProps = dispatch => ({
+  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
