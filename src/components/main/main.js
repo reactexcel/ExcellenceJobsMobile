@@ -69,7 +69,7 @@ class MainPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -86,7 +86,7 @@ class MainPage extends Component {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         }
       }
     });
