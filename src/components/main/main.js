@@ -13,7 +13,7 @@ export default class MainPage extends Component {
     super();
     this.state = {
       email: '',
-      password: '',
+      registrationid: '',
       isloading: false,
       isAvailable: true,
     };
@@ -70,12 +70,12 @@ export default class MainPage extends Component {
   handleSubmit() {
     this.setState({ isAvailable: false });
     const emailid = this.state.email;
-    const password = this.state.password;
-    if (emailid !== '' && password !== '') {
-      services.getData(emailid, password).then((result) => {
+    const registrationid = this.state.registrationid;
+    if (emailid !== '' && registrationid !== '') {
+      services.getData(emailid, registrationid).then((result) => {
         if (result.data.error === 0) {
           const success = result.data.data;
-          const data = { email: emailid, password };
+          const data = { email: emailid, registrationid };
           AsyncStorage.setItem('user', JSON.stringify(data));
           AsyncStorage.setItem('userdata', JSON.stringify(success));
           FCM.getFCMToken().then((token) => {
@@ -88,7 +88,7 @@ export default class MainPage extends Component {
           } else if (Platform.OS === 'ios') {
             AlertIOS.alert(`welcome ${success.name}`);
           }
-          this.setState({ isAvailable: false, email: '', password: '' });
+          this.setState({ isAvailable: false, email: '', registrationid: '' });
           const resetAction = NavigationActions.reset({
             index: 0,
             actions: [
@@ -98,7 +98,7 @@ export default class MainPage extends Component {
           });
           this.props.navigation.dispatch(resetAction);
         } else {
-          this.setState({ isAvailable: true, email: '', password: '' });
+          this.setState({ isAvailable: true, email: '', registrationid: '' });
           const error = result.data;
           if (Platform.OS === 'android') {
             ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -107,7 +107,7 @@ export default class MainPage extends Component {
           }
         }
       }, (error) => {
-        this.setState({ isAvailable: true, email: '', password: '' });
+        this.setState({ isAvailable: true, email: '', registrationid: '' });
         if (Platform.OS === 'android') {
           ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
         } else if (Platform.OS === 'ios') {
@@ -115,7 +115,7 @@ export default class MainPage extends Component {
         }
       });
     } else {
-      this.setState({ isAvailable: true, email: '', password: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
@@ -138,8 +138,8 @@ export default class MainPage extends Component {
                 <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
               <Item floatingLabel >
-                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Password </Label>
-                <Input secureTextEntry style={style.inputStyle} value={this.state.password} onChangeText={(text) => { this.setState({ password: text }); }} />
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Input style={style.inputStyle} value={this.state.registrationid} onChangeText={(text) => { this.setState({ registrationid: text }); }} />
               </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>
