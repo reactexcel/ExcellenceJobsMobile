@@ -13,6 +13,7 @@ export default class MainPage extends Component {
     super();
     this.state = {
       email: '',
+      password: '',
       isloading: false,
       isAvailable: true,
     };
@@ -69,12 +70,13 @@ export default class MainPage extends Component {
   handleSubmit() {
     this.setState({ isAvailable: false });
     const emailid = this.state.email;
-    if (emailid !== '') {
-      services.getData(emailid).then((result) => {
+    const password = this.state.password;
+    if (emailid !== '' && password !== '') {
+      services.getData(emailid, password).then((result) => {
         if (result.data.error === 0) {
           const success = result.data.data;
-          const email = { email: emailid };
-          AsyncStorage.setItem('user', JSON.stringify(email));
+          const data = { email: emailid, password };
+          AsyncStorage.setItem('user', JSON.stringify(data));
           AsyncStorage.setItem('userdata', JSON.stringify(success));
           FCM.getFCMToken().then((token) => {
             const fcmToken = token;
@@ -122,8 +124,8 @@ export default class MainPage extends Component {
     }
   }
   render() {
+    console.log(this.state);
     return (
-
       <View style={style.outerContainer}>
         <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
@@ -135,6 +137,10 @@ export default class MainPage extends Component {
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
                 <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
+              </Item>
+              <Item floatingLabel >
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Password </Label>
+                <Input secureTextEntry style={style.inputStyle} value={this.state.password} onChangeText={(text) => { this.setState({ password: text }); }} />
               </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>

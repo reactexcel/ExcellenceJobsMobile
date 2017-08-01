@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as baseUrl from './config';
 
-export function getData(email) {
+export function getData(email, password) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
