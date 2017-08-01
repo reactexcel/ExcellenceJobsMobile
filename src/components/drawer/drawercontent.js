@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   ScrollView,
   AsyncStorage,
@@ -10,37 +11,32 @@ import { NavigationActions } from 'react-navigation';
 import FCM from 'react-native-fcm';
 import style from './style';
 import * as avatarimage from '../../api/config';
-import * as services from '../../api/services';
+import * as action from '../../action/actions';
 
 const DeviceInfo = require('react-native-device-info');
 
 class DrawerContent extends Component {
   handlechange() {
-    AsyncStorage.getItem('userdata', (err, result) => {
-      const rounds = JSON.parse(result);
+    AsyncStorage.getItem('user', (err, result) => {
+      const user = JSON.parse(result);
       const deviceId = DeviceInfo.getUniqueID();
-      AsyncStorage.getItem('user', (err, result) => {
-        const user = JSON.parse(result);
-        services.logOut(user.email, deviceId).then((results) => {
-          const success = results.data.error;
-          if (success === 0) {
-            const email = { email: '' };
-            const data = '';
-            AsyncStorage.setItem('user', JSON.stringify(email));
-            AsyncStorage.setItem('userdata', JSON.stringify(data));
-            FCM.removeAllDeliveredNotifications();
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'Main' }),
-              ],
-              key: null,
-            });
-            this.props.navigation.dispatch(resetAction);
-          }
-        });
-      });
+      this.props.onLogOut({ email: user.email, deviceId });
     });
+  }
+  componentWillReceiveProps(props) {
+    if (props.user.userLogout.isSuccess) {
+      const email = { email: '' };
+      const data = '';
+      AsyncStorage.setItem('user', JSON.stringify(email));
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Main' }),
+        ],
+        key: null,
+      });
+      this.props.navigation.dispatch(resetAction);
+    }
   }
   render() {
     return (
@@ -57,4 +53,14 @@ class DrawerContent extends Component {
     );
   }
 }
-export default DrawerContent;
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+const mapDispatchToProps = dispatch => ({
+  onLogOut: (userId, deviceId) => dispatch(action.userLogoutRequest(userId, deviceId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerContent);
