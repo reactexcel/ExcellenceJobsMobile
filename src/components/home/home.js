@@ -5,13 +5,15 @@
  */
 
 import React, { Component } from 'react';
-import CustomHeader from '../header/header';
+import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
 import { View, AsyncStorage, FlatList, Platform } from 'react-native';
-import style from './styles';
-import * as services from '../../api/services';
+import CustomHeader from '../header/header';
 
-export default class HomePage extends Component {
+import style from './styles';
+import * as action from '../../action/actions';
+
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,19 +28,22 @@ export default class HomePage extends Component {
     this.props.navigation.navigate('DrawerOpen');
   }
   componentWillMount() {
-    AsyncStorage.getItem('userdata', (err, result) => {
-      const rounds = JSON.parse(result);
-      this.setState({ username: rounds, userinfo: rounds.rounds });
-    });
+    if (this.props.user.userLogin.isSuccess) {
+      const userData = this.props.user.userLogin.data.data;
+      this.setState({ username: userData, userinfo: userData.rounds });
+    }
+  }
+  componentWillReceiveProps(props) {
+    if (props.user.userLogin.isSuccess) {
+      const success = props.user.userLogin.data.data;
+      this.setState({ username: success, userinfo: success.rounds, refreshing: false });
+    }
   }
   _handleRefresh() {
     AsyncStorage.getItem('user', (err, result) => {
       this.setState({ refreshing: true });
       const user = JSON.parse(result);
-      services.getData(user.email).then((results) => {
-        const success = results.data.data;
-        this.setState({ username: success, userinfo: success.rounds, refreshing: false });
-      });
+      this.props.onLogin({ email: user.email });
     });
   }
   render() {
@@ -76,3 +81,15 @@ export default class HomePage extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+const mapDispatchToProps = dispatch => ({
+  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
