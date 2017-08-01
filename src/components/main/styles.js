@@ -10,7 +10,7 @@ const style = StyleSheet.create({
     flex: 1,
   },
   viewHeight: {
-    height: 180,
+    height: 140,
   },
   textinputLabel: {
     marginLeft: 5,
