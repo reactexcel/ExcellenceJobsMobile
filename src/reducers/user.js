@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import * as constants from '../action/constants';
+import './update';
 
 export const initialState = {
   userLogin: {
@@ -8,9 +9,14 @@ export const initialState = {
     error: [],
     isSuccess: false,
     isError: false,
-    isLoading: true,
   },
   deviceData: {
+    data: [],
+    error: [],
+    isSuccess: false,
+    isError: false,
+  },
+  userLogout: {
     data: [],
     error: [],
     isSuccess: false,
@@ -19,78 +25,27 @@ export const initialState = {
 };
 
 const userLoginSuccess = (state, action) => update(state, {
-  userLogin: {
-    data: { $set: action.payload.data },
-    isLoading: { $set: false },
-    isSuccess: { $set: true },
-    isError: { $set: false },
-    errors: { $set: [] },
-  },
+  userLogin: { $setRequestSuccess: action.payload },
 });
 
 const userLoginFailed = (state, action) => update(state, {
-  userLogin: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: false },
-    error: { $set: action.payload.data },
-    isError: { $set: true },
-  },
+  userLogin: { $setRequestFailed: action.payload },
 });
 
-
 const deviceDataSuccess = (state, action) => update(state, {
-  deviceData: {
-    data: { $set: action.payload.data },
-    isLoading: { $set: false },
-    isSuccess: { $set: true },
-    isError: { $set: false },
-    errors: { $set: [] },
-  },
+  deviceData: { $setRequestSuccess: action.payload },
 });
 
 const deviceDataFailed = (state, action) => update(state, {
-  deviceData: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: false },
-    errors: { $set: action.payload.data },
-    isError: { $set: true },
-  },
+  deviceData: { $setRequestFailed: action.payload },
 });
 
 const userLogoutSuccess = (state, action) => update(state, {
-  login: {
-    data: { $set: action.payload.data },
-    isLoading: { $set: false },
-    isSuccess: { $set: true },
-    isError: { $set: false },
-    errors: { $set: [] },
-  },
-  userData: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: true },
-    isError: { $set: false },
-    errors: { $set: [] },
-  },
+  userLogout: { $setRequestSuccess: action.payload },
 });
 
 const userLogoutFailed = (state, action) => update(state, {
-  login: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: false },
-    errors: { $set: action.payload.data },
-    isError: { $set: true },
-  },
-  userData: {
-    data: { $set: [] },
-    isLoading: { $set: false },
-    isSuccess: { $set: false },
-    errors: { $set: action.payload.data },
-    isError: { $set: true },
-  },
+  userLogout: { $setRequestFailed: action.payload },
 });
 
 
