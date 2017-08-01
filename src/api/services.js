@@ -1,13 +1,15 @@
 import axios from 'axios';
 import * as baseUrl from './config';
 
-export function getData(email, password) {
+export function getData(email, registrationid) {
+  console.log(registrationid);
   return new Promise((resolve, reject) => {
     axios({
       method: 'post',
       url: baseUrl.getUserData,
       data: {
         email_id: email,
+        registration_id: registrationid,
       },
     }).then((data) => {
       resolve(data);

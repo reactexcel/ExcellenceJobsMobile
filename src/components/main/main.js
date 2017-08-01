@@ -29,8 +29,9 @@ export default class MainPage extends Component {
           }
         });
         const user = JSON.parse(result);
-        if (user.email !== '') {
-          services.getData(user.email).then((results) => {
+        console.log(user);
+        if (user.email !== '' && user.registrationid !== '') {
+          services.getData(user.email, user.registrationid).then((results) => {
             const success = results.data.data;
             AsyncStorage.setItem('userdata', JSON.stringify(success));
             const resetAction = NavigationActions.reset({
@@ -73,6 +74,7 @@ export default class MainPage extends Component {
     const registrationid = this.state.registrationid;
     if (emailid !== '' && registrationid !== '') {
       services.getData(emailid, registrationid).then((result) => {
+        console.log(result);
         if (result.data.error === 0) {
           const success = result.data.data;
           const data = { email: emailid, registrationid };
@@ -107,6 +109,7 @@ export default class MainPage extends Component {
           }
         }
       }, (error) => {
+        console.log(error);
         this.setState({ isAvailable: true, email: '', registrationid: '' });
         if (Platform.OS === 'android') {
           ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
