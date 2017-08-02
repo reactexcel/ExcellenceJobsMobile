@@ -7,9 +7,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, AsyncStorage, FlatList, Platform } from 'react-native';
+import { View, AsyncStorage, FlatList, TouchableWithoutFeedback } from 'react-native';
 import CustomHeader from '../header/header';
-
 import style from './styles';
 import * as action from '../../action/actions';
 
@@ -20,6 +19,7 @@ class HomePage extends Component {
       userinfo: '',
       username: '',
       refreshing: false,
+      isClicked: false,
     };
     this._drawerHandle = this._drawerHandle.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -37,6 +37,14 @@ class HomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       const success = props.user.userLogin.data.data;
       this.setState({ username: success, userinfo: success.rounds, refreshing: false });
+    }
+  }
+  onListItemPress(item) {
+    const roundMark = this.state.isClicked;
+    if (!roundMark && item.status == 1) {
+      this.setState({ isClicked: true });
+    } else if (roundMark && item.status == 1) {
+      this.setState({ isClicked: false });
     }
   }
   _handleRefresh() {
@@ -65,16 +73,32 @@ class HomePage extends Component {
             data={this.state.userinfo}
             refreshing={this.state.refreshing}
             onRefresh={() => { this._handleRefresh(); }}
-            renderItem={({ item, index }) => (<ListItem key={index} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
-              <Body>
-                <Text>{item.text}</Text>
-                <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
-              </Body>
-              {item.status == '1' ?
-                <Right style={style.listright}>
-                  <Icon name="star" active style={style.selected} />
-                </Right> : null}
-            </ListItem>)}
+            renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
+              <View >
+                <ListItem key={index} onPress={() => { this.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
+                  <Body>
+                    <Text>{item.text}</Text>
+                    <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
+                  </Body>
+                  {item.status == '1' ?
+                    <Right style={style.listright}>
+                      <Icon name="star" active style={style.selected} />
+                    </Right> : null}
+                </ListItem>
+              </View>
+              {this.state.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
+                <TouchableWithoutFeedback onPress={() => { this.onListItemPress(item); }}>
+                  <View style={style.viewMargin}>
+                    <Text style={style.jobtitle}>
+                      Job Description
+                    </Text>
+                    <Text style={style.viewMargin}>
+                      Here is job description for Designer Post
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View> : null}
+            </View>)}
           />
         </View>
       </View>
