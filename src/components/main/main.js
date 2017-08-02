@@ -24,7 +24,7 @@ class MainPage extends Component {
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
                 <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
               </Item>
-              <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
+              <Button rounded style={style.button} onPress={() => { this.props.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>
