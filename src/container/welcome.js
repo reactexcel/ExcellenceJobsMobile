@@ -18,6 +18,7 @@ class WelcomePage extends Component {
       userinfo: '',
       username: '',
       refreshing: false,
+      isClicked: false,
     };
     this._drawerHandle = this._drawerHandle.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -44,12 +45,22 @@ class WelcomePage extends Component {
       this.props.onLogin({ email: user.email });
     });
   }
+  _onListItemPress(item) {
+    const roundMark = this.state.isClicked;
+    if (!roundMark && item.status == 1) {
+      this.setState({ isClicked: true });
+    } else if (roundMark && item.status == 1) {
+      this.setState({ isClicked: false });
+    }
+  }
   render() {
     return (
       <HomePage
         userinfo={this.state.userinfo}
         username={this.state.username}
         refreshing={this.state.refreshing}
+        isClicked={this.state.isClicked}
+        onListItemPress={(item) => { this._onListItemPress(item); }}
         drawerHandle={() => { this._drawerHandle(); }}
         handleRefresh={() => { this._handleRefresh(); }}
       />

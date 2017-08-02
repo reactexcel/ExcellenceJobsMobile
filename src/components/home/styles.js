@@ -20,6 +20,7 @@ module.exports = StyleSheet.create({
   selectedlistitem: {
     flex: 1,
     marginLeft: 0,
+    borderBottomWidth: 0,
     backgroundColor: HEXCOLOR.FeijoaColor,
   },
   listright: {
@@ -35,5 +36,16 @@ module.exports = StyleSheet.create({
   viewBorder: {
     borderWidth: 3,
     borderColor: HEXCOLOR.SilverSand,
+  },
+  itemDetails: {
+    flex: 1,
+    backgroundColor: HEXCOLOR.FeijoaColor,
+  },
+  jobtitle: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+  },
+  viewMargin: {
+    marginLeft: 10,
   },
 });

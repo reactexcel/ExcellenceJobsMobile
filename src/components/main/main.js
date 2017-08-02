@@ -20,7 +20,11 @@ class MainPage extends Component {
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
                 <Input style={style.inputStyle} value={this.props.email} onChangeText={(text) => { this.props.changeText(text); }} />
               </Item>
-              <Button rounded style={style.button} onPress={() => { this.props.handleSubmit(); }} >
+              <Item floatingLabel >
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
+              </Item>
+              <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>

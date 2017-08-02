@@ -14,6 +14,7 @@ class LoginPage extends Component {
       email: '',
       isloading: false,
       isAvailable: true,
+      registrationid: '',
     };
     this._handleSubmit = this._handleSubmit.bind(this);
     this.handleNotification = this.handleNotification.bind(this);
@@ -106,8 +107,10 @@ class LoginPage extends Component {
       <MainPage
         email={this.state.email}
         isAvailable={this.state.isAvailable}
+        registrationid={this.state.registrationid}
         handleSubmit={() => { this._handleSubmit(); }}
         changeText={(text) => { this.setState({ email: text }); }}
+        changeId={(text) => { this.setState({ registrationid: text }); }}
       />
     );
   }

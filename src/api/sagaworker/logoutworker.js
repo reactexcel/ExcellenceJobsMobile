@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { call, put } from 'redux-saga/effects';
 import * as actions from '../../action/actions';
-import * as api from '../generic';
+import * as url from '../config';
+import fireApi from '../generic';
 
-export function* createLogoutRequest(action) {
+export default function* createLogoutRequest(action) {
   try {
-    const response = yield call(axios, api.logoutApi(action));
+    const response = yield call(fireApi, 'POST', url.logout, { email_id: action.payload.email, device_id: action.payload.deviceId });
     if (response.data.error === 0) {
       yield put(actions.userLogoutSuccess(response));
     } else if (response.data.error === 1) {
