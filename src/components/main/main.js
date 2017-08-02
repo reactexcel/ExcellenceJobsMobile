@@ -69,7 +69,7 @@ class MainPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '', registrationid: '' });
+      this.setState({ isAvailable: true });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -96,7 +96,7 @@ class MainPage extends Component {
     if (this.state.email !== '' && this.state.registrationid !== '') {
       this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
     } else {
-      this.setState({ isAvailable: true, email: '', registrationid: '' });
+      this.setState({ isAvailable: true });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
