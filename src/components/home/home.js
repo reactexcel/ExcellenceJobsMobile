@@ -43,7 +43,7 @@ class HomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       this.setState({ refreshing: true });
       const user = JSON.parse(result);
-      this.props.onLogin({ email: user.email });
+      this.props.onLogin({ email: user.email, registrationid: user.registrationid });
     });
   }
   render() {
