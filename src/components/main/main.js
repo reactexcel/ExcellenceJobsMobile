@@ -14,6 +14,7 @@ class MainPage extends Component {
     super();
     this.state = {
       email: '',
+      registrationid: '',
       isloading: false,
       isAvailable: true,
     };
@@ -36,9 +37,9 @@ class MainPage extends Component {
           }
         });
         const user = JSON.parse(result);
-        if (user.email !== '') {
+        if (user.email !== '' && user.registrationid !== '') {
           this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -51,14 +52,14 @@ class MainPage extends Component {
     if (props.user.userLogin.isSuccess) {
       this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
       const success = props.user.userLogin.data.data;
-      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email }));
+      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email, registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -68,7 +69,7 @@ class MainPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -85,17 +86,17 @@ class MainPage extends Component {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         }
       }
     });
   }
   handleSubmit() {
     this.setState({ isAvailable: false });
-    if (this.state.email !== '') {
-      this.props.onLogin({ email: this.state.email });
+    if (this.state.email !== '' && this.state.registrationid !== '') {
+      this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
     } else {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
@@ -117,6 +118,10 @@ class MainPage extends Component {
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
                 <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
+              <Item floatingLabel >
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Input style={style.inputStyle} value={this.state.registrationid} onChangeText={(text) => { this.setState({ registrationid: text }); }} />
+              </Item>
               <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>
               </Button>
@@ -135,7 +140,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 
