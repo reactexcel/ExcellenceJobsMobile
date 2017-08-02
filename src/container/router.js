@@ -1,16 +1,16 @@
 import React from 'react';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
-import HomePage from '../components/home/home';
+import { DrawerNavigator } from 'react-navigation';
+import WelcomePage from './welcome';
 import DrawerContent from '../components/drawer/drawercontent';
 
 
 const Main = DrawerNavigator({
-  home: { screen: HomePage },
+  home: { screen: WelcomePage },
 },
-{
-  drawerWidth: 250,
-  drawerPosition: 'right',
-  contentComponent: props => <DrawerContent {...props} />,
-});
+  {
+    drawerWidth: 250,
+    drawerPosition: 'right',
+    contentComponent: props => <DrawerContent {...props} />,
+  });
 
 export default Main;

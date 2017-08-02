@@ -1,109 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Image, TextInput, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
-import { Container, Content, Text, Button, Item, Input, Label, Form } from 'native-base';
-import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
-import DeviceInfo from 'react-native-device-info';
-import { NavigationActions } from 'react-navigation';
+import { Image, View, ActivityIndicator, StatusBar } from 'react-native';
+import { Text, Button, Item, Input, Label, Form } from 'native-base';
 import style from './styles';
 import * as action from '../../action/actions';
 import { HEXCOLOR } from '../../style/hexcolor';
 
 class MainPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      registrationid: '',
-      isloading: false,
-      isAvailable: true,
-    };
-    this.handleNotification = this.handleNotification.bind(this);
-  }
-  componentWillMount() {
-    FCM.getFCMToken().then((token) => {
-      this.setState({
-        token,
-        deviceId: DeviceInfo.getUniqueID(),
-      });
-    });
-
-    this.setState({ isAvailable: false });
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        FCM.getInitialNotification().then((notif) => {
-          if (notif && notif.body !== undefined) {
-            this.handleNotification(notif);
-          }
-        });
-        const user = JSON.parse(result);
-        if (user.email !== '' && user.registrationid !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
-        } else {
-          this.setState({ isAvailable: true });
-        }
-      } else {
-        this.setState({ isAvailable: true });
-      }
-    });
-  }
-  componentWillReceiveProps(props) {
-    if (props.user.userLogin.isSuccess) {
-      this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
-      const success = props.user.userLogin.data.data;
-      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email, registrationid: this.state.registrationid }));
-      AsyncStorage.setItem('userdata', JSON.stringify(success));
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert(`welcome ${success.name}`);
-      }
-      this.setState({ isAvailable: true, email: '', registrationid: '' });
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Drawer' }),
-        ],
-        key: 'Drawer',
-      });
-      this.props.navigation.dispatch(resetAction);
-    } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '', registrationid: '' });
-      const error = props.user.userLogin.error;
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert(error.message);
-      }
-    }
-  }
-  handleNotification(data) {
-    FCM.removeAllDeliveredNotifications(data);
-    FCM.cancelAllLocalNotifications();
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        const user = JSON.parse(result);
-        if (user.email !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
-        }
-      }
-    });
-  }
-  handleSubmit() {
-    this.setState({ isAvailable: false });
-    if (this.state.email !== '' && this.state.registrationid !== '') {
-      this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
-    } else {
-      this.setState({ isAvailable: true, email: '', registrationid: '' });
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Your Email');
-      }
-    }
-  }
   render() {
     return (
       <View style={style.outerContainer}>
@@ -112,17 +14,17 @@ class MainPage extends Component {
           <View style={style.viewHeight} >
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
           </View>
-          {this.state.isAvailable ? (<View style={style.content}>
+          {this.props.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
-                <Input keyboardType={'email-address'} style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
+                <Input style={style.inputStyle} value={this.props.email} onChangeText={(text) => { this.props.changeText(text); }} />
               </Item>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
-                <Input style={style.inputStyle} value={this.state.registrationid} onChangeText={(text) => { this.setState({ registrationid: text }); }} />
+                <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
               </Item>
-              <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
+              <Button rounded style={style.button} onPress={() => { this.props.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>
@@ -134,14 +36,4 @@ class MainPage extends Component {
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
-}
-const mapDispatchToProps = dispatch => ({
-  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
-  onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default MainPage;
