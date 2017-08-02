@@ -116,7 +116,7 @@ class MainPage extends Component {
             <Form>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
-                <Input style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
+                <Input keyboardType={'email-address'} style={style.inputStyle} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
               </Item>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
