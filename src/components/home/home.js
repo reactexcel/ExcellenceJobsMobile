@@ -51,7 +51,7 @@ class HomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       this.setState({ refreshing: true });
       const user = JSON.parse(result);
-      this.props.onLogin({ email: user.email });
+      this.props.onLogin({ email: user.email, registrationid: user.registrationid });
     });
   }
   render() {
@@ -94,22 +94,6 @@ class HomePage extends Component {
                     </Text>
                     <Text style={style.viewMargin}>
                       Here is job description for Designer Post
-                    </Text>
-                    <Text style={style.viewMargin}>
-                      Here is job description for Designer Post
-                      Exposure to develop next generation React Native apps with exciting possibilities on GeoLocation, Games, IoT integration etc.
-                      Opportunity to work with full life cycle of app development
-                      Work closely with creative and development team
-                      Opportunity to offer solution in app development problems
-                      You are passionate about programming, new technologies and solving problems. You are really serious about what and how you are learning
-                      A minimum of one year of professional React Native experience
-                      Have shipped few quality live Apps in App Store and Play Store.
-                      Solid understanding of Mobile application development life cycle.
-                      You are startup-minded, love open-source and working on complex products
-                      Excellent knowledge in working with web APIs and communicating with teams.
-                      Development experience with Native or Hybrid mobile apps especially capabilities, advantages and applicability of the Apps
-                      You are an independent, task oriented professional and can handle pressures of working in product teams with timeline pressures.
-                      Able to work both independently and collaboratively as needed.
                     </Text>
                   </View>
                 </TouchableWithoutFeedback>
