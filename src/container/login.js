@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import MainPage from '../components/main/main';
 import { connect } from 'react-redux';
 import { AlertIOS, AsyncStorage, Platform, ToastAndroid } from 'react-native';
-import * as action from '../action/actions';
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import MainPage from '../components/main/main';
+import * as action from '../action/actions';
+import { listenNotification, handleNotification } from '../service/notification';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class LoginPage extends Component {
       registrationid: '',
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    this.handleNotification = this.handleNotification.bind(this);
+    // this.handleNotification = this.handleNotification.bind(this);
   }
   componentWillMount() {
     FCM.requestPermissions();
@@ -27,14 +28,15 @@ class LoginPage extends Component {
         deviceId: DeviceInfo.getUniqueID(),
       });
     });
+    const notif = listenNotification();
+    if (notif !== undefined) {
+      const handle = handleNotification(notif);
+      this.setState({ email: handle.email, registrationid: handle.registrationid });
+      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+    }
     this.setState({ isAvailable: false });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
-        FCM.getInitialNotification().then((notif) => {
-          if (notif && notif.body !== undefined) {
-            this.handleNotification(notif);
-          }
-        });
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email, registrationid: user.registrationid });
@@ -60,19 +62,19 @@ class LoginPage extends Component {
       }
     }
   }
-  handleNotification(data) {
-    FCM.removeAllDeliveredNotifications(data);
-    FCM.cancelAllLocalNotifications();
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        const user = JSON.parse(result);
-        if (user.email !== '') {
-          this.setState({ email: user.email, registrationid: user.registrationid });
-          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
-        }
-      }
-    });
-  }
+  // handleNotification(data) {
+  //   FCM.removeAllDeliveredNotifications(data);
+  //   FCM.cancelAllLocalNotifications();
+  //   AsyncStorage.getItem('user', (err, result) => {
+  //     if (result !== null) {
+  //       const user = JSON.parse(result);
+  //       if (user.email !== '') {
+  //         this.setState({ email: user.email, registrationid: user.registrationid });
+  //         this.props.onLogin({ email: user.email, registrationid: user.registrationid });
+  //       }
+  //     }
+  //   });
+  // }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
       this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });

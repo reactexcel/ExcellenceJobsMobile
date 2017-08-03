@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
 import HomePage from '../components/home/home';
 import * as action from '../action/actions';
+import { listenNotification, handleNotification } from '../service/notification';
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -26,6 +27,12 @@ class WelcomePage extends Component {
     this.props.navigation.navigate('DrawerOpen');
   }
   componentWillMount() {
+    const notif = listenNotification();
+    if (notif !== undefined) {
+      const handle = handleNotification(notif);
+      this.setState({ email: handle.email, registrationid: handle.registrationid });
+      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+    }
     if (this.props.user.userLogin.isSuccess) {
       const userData = this.props.user.userLogin.data.data;
       this.setState({ username: userData, userinfo: userData.rounds });
