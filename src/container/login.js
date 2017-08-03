@@ -20,6 +20,7 @@ class LoginPage extends Component {
     this.handleNotification = this.handleNotification.bind(this);
   }
   componentWillMount() {
+    FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
         token,
@@ -31,13 +32,21 @@ class LoginPage extends Component {
       if (result !== null) {
         FCM.getInitialNotification().then((notif) => {
           if (notif && notif.body !== undefined) {
-            this.handleNotification(notif);
+            if (Platform.OS === 'ios') {
+              switch (notif._notificationType) {
+                case NotificationType.Remote :
+                  this.handleNotification(notif);
+                  break;
+              }
+            } else {
+              this.handleNotification(notif);
+            }
           }
         });
         const user = JSON.parse(result);
         if (user.email !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.setState({ email: user.email, registrationid: user.registrationid });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -49,7 +58,7 @@ class LoginPage extends Component {
   _handleSubmit() {
     this.setState({ isAvailable: false });
     if (this.state.email !== '') {
-      this.props.onLogin({ email: this.state.email });
+      this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
     } else {
       this.setState({ isAvailable: true, email: '' });
       if (Platform.OS === 'android') {
@@ -66,8 +75,8 @@ class LoginPage extends Component {
       if (result !== null) {
         const user = JSON.parse(result);
         if (user.email !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.setState({ email: user.email, registrationid: user.registrationid });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         }
       }
     });
@@ -76,14 +85,14 @@ class LoginPage extends Component {
     if (props.user.userLogin.isSuccess) {
       this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
       const success = props.user.userLogin.data.data;
-      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email }));
+      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email, registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -93,7 +102,7 @@ class LoginPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -121,7 +130,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 

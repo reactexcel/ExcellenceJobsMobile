@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -46,6 +47,7 @@
 		60654DA61F2899560074FEC9 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA11F2899560074FEC9 /* nanopb.framework */; };
 		60654DA91F28996C0074FEC9 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */; };
 		60654DAA1F28996C0074FEC9 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA81F28996C0074FEC9 /* Protobuf.framework */; };
+		607BFBF51F32E0AB00E5E964 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 607BFBF41F32E0AB00E5E964 /* GoogleService-Info.plist */; };
 		805945610269422F9268D8E3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F052DBA0681D420BA35FF911 /* MaterialIcons.ttf */; };
 		82086A4E1B0A48A291B09BAD /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52125B6B4F0346B3B5FB086A /* libRNFIRMessaging.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -333,6 +335,7 @@
 		60654DA11F2899560074FEC9 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
 		60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseMessaging.framework; sourceTree = "<group>"; };
 		60654DA81F28996C0074FEC9 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Protobuf.framework; sourceTree = "<group>"; };
+		607BFBF41F32E0AB00E5E964 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		81CC6584D35846B6B567E08B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -495,6 +498,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				607BFBF41F32E0AB00E5E964 /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1058,6 +1062,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				607BFBF51F32E0AB00E5E964 /* GoogleService-Info.plist in Resources */,
 				B07033B2B1274A96931B40B9 /* Entypo.ttf in Resources */,
 				2F83510B29434621ABB00383 /* EvilIcons.ttf in Resources */,
 				AAB3A9424AE5433698F661AD /* FontAwesome.ttf in Resources */,
@@ -1257,6 +1262,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"${PODS_ROOT}/../node_modules/react-native/ReactCommon/**",
 				);
 				INFOPLIST_FILE = HrRecruit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1286,6 +1292,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"${PODS_ROOT}/../node_modules/react-native/ReactCommon/**",
 				);
 				INFOPLIST_FILE = HrRecruit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
