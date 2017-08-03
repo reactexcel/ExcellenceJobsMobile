@@ -32,15 +32,7 @@ class LoginPage extends Component {
       if (result !== null) {
         FCM.getInitialNotification().then((notif) => {
           if (notif && notif.body !== undefined) {
-            if (Platform.OS === 'ios') {
-              switch (notif._notificationType) {
-                case NotificationType.Remote :
-                  this.handleNotification(notif);
-                  break;
-              }
-            } else {
-              this.handleNotification(notif);
-            }
+            this.handleNotification(notif);
           }
         });
         const user = JSON.parse(result);
