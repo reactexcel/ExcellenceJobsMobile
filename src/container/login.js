@@ -28,13 +28,15 @@ class LoginPage extends Component {
         deviceId: DeviceInfo.getUniqueID(),
       });
     });
-    const notif = listenNotification();
-    if (notif !== undefined) {
-      const handle = handleNotification(notif);
-      this.setState({ email: handle.email, registrationid: handle.registrationid });
-      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
-    }
     this.setState({ isAvailable: false });
+    listenNotification().then((notif) => {
+      if (notif !== undefined) {
+        handleNotification(notif).then((handle) => {
+          this.setState({ email: handle.email, registrationid: handle.registrationid });
+          this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+        });
+      }
+    });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
         const user = JSON.parse(result);

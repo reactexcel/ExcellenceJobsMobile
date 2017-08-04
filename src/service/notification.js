@@ -2,7 +2,6 @@ import FCM from 'react-native-fcm';
 import { AsyncStorage } from 'react-native';
 
 export function listenNotification() {
-  // FCM.requestPermissions();
   return FCM.getInitialNotification().then((notif) => {
     if (notif && notif.body !== undefined) {
       return notif;

@@ -27,12 +27,14 @@ class WelcomePage extends Component {
     this.props.navigation.navigate('DrawerOpen');
   }
   componentWillMount() {
-    const notif = listenNotification();
-    if (notif !== undefined) {
-      const handle = handleNotification(notif);
-      this.setState({ email: handle.email, registrationid: handle.registrationid });
-      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
-    }
+    listenNotification().then((notif) => {
+      if (notif !== undefined) {
+        handleNotification(notif).then((handle) => {
+          this.setState({ email: handle.email, registrationid: handle.registrationid });
+          this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+        });
+      }
+    });
     if (this.props.user.userLogin.isSuccess) {
       const userData = this.props.user.userLogin.data.data;
       this.setState({ username: userData, userinfo: userData.rounds });
