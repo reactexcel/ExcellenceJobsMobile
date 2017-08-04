@@ -6,10 +6,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Content, List, ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, AsyncStorage, FlatList, Platform } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import HomePage from '../components/home/home';
 import * as action from '../action/actions';
+import { listenNotification, handleNotification } from '../service/notification';
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -27,6 +27,12 @@ class WelcomePage extends Component {
     this.props.navigation.navigate('DrawerOpen');
   }
   componentWillMount() {
+    const notif = listenNotification();
+    if (notif !== undefined) {
+      const handle = handleNotification(notif);
+      this.setState({ email: handle.email, registrationid: handle.registrationid });
+      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+    }
     if (this.props.user.userLogin.isSuccess) {
       const userData = this.props.user.userLogin.data.data;
       this.setState({ username: userData, userinfo: userData.rounds });
@@ -42,7 +48,7 @@ class WelcomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       this.setState({ refreshing: true });
       const user = JSON.parse(result);
-      this.props.onLogin({ email: user.email });
+      this.props.onLogin({ email: user.email, registrationid: user.registrationid });
     });
   }
   _onListItemPress(item) {
@@ -74,7 +80,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 

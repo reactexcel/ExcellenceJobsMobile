@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import MainPage from '../components/main/main';
 import { connect } from 'react-redux';
 import { AlertIOS, AsyncStorage, Platform, ToastAndroid } from 'react-native';
-import * as action from '../action/actions';
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import MainPage from '../components/main/main';
+import * as action from '../action/actions';
+import { listenNotification, handleNotification } from '../service/notification';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -17,27 +18,29 @@ class LoginPage extends Component {
       registrationid: '',
     };
     this._handleSubmit = this._handleSubmit.bind(this);
-    this.handleNotification = this.handleNotification.bind(this);
+    // this.handleNotification = this.handleNotification.bind(this);
   }
   componentWillMount() {
+    FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
         token,
         deviceId: DeviceInfo.getUniqueID(),
       });
     });
+    const notif = listenNotification();
+    if (notif !== undefined) {
+      const handle = handleNotification(notif);
+      this.setState({ email: handle.email, registrationid: handle.registrationid });
+      this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+    }
     this.setState({ isAvailable: false });
     AsyncStorage.getItem('user', (err, result) => {
       if (result !== null) {
-        FCM.getInitialNotification().then((notif) => {
-          if (notif && notif.body !== undefined) {
-            this.handleNotification(notif);
-          }
-        });
         const user = JSON.parse(result);
         if (user.email !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
+          this.setState({ email: user.email, registrationid: user.registrationid });
+          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -49,7 +52,7 @@ class LoginPage extends Component {
   _handleSubmit() {
     this.setState({ isAvailable: false });
     if (this.state.email !== '') {
-      this.props.onLogin({ email: this.state.email });
+      this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
     } else {
       this.setState({ isAvailable: true, email: '' });
       if (Platform.OS === 'android') {
@@ -59,31 +62,31 @@ class LoginPage extends Component {
       }
     }
   }
-  handleNotification(data) {
-    FCM.removeAllDeliveredNotifications(data);
-    FCM.cancelAllLocalNotifications();
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        const user = JSON.parse(result);
-        if (user.email !== '') {
-          this.setState({ email: user.email });
-          this.props.onLogin({ email: user.email });
-        }
-      }
-    });
-  }
+  // handleNotification(data) {
+  //   FCM.removeAllDeliveredNotifications(data);
+  //   FCM.cancelAllLocalNotifications();
+  //   AsyncStorage.getItem('user', (err, result) => {
+  //     if (result !== null) {
+  //       const user = JSON.parse(result);
+  //       if (user.email !== '') {
+  //         this.setState({ email: user.email, registrationid: user.registrationid });
+  //         this.props.onLogin({ email: user.email, registrationid: user.registrationid });
+  //       }
+  //     }
+  //   });
+  // }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
       this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
       const success = props.user.userLogin.data.data;
-      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email }));
+      AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email, registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true, email: '', registrationid: '' });
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -93,7 +96,7 @@ class LoginPage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     } else if (props.user.userLogin.isError) {
-      this.setState({ isAvailable: true, email: '' });
+      this.setState({ isAvailable: true });
       const error = props.user.userLogin.error;
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -121,7 +124,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: emailid => dispatch(action.userLoginRequest(emailid)),
+  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 
