@@ -30,7 +30,7 @@ class WelcomePage extends Component {
     listenNotification().then((notif) => {
       if (notif !== undefined) {
         handleNotification(notif).then((handle) => {
-          this.setState({ email: handle.email, registrationid: handle.registrationid });
+          this.setState({ refreshing: true });
           this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
         });
       }

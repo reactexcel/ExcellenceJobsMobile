@@ -49,9 +49,7 @@ class HomePage extends Component {
                     <Text style={style.jobtitle}>
                       Job Description
                     </Text>
-                    <Text style={style.viewMargin}>
-                      Here is job description for Designer Post
-                    </Text>
+                    <Text style={style.viewMargin} />
                   </View>
                 </TouchableWithoutFeedback>
               </View> : null}

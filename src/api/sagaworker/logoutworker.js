@@ -5,7 +5,7 @@ import fireApi from '../generic';
 
 export default function* createLogoutRequest(action) {
   try {
-    const response = yield call(fireApi, 'POST', url.logout, { email_id: action.payload.email, device_id: action.payload.deviceId });
+    const response = yield call(fireApi, 'PUT', url.logout, { email_id: action.payload.email, device_id: action.payload.deviceId });
     if (response.data.error === 0) {
       yield put(actions.userLogoutSuccess(response));
     } else if (response.data.error === 1) {

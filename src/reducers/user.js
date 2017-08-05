@@ -26,6 +26,7 @@ export const initialState = {
 
 const userLoginSuccess = (state, action) => update(state, {
   userLogin: { $setRequestSuccess: action.payload },
+  userLogout: { $setRequestFailed: [] },
 });
 
 const userLoginFailed = (state, action) => update(state, {
