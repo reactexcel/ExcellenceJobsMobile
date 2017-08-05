@@ -14,7 +14,7 @@ class HomePage extends Component {
   render() {
     return (
       <View style={style.mainContainer}>
-        <CustomHeader name={this.props.username.name} onPress={() => this.props.drawerHandle()} />
+        <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
         <View style={style.mainContainer}>
           <Text style={style.contentHeader}>
             Job Applied For - {this.props.username.subject}

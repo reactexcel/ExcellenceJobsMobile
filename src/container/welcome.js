@@ -10,6 +10,8 @@ import { AsyncStorage } from 'react-native';
 import HomePage from '../components/home/home';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
+import { NavigationActions } from 'react-navigation';
+const DeviceInfo = require('react-native-device-info');
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -20,11 +22,8 @@ class WelcomePage extends Component {
       refreshing: false,
       isClicked: false,
     };
-    this._drawerHandle = this._drawerHandle.bind(this);
+    this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
-  }
-  _drawerHandle() {
-    this.props.navigation.navigate('DrawerOpen');
   }
   componentWillMount() {
     listenNotification().then((notif) => {
@@ -44,6 +43,19 @@ class WelcomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       const success = props.user.userLogin.data.data;
       this.setState({ username: success, userinfo: success.rounds, refreshing: false });
+    } if (props.user.userLogout.isSuccess) {
+      console.log(props.user.userLogout.isSuccess);
+      const email = { email: '' };
+      const data = '';
+      AsyncStorage.setItem('user', JSON.stringify(email));
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Main' }),
+        ],
+        key: null,
+      });
+      this.props.navigation.dispatch(resetAction);
     }
   }
   _handleRefresh() {
@@ -61,7 +73,16 @@ class WelcomePage extends Component {
       this.setState({ isClicked: false });
     }
   }
+  _handleSignOut() {
+    console.log('hadnle');
+    AsyncStorage.getItem('user', (err, result) => {
+      const user = JSON.parse(result);
+      const deviceId = DeviceInfo.getUniqueID();
+      this.props.onLogOut({ email: user.email, deviceId });
+    });
+  }
   render() {
+    console.log(this.props);
     return (
       <HomePage
         userinfo={this.state.userinfo}
@@ -69,7 +90,7 @@ class WelcomePage extends Component {
         refreshing={this.state.refreshing}
         isClicked={this.state.isClicked}
         onListItemPress={(item) => { this._onListItemPress(item); }}
-        drawerHandle={() => { this._drawerHandle(); }}
+        handleSignOut={() => { this._handleSignOut(); }}
         handleRefresh={() => { this._handleRefresh(); }}
       />
     );
@@ -84,6 +105,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+  onLogOut: (userId, deviceId) => dispatch(action.userLogoutRequest(userId, deviceId)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);
