@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { ListItem, Text, Body, Right, Icon } from 'native-base';
+import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
 import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import CustomHeader from '../header/header';
 import style from './styles';
@@ -17,13 +17,12 @@ class HomePage extends Component {
         <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
         <View style={style.mainContainer}>
           <Text style={style.contentHeader}>
-            Job Applied For - {this.props.username.subject}
+            Registration ID : {this.props.username.registration_id}
           </Text>
-          <View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={style.titleText}>
               Application Status
             </Text>
-            <View style={style.viewBorder} />
           </View>
           <FlatList
             keyExtractor={item => item.text}
@@ -49,7 +48,7 @@ class HomePage extends Component {
                     <Text style={style.jobtitle}>
                       Job Description
                     </Text>
-                    <Text style={style.viewMargin} />
+                    <Text style={style.viewMargin} >{item.info}</Text>
                   </View>
                 </TouchableWithoutFeedback>
               </View> : null}

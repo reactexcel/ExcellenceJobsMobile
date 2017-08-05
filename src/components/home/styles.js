@@ -10,7 +10,7 @@ module.exports = StyleSheet.create({
     alignSelf: 'center',
     marginLeft: 10,
     marginTop: 10,
-    fontSize: 16.5,
+    fontSize: 19.5,
     color: HEXCOLOR.GreyColor,
     marginBottom: 10,
   },
