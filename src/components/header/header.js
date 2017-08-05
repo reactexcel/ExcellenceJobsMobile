@@ -22,7 +22,7 @@ export default class CustomHeader extends Component {
               onPress={() => {
                 this.props.onPress();
               }}
-              name="menu"
+              name="md-log-out"
             />
           </Button>
         </Right>
