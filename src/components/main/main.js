@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, ActivityIndicator, StatusBar } from 'react-native';
-import { Text, Button, Item, Input, Label, Form } from 'native-base';
+import { Text, Button, Item, Input, Label, Form, Icon } from 'native-base';
 import style from './styles';
 import { HEXCOLOR } from '../../style/hexcolor';
 
@@ -16,10 +16,14 @@ class MainPage extends Component {
           {this.props.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
+                <Icon name="ios-mail-outline" style={{ color: 'white' }} />
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
                 <Input keyboardType="email-address" style={style.inputStyle} value={this.props.email} onChangeText={(text) => { this.props.changeText(text); }} />
               </Item>
               <Item floatingLabel >
+                <Icon
+                  name="ios-contact-outline" style={{ color: 'white' }}
+                />
                 <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
                 <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
               </Item>

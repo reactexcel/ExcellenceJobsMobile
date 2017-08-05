@@ -5,6 +5,7 @@ const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
     backgroundColor: HEXCOLOR.CloudBurst,
+    justifyContent: 'space-around',
   },
   innerContainer: {
     flex: 1,
@@ -42,6 +43,7 @@ const style = StyleSheet.create({
     width: 300,
     justifyContent: 'center',
     marginTop: 30,
+    marginBottom: 20,
   },
   content: {
     marginLeft: 20,
