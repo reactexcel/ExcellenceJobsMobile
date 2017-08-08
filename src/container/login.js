@@ -32,7 +32,7 @@ class LoginPage extends Component {
       if (notif !== undefined) {
         handleNotification(notif).then((handle) => {
           this.setState({ email: handle.email, registrationid: handle.registrationid });
-          this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+          this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
       }
     });
@@ -41,7 +41,7 @@ class LoginPage extends Component {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email, registrationid: user.registrationid });
-          this.props.onLogin({ email: user.email, registrationid: user.registrationid });
+          this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
         } else {
           this.setState({ isAvailable: true });
         }
@@ -53,7 +53,7 @@ class LoginPage extends Component {
   _handleSubmit() {
     this.setState({ isAvailable: false });
     if (this.state.email !== '') {
-      this.props.onLogin({ email: this.state.email, registrationid: this.state.registrationid });
+      this.props.onLogin({ email_id: this.state.email, registration_id: this.state.registrationid });
     } else {
       this.setState({ isAvailable: true, email: '' });
       if (Platform.OS === 'android') {
@@ -65,7 +65,7 @@ class LoginPage extends Component {
   }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
-      this.props.onDeviceSave({ email: this.state.email, device: this.state.deviceId, token: this.state.token });
+      this.props.onDeviceSave({ email_id: this.state.email, device_id: this.state.deviceId, token: this.state.token });
       const success = props.user.userLogin.data.data;
       AsyncStorage.setItem('user', JSON.stringify({ email: this.state.email, registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));
@@ -112,7 +112,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
+  onLogin: (emailId, registrationId) => dispatch(action.userLoginRequest(emailId, registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
 });
 

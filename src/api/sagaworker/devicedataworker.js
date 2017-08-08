@@ -5,10 +5,7 @@ import fireApi from '../generic';
 
 export default function* submitDeviceData(action) {
   try {
-    const response = yield call(fireApi, 'POST', url.deviceData, {
-      email_id: action.payload.email,
-      device_id: action.payload.device,
-      token: action.payload.token });
+    const response = yield call(fireApi, 'POST', url.deviceData, action.payload);
     if (response.data.error === 0) {
       yield put(actions.deviceDataSuccess(response));
     } else if (response.data.error === 1) {
