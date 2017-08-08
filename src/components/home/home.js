@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
+import { ListItem, Text, Body, Right, Icon, Button } from 'native-base';
 import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import CustomHeader from '../header/header';
 import style from './styles';
@@ -54,6 +54,10 @@ class HomePage extends Component {
               </View> : null}
             </View>)}
           />
+          <Button block onPress={() => { this.props.handleCall(); }} >
+            <Icon name="ios-call-outline" style={{ color: 'white' }} />
+            <Text >Contact Us</Text>
+          </Button>
         </View>
       </View>
     );
