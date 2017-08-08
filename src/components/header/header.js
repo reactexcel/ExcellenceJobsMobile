@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Header, Left, Body, Right, Button, Icon, Title, Thumbnail } from 'native-base';
+import style from './style';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 export default class CustomHeader extends Component {
   render() {
     return (
-      <Header androidStatusBarColor="#34495e" style={{ backgroundColor: '#1e3750' }}>
-        <Left>
-          <Thumbnail small source={{ uri: 'https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png' }} />
-        </Left>
+      <Header androidStatusBarColor={HEXCOLOR.PickledBluewood} style={style.headerColor}>
         <Body>
           <Title>
-            <Text style={{ color: 'white' }}>{this.props.name}</Text>
+            <Text style={style.headerTitle}>{this.props.name}</Text>
           </Title>
         </Body>
         <Right>
@@ -20,7 +19,7 @@ export default class CustomHeader extends Component {
               onPress={() => {
                 this.props.onPress();
               }}
-              name="menu"
+              name="md-log-out"
             />
           </Button>
         </Right>

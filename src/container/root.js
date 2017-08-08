@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import App from './app';
-import { StatusBar } from 'react-native';
+import store from '../store/store';
 
 export default class HrRecruit extends Component {
   render() {
     return (
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     );
   }
 }

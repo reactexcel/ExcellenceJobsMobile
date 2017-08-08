@@ -1,9 +1,32 @@
 import { StyleSheet } from 'react-native';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 const style = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    backgroundColor: HEXCOLOR.CloudBurst,
+    justifyContent: 'space-around',
+  },
+  innerContainer: {
+    flex: 1,
+  },
+  viewHeight: {
+    height: 140,
+  },
+  textinputLabel: {
+    marginLeft: 5,
+    justifyContent: 'center',
+    color: HEXCOLOR.WhiteColor,
+  },
+  inputStyle: {
+    color: HEXCOLOR.WhiteColor,
+  },
+  buttonText: {
+    alignSelf: 'center',
+  },
   logo: {
     flex: 1,
-    height: 180,
+    height: 150,
     width: 220,
     alignSelf: 'center',
     // marginTop: 5,
@@ -20,6 +43,7 @@ const style = StyleSheet.create({
     width: 300,
     justifyContent: 'center',
     marginTop: 30,
+    marginBottom: 20,
   },
   content: {
     marginLeft: 20,

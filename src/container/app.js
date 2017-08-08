@@ -1,16 +1,16 @@
 import { StackNavigator } from 'react-navigation';
-import MainPage from '../components/main/main';
-import Main from './router';
+import LoginPage from './login';
+import WelcomePage from './welcome';
 
 const App = StackNavigator({
-  Main: { screen: MainPage },
-  Drawer: { screen: Main },
+  Main: { screen: LoginPage },
+  Drawer: { screen: WelcomePage },
 },
-{
-  headerMode: 'screen',
-  navigationOptions: {
-    header: null,
+  {
+    headerMode: 'screen',
+    navigationOptions: {
+      header: null,
+    },
   },
-},
 );
 export default App;

@@ -1,150 +1,42 @@
 import React, { Component } from 'react';
-import { Image, TextInput, View, AlertIOS, AsyncStorage, Platform, ToastAndroid, ActivityIndicator, AppState, StatusBar } from 'react-native';
-import { Container, Content, Text, Button, Item, Input, Label, Form } from 'native-base';
-import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm';
-import DeviceInfo from 'react-native-device-info';
-import { NavigationActions } from 'react-navigation';
-
+import { Image, View, ActivityIndicator, StatusBar } from 'react-native';
+import { Text, Button, Item, Input, Label, Form, Icon } from 'native-base';
 import style from './styles';
-import * as services from '../../Api/service';
+import { HEXCOLOR } from '../../style/hexcolor';
 
-export default class MainPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      isloading: false,
-      isAvailable: true,
-    };
-    this.handleNotification = this.handleNotification.bind(this);
-  }
-  componentWillMount() {
-    this.setState({ isAvailable: false });
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        FCM.getInitialNotification().then((notif) => {
-          if (notif && notif.body !== undefined) {
-            this.handleNotification(notif);
-          }
-        });
-        const user = JSON.parse(result);
-        if (user.email !== '') {
-          services.getData(user.email).then((results) => {
-            const success = results.data.data;
-            AsyncStorage.setItem('userdata', JSON.stringify(success));
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'Drawer' }),
-              ],
-              key: 'Drawer',
-            });
-            this.props.navigation.dispatch(resetAction);
-          });
-        } else {
-          this.setState({ isAvailable: true });
-        }
-      } else {
-        this.setState({ isAvailable: true });
-      }
-    });
-  }
-  handleNotification(data) {
-    FCM.removeAllDeliveredNotifications(data);
-    FCM.cancelAllLocalNotifications();
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        const user = JSON.parse(result);
-        if (user.email !== '') {
-          services.getData(user.email).then((result) => {
-            if (result.data.error === 0) {
-              const success = result.data.data;
-              AsyncStorage.setItem('userdata', JSON.stringify(success));
-            }
-          });
-        }
-      }
-    });
-  }
-  handleSubmit() {
-    this.setState({ isAvailable: false });
-    const emailid = this.state.email;
-    if (emailid !== '') {
-      services.getData(emailid).then((result) => {
-        if (result.data.error === 0) {
-          const success = result.data.data;
-          const email = { email: emailid };
-          AsyncStorage.setItem('user', JSON.stringify(email));
-          AsyncStorage.setItem('userdata', JSON.stringify(success));
-          FCM.getFCMToken().then((token) => {
-            const fcmToken = token;
-            const deviceId = DeviceInfo.getUniqueID();
-            services.saveDevice(emailid, deviceId, fcmToken).then((val) => { }, (error) => { });
-          });
-          if (Platform.OS === 'android') {
-            ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-          } else if (Platform.OS === 'ios') {
-            AlertIOS.alert(`welcome ${success.name}`);
-          }
-          this.setState({ isAvailable: false, email: '' });
-          const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-              NavigationActions.navigate({ routeName: 'Drawer' }),
-            ],
-            key: 'Drawer',
-          });
-          this.props.navigation.dispatch(resetAction);
-        } else {
-          this.setState({ isAvailable: true, email: '' });
-          const error = result.data;
-          if (Platform.OS === 'android') {
-            ToastAndroid.showWithGravity(error.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-          } else if (Platform.OS === 'ios') {
-            AlertIOS.alert(error.message);
-          }
-        }
-      }, (error) => {
-        this.setState({ isAvailable: true, email: '' });
-        if (Platform.OS === 'android') {
-          ToastAndroid.showWithGravity('Enter Vaild Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-        } else if (Platform.OS === 'ios') {
-          AlertIOS.alert('Enter Vaild Email');
-        }
-      });
-    } else {
-      this.setState({ isAvailable: true, email: '' });
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Your Email');
-      }
-    }
-  }
+class MainPage extends Component {
   render() {
     return (
-
-      <View style={{ flex: 1, backgroundColor: '#1e3750' }}>
-        <StatusBar backgroundColor="#34495e" barStyle="light-content" />
-        <View style={{ flex: 1 }}>
-          <View style={{ height: 180 }} >
+      <View style={style.outerContainer}>
+        <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
+        <View style={style.innerContainer}>
+          <View style={style.viewHeight} >
             <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
           </View>
-          {this.state.isAvailable ? (<View style={style.content}>
+          {this.props.isAvailable ? (<View style={style.content}>
             <Form>
               <Item floatingLabel >
-                <Label style={{ marginLeft: 5, justifyContent: 'center', color: 'white' }}> Enter Your Email</Label>
-                <Input style={{ color: 'white' }} value={this.state.email} onChangeText={(text) => { this.setState({ email: text }); }} />
+                <Icon name="ios-mail-outline" style={{ color: 'white' }} />
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Enter Your Email</Label>
+                <Input keyboardType="email-address" style={style.inputStyle} value={this.props.email} onChangeText={(text) => { this.props.changeText(text); }} />
               </Item>
-              <Button rounded style={style.button} onPress={() => { this.handleSubmit(); }} >
-                <Text style={{ alignSelf: 'center' }}>Go</Text>
+              <Item floatingLabel >
+                <Icon
+                  name="ios-contact-outline" style={{ color: 'white' }}
+                />
+                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
+              </Item>
+              <Button rounded style={style.button} onPress={() => { this.props.handleSubmit(); }} >
+                <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>
           </View>) : (
-            <ActivityIndicator animating color="#01579b" size="large" />
+            <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
           )}
         </View>
       </View>
     );
   }
 }
+export default MainPage;
