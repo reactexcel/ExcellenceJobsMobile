@@ -11,6 +11,7 @@ import HomePage from '../components/home/home';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
 import { NavigationActions } from 'react-navigation';
+
 const DeviceInfo = require('react-native-device-info');
 
 class WelcomePage extends Component {
@@ -43,8 +44,8 @@ class WelcomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       const success = props.user.userLogin.data.data;
       this.setState({ username: success, userinfo: success.rounds, refreshing: false });
-    } if (props.user.userLogout.isSuccess) {
-      console.log(props.user.userLogout.isSuccess);
+    }
+    if (props.user.userLogout.isSuccess) {
       const email = { email: '' };
       const data = '';
       AsyncStorage.setItem('user', JSON.stringify(email));
@@ -74,7 +75,6 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
-    console.log('hadnle');
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
       const deviceId = DeviceInfo.getUniqueID();
@@ -82,7 +82,6 @@ class WelcomePage extends Component {
     });
   }
   render() {
-    console.log(this.props);
     return (
       <HomePage
         userinfo={this.state.userinfo}
