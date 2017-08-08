@@ -7,18 +7,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AsyncStorage } from 'react-native';
-import HomePage from '../components/home/home';
-import * as action from '../action/actions';
-import { listenNotification, handleNotification } from '../service/notification';
 import { NavigationActions } from 'react-navigation';
+import { listenNotification, handleNotification } from '../service/notification';
+import * as action from '../action/actions';
+import HomePage from '../components/home/home';
+
 const DeviceInfo = require('react-native-device-info');
 
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userinfo: '',
-      username: '',
       refreshing: false,
       isClicked: false,
     };
@@ -30,21 +29,16 @@ class WelcomePage extends Component {
       if (notif !== undefined) {
         handleNotification(notif).then((handle) => {
           this.setState({ refreshing: true });
-          this.props.onLogin({ email: handle.email, registrationid: handle.registrationid });
+          this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
       }
     });
-    if (this.props.user.userLogin.isSuccess) {
-      const userData = this.props.user.userLogin.data.data;
-      this.setState({ username: userData, userinfo: userData.rounds });
-    }
   }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
-      const success = props.user.userLogin.data.data;
-      this.setState({ username: success, userinfo: success.rounds, refreshing: false });
-    } if (props.user.userLogout.isSuccess) {
-      console.log(props.user.userLogout.isSuccess);
+      this.setState({ refreshing: false });
+    }
+    if (props.user.userLogout.isSuccess) {
       const email = { email: '' };
       const data = '';
       AsyncStorage.setItem('user', JSON.stringify(email));
@@ -62,7 +56,7 @@ class WelcomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       this.setState({ refreshing: true });
       const user = JSON.parse(result);
-      this.props.onLogin({ email: user.email, registrationid: user.registrationid });
+      this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
     });
   }
   _onListItemPress(item) {
@@ -74,19 +68,18 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
-    console.log('hadnle');
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
-      const deviceId = DeviceInfo.getUniqueID();
-      this.props.onLogOut({ email: user.email, deviceId });
+      const device_id = DeviceInfo.getUniqueID();
+      this.props.onLogOut({ email_id: user.email, device_id });
     });
   }
   render() {
-    console.log(this.props);
+    const userData = this.props.user.userLogin.data.data;
     return (
       <HomePage
-        userinfo={this.state.userinfo}
-        username={this.state.username}
+        userinfo={userData.rounds}
+        username={userData}
         refreshing={this.state.refreshing}
         isClicked={this.state.isClicked}
         onListItemPress={(item) => { this._onListItemPress(item); }}
@@ -103,7 +96,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: (emailid, registrationid) => dispatch(action.userLoginRequest(emailid, registrationid)),
+  onLogin: (emailId, registrationId) => dispatch(action.userLoginRequest(emailId, registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
   onLogOut: (userId, deviceId) => dispatch(action.userLogoutRequest(userId, deviceId)),
 

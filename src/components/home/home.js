@@ -12,13 +12,12 @@ import style from './styles';
 
 class HomePage extends Component {
   render() {
-    // {this.props.username.registration_id}
     return (
       <View style={style.mainContainer}>
         <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
         <View style={style.mainContainer}>
           <Text style={style.contentHeader}>
-            Registration ID : 12458
+            Registration ID : {this.props.username.registration_id}
           </Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={style.titleText}>

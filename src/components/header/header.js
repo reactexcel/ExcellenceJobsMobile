@@ -8,9 +8,6 @@ export default class CustomHeader extends Component {
   render() {
     return (
       <Header androidStatusBarColor={HEXCOLOR.PickledBluewood} style={style.headerColor}>
-        <Left>
-          <Thumbnail small source={require('../../image/avatar.png')} />
-        </Left>
         <Body>
           <Title>
             <Text style={style.headerTitle}>{this.props.name}</Text>

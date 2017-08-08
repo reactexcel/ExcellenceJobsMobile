@@ -5,7 +5,7 @@ import fireApi from '../generic';
 
 export default function* createLoginRequest(action) {
   try {
-    const response = yield call(fireApi, 'POST', url.login, { email_id: action.payload.email, registration_id: action.payload.registrationid });
+    const response = yield call(fireApi, 'POST', url.login, action.payload);
     if (response.data.error === 0) {
       yield put(actions.userLoginSuccess(response));
     } else if (response.data.error === 1) {
