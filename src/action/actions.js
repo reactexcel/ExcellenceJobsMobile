@@ -15,3 +15,8 @@ export const deviceDataFailed = createAction(constants.DEVICE_DATA_FAILED);
 export const userLogoutRequest = createAction(constants.USER_LOGOUT_REQUEST);
 export const userLogoutSuccess = createAction(constants.USER_LOGOUT_SUCCESS);
 export const userLogoutFailed = createAction(constants.USER_LOGOUT_FAILED);
+
+// contact/phone data action
+export const phoneDataRequest = createAction(constants.PHONE_DATA_REQUEST);
+export const phoneDataSuccess = createAction(constants.PHONE_DATA_SUCCESS);
+export const phoneDataFailed = createAction(constants.PHONE_DATA_FAILED);
