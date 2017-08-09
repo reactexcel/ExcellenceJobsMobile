@@ -17,3 +17,8 @@ export const DEVICE_DATA_FAILED = 'auth/deviceData/failed';
 export const PHONE_DATA_REQUEST = 'auth/phoneData/request';
 export const PHONE_DATA_SUCCESS = 'auth/phoneData/success';
 export const PHONE_DATA_FAILED = 'auth/phoneData/failed';
+
+// Email details
+export const EMAIL_DATA_REQUEST = 'auth/emailData/request';
+export const EMAIL_DATA_SUCCESS = 'auth/emailData/success';
+export const EMAIL_DATA_FAILED = 'auth/emailData/failed';

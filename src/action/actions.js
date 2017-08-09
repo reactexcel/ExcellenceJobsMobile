@@ -20,3 +20,8 @@ export const userLogoutFailed = createAction(constants.USER_LOGOUT_FAILED);
 export const phoneDataRequest = createAction(constants.PHONE_DATA_REQUEST);
 export const phoneDataSuccess = createAction(constants.PHONE_DATA_SUCCESS);
 export const phoneDataFailed = createAction(constants.PHONE_DATA_FAILED);
+
+// Email Action
+export const emailDataRequest = createAction(constants.EMAIL_DATA_REQUEST);
+export const emailDataSuccess = createAction(constants.EMAIL_DATA_SUCCESS);
+export const emailDataFailed = createAction(constants.EMAIL_DATA_FAILED);
