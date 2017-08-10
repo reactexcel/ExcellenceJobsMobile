@@ -55,11 +55,6 @@ class HomePage extends Component {
             </View>)}
           />
           <View style={style.emailContainer}>
-            {/* <TouchableWithoutFeedback onPress={() => { this.props.handleEmail(); }}>
-              <View style={style.emailButton}>
-              <Icon style={style.contactIcon} name="ios-mail-outline" />
-              </View>
-            </TouchableWithoutFeedback> */}
             <Button full style={style.callButton} onPress={() => { this.props.handleCall(); }} >
               <Icon name="ios-call-outline" style={style.contactIcon} />
               <Text style={style.contact} > Contact Us</Text>
