@@ -33,6 +33,13 @@ module.exports = StyleSheet.create({
     marginTop: 30,
     marginBottom: 20,
   },
+  contact: {
+    fontWeight: 'bold',
+    marginBottom: 1,
+  },
+  contactIcon: {
+    color: HEXCOLOR.WhiteColor,
+  },
   listright: {
     marginBottom: 10,
   },
@@ -56,6 +63,41 @@ module.exports = StyleSheet.create({
     fontWeight: 'bold',
   },
   viewMargin: {
-    marginLeft: 10,
+    marginLeft: 4.5,
+    paddingRight: 3,
+    marginRight: 5,
+  },
+  line: {
+    borderWidth: 0.5,
+    borderColor: 'white',
+    marginTop: 4,
+    marginBottom: 4,
+  },
+  callButton: {
+    flex: 1,
+    // borderRightWidth: 1,
+    // borderColor: HEXCOLOR.GreyColor,
+    backgroundColor: HEXCOLOR.CloudBurst,
+  },
+  emailContainer: {
+    // flex: 1,
+    // paddingBottom: 20,
+    flexDirection: 'row',
+    // alignItems: 'center',
+    // justifyContent: 'flex-end',
+  },
+  emailButton: {
+    marginRight: 10,
+    marginTop: 30,
+    borderRadius: 55,
+    width: 50,
+    height: 50,
+    backgroundColor: '#34495e',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statusStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

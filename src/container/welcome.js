@@ -24,6 +24,7 @@ class WelcomePage extends Component {
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
     this.handleCall = this.handleCall.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
   }
   componentWillMount() {
     listenNotification().then((notif) => {
@@ -79,6 +80,10 @@ class WelcomePage extends Component {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
   }
+  handleEmail() {
+    const email = this.props.user.userLogin.data.data.app_hr_contact_email;
+    Linking.openURL(`mailto:${email}`);
+  }
   render() {
     const userData = this.props.user.userLogin.data.data;
     return (
@@ -91,6 +96,7 @@ class WelcomePage extends Component {
         handleSignOut={() => { this._handleSignOut(); }}
         handleRefresh={() => { this._handleRefresh(); }}
         handleCall={() => { this.handleCall(); }}
+        handleEmail={() => { this.handleEmail(); }}
       />
     );
   }
