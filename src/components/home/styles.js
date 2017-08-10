@@ -23,6 +23,16 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 0,
     backgroundColor: HEXCOLOR.FeijoaColor,
   },
+  buttonText: {
+    alignSelf: 'center',
+  },
+  button: {
+    alignSelf: 'center',
+    width: 300,
+    justifyContent: 'center',
+    marginTop: 30,
+    marginBottom: 20,
+  },
   listright: {
     marginBottom: 10,
   },

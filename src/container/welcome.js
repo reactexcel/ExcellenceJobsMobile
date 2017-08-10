@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Linking } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import * as action from '../action/actions';
@@ -23,6 +23,7 @@ class WelcomePage extends Component {
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
+    this.handleCall = this.handleCall.bind(this);
   }
   componentWillMount() {
     listenNotification().then((notif) => {
@@ -74,6 +75,10 @@ class WelcomePage extends Component {
       this.props.onLogOut({ email_id: user.email, device_id });
     });
   }
+  handleCall() {
+    const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
+    Linking.openURL(`tel:${phoneNumber}`);
+  }
   render() {
     const userData = this.props.user.userLogin.data.data;
     return (
@@ -85,6 +90,7 @@ class WelcomePage extends Component {
         onListItemPress={(item) => { this._onListItemPress(item); }}
         handleSignOut={() => { this._handleSignOut(); }}
         handleRefresh={() => { this._handleRefresh(); }}
+        handleCall={() => { this.handleCall(); }}
       />
     );
   }
