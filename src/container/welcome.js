@@ -77,10 +77,10 @@ class WelcomePage extends Component {
     });
   }
   handleCall() {
-    Linking.openURL('tel:09899924074');
+    Linking.openURL('tel:08877763230');
   }
   handleEmail() {
-    Linking.openURL('mailto:vishal_kumar@excellencetechnologies.in');
+    Linking.openURL('mailto:jobs@excellencetechnologies.in');
   }
   render() {
     const userData = this.props.user.userLogin.data.data;

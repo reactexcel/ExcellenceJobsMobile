@@ -19,7 +19,7 @@ class HomePage extends Component {
           <Text style={style.contentHeader}>
             Registration ID : {this.props.username.registration_id}
           </Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={style.statusStyle}>
             <Text style={style.titleText}>
               Application Status
             </Text>
@@ -46,7 +46,7 @@ class HomePage extends Component {
                 <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                   <View style={style.viewMargin}>
                     <Text style={style.jobtitle}>
-                      Job Description
+                      Round Details
                     </Text>
                     <Text style={style.viewMargin} >{item.info}</Text>
                   </View>
@@ -54,20 +54,22 @@ class HomePage extends Component {
               </View> : null}
             </View>)}
           />
-          <View style={{ flex: 1 }}>
-            <Fab
-              containerStyle={{ }}
-              style={{ backgroundColor: 'green' }}
-              position="bottomRight"
-              onPress={() => { this.props.handleEmail(); }}
-            >
-              <Icon name="ios-mail-outline" />
-            </Fab>
+          <View style={style.emailContainer}>
+            {/* <TouchableWithoutFeedback onPress={() => { this.props.handleEmail(); }}>
+              <View style={style.emailButton}>
+              <Icon style={style.contactIcon} name="ios-mail-outline" />
+              </View>
+            </TouchableWithoutFeedback> */}
+            <Button full style={style.callButton} onPress={() => { this.props.handleCall(); }} >
+              <Icon name="ios-call-outline" style={style.contactIcon} />
+              <Text style={style.contact} > Contact Us</Text>
+            </Button>
+            <View style={style.line} />
+            <Button full style={style.callButton} onPress={() => { this.props.handleEmail(); }} >
+              <Icon name="ios-mail-outline" style={style.contactIcon} />
+              <Text style={style.contact} > Email Us</Text>
+            </Button>
           </View>
-          <Button block onPress={() => { this.props.handleCall(); }} >
-            <Icon name="ios-call-outline" style={{ color: 'white' }} />
-            <Text >Contact Us</Text>
-          </Button>
         </View>
       </View>
     );
