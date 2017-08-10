@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { HEXCOLOR } from '../../style/hexcolor';
 
-
 module.exports = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    borderWidth: 1,
+    backgroundColor: 'white',
   },
   contentHeader: {
     alignSelf: 'center',
@@ -47,5 +48,8 @@ module.exports = StyleSheet.create({
   },
   viewMargin: {
     marginLeft: 10,
+  },
+  mapContainer: {
+    backgroundColor: 'white',
   },
 });

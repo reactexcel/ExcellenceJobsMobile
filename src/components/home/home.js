@@ -6,16 +6,18 @@
 
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import CustomHeader from '../header/header';
 import style from './styles';
+import MapMarker from '../map/map';
 
 class HomePage extends Component {
+
   render() {
     return (
       <View style={style.mainContainer}>
         <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
-        <View style={style.mainContainer}>
+        <View >
           <Text style={style.contentHeader}>
             Registration ID : {this.props.username.registration_id}
           </Text>
@@ -54,6 +56,9 @@ class HomePage extends Component {
               </View> : null}
             </View>)}
           />
+        </View>
+        <View style={{ backgroundColor: 'white' }}>
+          <MapMarker {...this.props} openMap={this.props.openMap} />
         </View>
       </View>
     );

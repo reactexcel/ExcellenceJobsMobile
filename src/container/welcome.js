@@ -6,18 +6,18 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, ScrollView, View, Linking } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
-
 const DeviceInfo = require('react-native-device-info');
 
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      marker: [],
       refreshing: false,
       isClicked: false,
     };
@@ -25,6 +25,16 @@ class WelcomePage extends Component {
     this._handleRefresh = this._handleRefresh.bind(this);
   }
   componentWillMount() {
+    const ret = [];
+    ret.push({
+      coordinates: {
+        latitude: 28.596048,
+        longitude: 77.328188,
+      },
+      title: 'Excellence Technologies ',
+      description: 'C 84, 3rd Floor sector 8, Noida',
+    });
+    this.setState({ marker: ret });
     listenNotification().then((notif) => {
       if (notif !== undefined) {
         handleNotification(notif).then((handle) => {
@@ -74,18 +84,33 @@ class WelcomePage extends Component {
       this.props.onLogOut({ email_id: user.email, device_id });
     });
   }
+  _redirectToMap() {
+    Linking.canOpenURL('geo:28.596048,77.328188').then((supported) => {
+      if (supported) {
+        Linking.openURL('geo:28.596048,77.328188');
+      } else {
+        console.log('Don\'t know how to go');
+      }
+    }).catch(err => console.error('An error occurred', err));
+  }
   render() {
     const userData = this.props.user.userLogin.data.data;
     return (
-      <HomePage
-        userinfo={userData.rounds}
-        username={userData}
-        refreshing={this.state.refreshing}
-        isClicked={this.state.isClicked}
-        onListItemPress={(item) => { this._onListItemPress(item); }}
-        handleSignOut={() => { this._handleSignOut(); }}
-        handleRefresh={() => { this._handleRefresh(); }}
-      />
+      <View style={{ flex: 1 }}>
+        <ScrollView >
+          <HomePage
+            marker={this.state.marker}
+            userinfo={userData.rounds}
+            username={userData}
+            refreshing={this.state.refreshing}
+            isClicked={this.state.isClicked}
+            onListItemPress={(item) => { this._onListItemPress(item); }}
+            handleSignOut={() => { this._handleSignOut(); }}
+            handleRefresh={() => { this._handleRefresh(); }}
+            openMap={() => { this._redirectToMap(); }}
+          />
+        </ScrollView>
+      </View>
     );
   }
 }
