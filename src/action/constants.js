@@ -12,8 +12,3 @@ export const USER_LOGOUT_FAILED = 'auth/logout/failed';
 export const DEVICE_DATA_REQUEST = 'auth/deviceData/request';
 export const DEVICE_DATA_SUCCESS = 'auth/deviceData/success';
 export const DEVICE_DATA_FAILED = 'auth/deviceData/failed';
-
-// Contact details
-export const PHONE_DATA_REQUEST = 'auth/phoneData/request';
-export const PHONE_DATA_SUCCESS = 'auth/phoneData/success';
-export const PHONE_DATA_FAILED = 'auth/phoneData/failed';

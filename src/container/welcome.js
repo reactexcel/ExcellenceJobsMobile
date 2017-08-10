@@ -76,9 +76,11 @@ class WelcomePage extends Component {
     });
   }
   handleCall() {
-    Linking.openURL('tel:09899924074');
+    const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
+    Linking.openURL(`tel:${phoneNumber}`);
   }
   render() {
+    console.log(this.props);
     const userData = this.props.user.userLogin.data.data;
     return (
       <HomePage
