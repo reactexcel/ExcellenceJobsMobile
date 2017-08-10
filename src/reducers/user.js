@@ -22,18 +22,6 @@ export const initialState = {
     isSuccess: false,
     isError: false,
   },
-  phoneContact: {
-    data: [],
-    error: [],
-    isSuccess: false,
-    isError: false,
-  },
-  emailData: {
-    data: [],
-    error: [],
-    isSuccess: false,
-    isError: false,
-  },
 };
 
 const userLoginSuccess = (state, action) => update(state, {

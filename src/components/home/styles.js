@@ -63,7 +63,9 @@ module.exports = StyleSheet.create({
     fontWeight: 'bold',
   },
   viewMargin: {
-    marginLeft: 10,
+    marginLeft: 4.5,
+    paddingRight: 3,
+    marginRight: 5,
   },
   line: {
     borderWidth: 0.5,
