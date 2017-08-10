@@ -80,7 +80,6 @@ class WelcomePage extends Component {
     Linking.openURL(`tel:${phoneNumber}`);
   }
   render() {
-    console.log(this.props);
     const userData = this.props.user.userLogin.data.data;
     return (
       <HomePage
