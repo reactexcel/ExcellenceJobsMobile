@@ -57,7 +57,7 @@ class HomePage extends Component {
             </View>)}
           />
         </View>
-        <View style={{ backgroundColor: 'white' }}>
+        <View style={style.mapContainer}>
           <MapMarker {...this.props} openMap={this.props.openMap} />
         </View>
       </View>
