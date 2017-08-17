@@ -12,7 +12,8 @@ import { listenNotification, handleNotification } from '../service/notification'
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
 const DeviceInfo = require('react-native-device-info');
-
+import style from '../components/home/styles';
+import IconWithButton from '../components/button/buttonwithicon';
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
@@ -118,8 +119,14 @@ class WelcomePage extends Component {
             handleSignOut={() => { this._handleSignOut(); }}
             handleRefresh={() => { this._handleRefresh(); }}
             openMap={() => { this._redirectToMap(); }}
+            handleCall={() => { this.handleCall(); }}
+            handleEmail={() => { this.handleEmail(); }}
           />
         </ScrollView>
+        <View style={style.emailContainer}>
+          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent={'Contact Us'} />
+          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent="d" />
+        </View>
       </View>
     );
   }

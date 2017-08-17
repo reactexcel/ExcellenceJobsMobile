@@ -10,9 +10,9 @@ import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-nati
 import CustomHeader from '../header/header';
 import style from './styles';
 import MapMarker from '../map/map';
+import IconWithButton from '../button/buttonwithicon';
 
 class HomePage extends Component {
-
   render() {
     return (
       <View style={style.mainContainer}>
@@ -60,6 +60,7 @@ class HomePage extends Component {
         <View style={style.mapContainer}>
           <MapMarker {...this.props} openMap={this.props.openMap} />
         </View>
+
       </View>
     );
   }
