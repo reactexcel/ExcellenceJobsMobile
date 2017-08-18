@@ -82,6 +82,13 @@ class WelcomePage extends Component {
     }
   }
   _handleRefresh() {
+    IsConnect().then((data) => {
+      if (data) {
+        this.setState({ isNetwork: true });
+      } else {
+        this.setState({ isNetwork: false });
+      }
+    });
     this.setState({ refreshing: true });
     if (this.state.isNetwork === true) {
       AsyncStorage.getItem('user', (err, result) => {

@@ -47,21 +47,23 @@ class LoginPage extends Component {
       }
     });
     AsyncStorage.getItem('user', (err, result) => {
-      console.log(result);
-      if (result !== null && this.state.isNetwork) {
+      if (result !== null) {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email, registrationid: user.registrationid });
-          this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+          if (this.state.isNetwork) {
+            this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+          } else {
+            AsyncStorage.getItem('userInfo', (err, result) => {
+              const data = JSON.parse(result);
+              this.props.onOfflineData({ data });
+            });
+          }
         } else {
           this.setState({ isAvailable: true });
         }
       } else {
-        AsyncStorage.getItem('userInfo', (err, result) => {
-          const data = JSON.parse(result);
-          this.props.onOfflineData({ data });
-        });
-        // this.setState({ isAvailable: false });
+        this.setState({ isAvailable: false });
       }
     });
   }
@@ -109,7 +111,6 @@ class LoginPage extends Component {
     }
   }
   render() {
-    console.log(this.state);
     return (
       <MainPage
         email={this.state.email}
