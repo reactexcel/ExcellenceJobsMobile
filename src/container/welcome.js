@@ -128,8 +128,8 @@ class WelcomePage extends Component {
           />
         </ScrollView>
         <View style={style.emailContainer}>
-          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent={'Contact Us'} />
-          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent="d" />
+          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
+          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Id" />
         </View>
       </View>
     );
