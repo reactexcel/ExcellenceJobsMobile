@@ -13,27 +13,22 @@ import IconWithButton from '../button/buttonwithicon';
 
 class HomePage extends Component {
   render() {
-    const renderHeader = () => (
-      <View>
-        <Text style={style.contentHeader}>
-        Registration ID : {this.props.username.registration_id}
-        </Text>
-        <View style={style.viewContainer}>
-          <Text style={style.titleText}>
-        Application Status
-          </Text>
-        </View>
-      </View>
-  );
     return (
       <View style={style.mainContainer}>
-        <View>
+        <View >
+          <Text style={style.contentHeader}>
+            Registration ID : {this.props.username.registration_id}
+          </Text>
+          <View style={style.viewContainer}>
+            <Text style={style.titleText}>
+              Application Status
+            </Text>
+          </View>
           <FlatList
             keyExtractor={item => item.text}
             data={this.props.userinfo}
             refreshing={this.props.refreshing}
             onRefresh={() => { this.props.handleRefresh(); }}
-            ListHeaderComponent={renderHeader}
             renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
               <View >
                 <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
