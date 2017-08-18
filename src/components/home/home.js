@@ -13,7 +13,6 @@ import MapMarker from '../map/map';
 
 class HomePage extends Component {
   render() {
-    console.log(this.props);
     return (
       <View style={style.mainContainer}>
         <CustomHeader name={this.props.username.name} isNetwork={this.props.isNetwork} onPress={() => this.props.handleSignOut()} />
@@ -61,7 +60,6 @@ class HomePage extends Component {
         <View style={style.mapContainer}>
           <MapMarker {...this.props} openMap={this.props.openMap} />
         </View>
-
       </View>
     );
   }

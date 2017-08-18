@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
-import IsConnect from '../service/connection';
+import { IsConnect } from '../service/connection';
 
 class LoginPage extends Component {
   constructor(props) {

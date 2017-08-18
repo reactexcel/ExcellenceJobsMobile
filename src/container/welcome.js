@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
-import IsConnect from '../service/connection';
+import { IsConnect, IsConnectListener } from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
 
@@ -31,6 +31,7 @@ class WelcomePage extends Component {
     this._handleRefresh = this._handleRefresh.bind(this);
     this.handleCall = this.handleCall.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    this.handleNetwork = this.handleNetwork.bind(this);
   }
   componentWillMount() {
     IsConnect().then((data) => {
@@ -40,6 +41,7 @@ class WelcomePage extends Component {
         this.setState({ isNetwork: false });
       }
     });
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     const ret = [];
     ret.push({
       coordinates: {
@@ -81,28 +83,28 @@ class WelcomePage extends Component {
       this.props.navigation.dispatch(resetAction);
     }
   }
+  handleNetwork(isconnect) {
+    this.setState({ isNetwork: isconnect });
+  }
   _handleRefresh() {
+    this.setState({ refreshing: true });
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
+        AsyncStorage.getItem('user', (err, result) => {
+          const user = JSON.parse(result);
+          this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+        });
       } else {
         this.setState({ isNetwork: false });
+        this.setState({ refreshing: false });
+        if (Platform.OS === 'android') {
+          ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+        } else if (Platform.OS === 'ios') {
+          AlertIOS.alert('No Connection');
+        }
       }
     });
-    this.setState({ refreshing: true });
-    if (this.state.isNetwork === true) {
-      AsyncStorage.getItem('user', (err, result) => {
-        const user = JSON.parse(result);
-        this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
-      });
-    } else if (this.state.isNetwork === false) {
-      this.setState({ refreshing: false });
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('No Connection');
-      }
-    }
   }
   _onListItemPress(item) {
     const roundMark = this.state.isClicked;
@@ -137,8 +139,6 @@ class WelcomePage extends Component {
     Linking.openURL(`mailto:${email}`);
   }
   render() {
-    console.log(this.state);
-    console.log(this.props.user);
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
