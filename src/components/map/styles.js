@@ -10,7 +10,7 @@ module.exports = StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
     width: width - 12,
-    height: height - 400,
+    height: height - 435.5,
     borderWidth: 0.5,
     borderColor: HEXCOLOR.GreyColor,
     borderRadius: 2,
@@ -24,5 +24,14 @@ module.exports = StyleSheet.create({
     right: 0,
     bottom: 0,
     alignItems: 'center',
+  },
+  openMap: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 160,
+    marginRight: 15,
+  },
+  mapIconColor: {
+    color: HEXCOLOR.CloudBurst,
   },
 });

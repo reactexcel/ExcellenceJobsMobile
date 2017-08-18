@@ -12,6 +12,7 @@ import { listenNotification, handleNotification } from '../service/notification'
 import { IsConnect, IsConnectListener } from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
+import CustomHeader from '../components/header/header';
 
 const DeviceInfo = require('react-native-device-info');
 
@@ -45,10 +46,10 @@ class WelcomePage extends Component {
     const ret = [];
     ret.push({
       coordinates: {
-        latitude: 28.596048,
-        longitude: 77.328188,
+        latitude: this.props.user.userLogin.data.data.office_location.long,
+        longitude: this.props.user.userLogin.data.data.office_location.lat,
       },
-      title: 'Excellence Technologies ',
+      title: 'Excellence Technologies',
       description: 'C 84, 3rd Floor sector 8, Noida',
     });
     this.setState({ marker: ret });
@@ -122,9 +123,9 @@ class WelcomePage extends Component {
     });
   }
   _redirectToMap() {
-    Linking.canOpenURL('geo:28.596048,77.328188').then((supported) => {
+    Linking.canOpenURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`).then((supported) => {
       if (supported) {
-        Linking.openURL('geo:28.596048,77.328188');
+        Linking.openURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`);
       } else {
         console.log('Don\'t know how to go');
       }
@@ -142,16 +143,15 @@ class WelcomePage extends Component {
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
+        <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
         <ScrollView >
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}
-            isNetwork={this.state.isNetwork}
             username={userData}
             refreshing={this.state.refreshing}
             isClicked={this.state.isClicked}
             onListItemPress={(item) => { this._onListItemPress(item); }}
-            handleSignOut={() => { this._handleSignOut(); }}
             handleRefresh={() => { this._handleRefresh(); }}
             openMap={() => { this._redirectToMap(); }}
             handleCall={() => { this.handleCall(); }}
