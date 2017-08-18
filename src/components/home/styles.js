@@ -76,8 +76,6 @@ module.exports = StyleSheet.create({
   },
   callButton: {
     flex: 1,
-    // borderRightWidth: 1,
-    // borderColor: HEXCOLOR.GreyColor,
     backgroundColor: HEXCOLOR.CloudBurst,
   },
   emailContainer: {
