@@ -10,10 +10,10 @@ module.exports = StyleSheet.create({
   contentHeader: {
     alignSelf: 'center',
     marginLeft: 10,
-    marginTop: 10,
+    marginTop: 8,
     fontSize: 19.5,
     color: HEXCOLOR.GreyColor,
-    marginBottom: 10,
+    marginBottom: 8,
   },
   listitem: {
     marginLeft: 0,
@@ -48,7 +48,7 @@ module.exports = StyleSheet.create({
     color: HEXCOLOR.SanMarino,
   },
   titleText: {
-    margin: 12,
+    margin: 8,
     fontWeight: 'bold',
   },
   viewBorder: {
