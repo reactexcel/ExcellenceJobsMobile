@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
 import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import CustomHeader from '../header/header';
 import style from './styles';
 import MapMarker from '../map/map';
 import IconWithButton from '../button/buttonwithicon';
@@ -16,12 +15,11 @@ class HomePage extends Component {
   render() {
     return (
       <View style={style.mainContainer}>
-        <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
         <View >
           <Text style={style.contentHeader}>
             Registration ID : {this.props.username.registration_id}
           </Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={style.viewContainer}>
             <Text style={style.titleText}>
               Application Status
             </Text>

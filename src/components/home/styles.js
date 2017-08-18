@@ -102,4 +102,8 @@ module.exports = StyleSheet.create({
   mapContainer: {
     backgroundColor: 'white',
   },
+  viewContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });

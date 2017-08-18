@@ -21,8 +21,8 @@ class MapMarker extends React.Component {
           scrollEnabled={false}
           showsMyLocationButton
           initialRegion={{
-            latitude: 28.5959817,
-            longitude: 77.325999,
+            latitude: this.props.username.office_location.long,
+            longitude: this.props.username.office_location.lat,
             latitudeDelta: 0.0132,
             longitudeDelta: 0.0211,
           }}
@@ -36,9 +36,9 @@ class MapMarker extends React.Component {
             />),
           )}
         </MapView>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 200, marginRight: 15 }}>
+        <View style={style.openMap}>
           <TouchableOpacity onPress={() => { this.props.openMap(); }}>
-            <Icon name="md-map" style={{ color: '#1e3750' }} />
+            <Icon name="md-map" style={style.mapIconColor} />
           </TouchableOpacity>
         </View>
       </View>

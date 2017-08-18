@@ -25,4 +25,13 @@ module.exports = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
   },
+  openMap: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 200,
+    marginRight: 15,
+  },
+  mapIconColor: {
+    color: HEXCOLOR.CloudBurst,
+  },
 });
