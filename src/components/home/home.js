@@ -5,34 +5,31 @@
  */
 
 import React, { Component } from 'react';
-import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { ListItem, Text, Fab, Body, Right, Icon, Button } from 'native-base';
+import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
+import CustomHeader from '../header/header';
 import style from './styles';
 import MapMarker from '../map/map';
 
 class HomePage extends Component {
   render() {
-    const renderHeader = () => (
-      <View>
-        <Text style={style.contentHeader}>
-        Registration ID : {this.props.username.registration_id}
-        </Text>
-        <View style={style.viewContainer}>
-          <Text style={style.titleText}>
-        Application Status
-          </Text>
-        </View>
-      </View>
-  );
     return (
       <View style={style.mainContainer}>
-        <View>
+        <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
+        <View style={style.mainContainer}>
+          <Text style={style.contentHeader}>
+            Registration ID : {this.props.username.registration_id}
+          </Text>
+          <View style={style.statusStyle}>
+            <Text style={style.titleText}>
+              Application Status
+            </Text>
+          </View>
           <FlatList
             keyExtractor={item => item.text}
             data={this.props.userinfo}
             refreshing={this.props.refreshing}
             onRefresh={() => { this.props.handleRefresh(); }}
-            ListHeaderComponent={renderHeader}
             renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
               <View >
                 <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
@@ -50,7 +47,7 @@ class HomePage extends Component {
                 <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                   <View style={style.viewMargin}>
                     <Text style={style.jobtitle}>
-                      Job Description
+                      Round Details
                     </Text>
                     <Text style={style.viewMargin} >{item.info}</Text>
                   </View>
@@ -58,6 +55,17 @@ class HomePage extends Component {
               </View> : null}
             </View>)}
           />
+          <View style={style.emailContainer}>
+            <Button full style={style.callButton} onPress={() => { this.props.handleCall(); }} >
+              <Icon name="ios-call-outline" style={style.contactIcon} />
+              <Text style={style.contact} > Contact Us</Text>
+            </Button>
+            <View style={style.line} />
+            <Button full style={style.callButton} onPress={() => { this.props.handleEmail(); }} >
+              <Icon name="ios-mail-outline" style={style.contactIcon} />
+              <Text style={style.contact} > Email Us</Text>
+            </Button>
+          </View>
         </View>
         <View style={style.mapContainer}>
           <MapMarker {...this.props} openMap={this.props.openMap} />
