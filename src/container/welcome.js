@@ -6,21 +6,18 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, ScrollView, View, Linking } from 'react-native';
+import { AsyncStorage, Linking } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
-import CustomHeader from '../components/header/header';
+
 const DeviceInfo = require('react-native-device-info');
-import style from '../components/home/styles';
-import IconWithButton from '../components/button/buttonwithicon';
 
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      marker: [],
       refreshing: false,
       isClicked: false,
     };
@@ -30,21 +27,9 @@ class WelcomePage extends Component {
     this.handleEmail = this.handleEmail.bind(this);
   }
   componentWillMount() {
-    console.log();
-    const ret = [];
-    ret.push({
-      coordinates: {
-        latitude: this.props.user.userLogin.data.data.office_location.long,
-        longitude: this.props.user.userLogin.data.data.office_location.lat,
-      },
-      title: 'Excellence Technologies',
-      description: 'C 84, 3rd Floor sector 8, Noida',
-    });
-    this.setState({ marker: ret });
     listenNotification().then((notif) => {
       if (notif !== undefined) {
-        handleNotification(notif).then((data) => {
-          const handle = JSON.parse(data);
+        handleNotification(notif).then((handle) => {
           this.setState({ refreshing: true });
           this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
@@ -91,15 +76,6 @@ class WelcomePage extends Component {
       this.props.onLogOut({ email_id: user.email, device_id });
     });
   }
-  _redirectToMap() {
-    Linking.canOpenURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`).then((supported) => {
-      if (supported) {
-        Linking.openURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`);
-      } else {
-        console.log('Don\'t know how to go');
-      }
-    }).catch(err => console.error('An error occurred', err));
-  }
   handleCall() {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
@@ -110,31 +86,18 @@ class WelcomePage extends Component {
   }
   render() {
     const userData = this.props.user.userLogin.data.data;
-    console.log(userData);
-    // this.props.username.name
     return (
-      <View style={{ flex: 1 }}>
-        <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} />
-        <ScrollView >
-          <HomePage
-            marker={this.state.marker}
-            userinfo={userData.rounds}
-            username={userData}
-            refreshing={this.state.refreshing}
-            isClicked={this.state.isClicked}
-            onListItemPress={(item) => { this._onListItemPress(item); }}
-            // handleSignOut={() => { this._handleSignOut(); }}
-            handleRefresh={() => { this._handleRefresh(); }}
-            openMap={() => { this._redirectToMap(); }}
-            handleCall={() => { this.handleCall(); }}
-            handleEmail={() => { this.handleEmail(); }}
-          />
-        </ScrollView>
-        <View style={style.emailContainer}>
-          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
-          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />
-        </View>
-      </View>
+      <HomePage
+        userinfo={userData.rounds}
+        username={userData}
+        refreshing={this.state.refreshing}
+        isClicked={this.state.isClicked}
+        onListItemPress={(item) => { this._onListItemPress(item); }}
+        handleSignOut={() => { this._handleSignOut(); }}
+        handleRefresh={() => { this._handleRefresh(); }}
+        handleCall={() => { this.handleCall(); }}
+        handleEmail={() => { this.handleEmail(); }}
+      />
     );
   }
 }
