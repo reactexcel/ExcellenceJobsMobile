@@ -14,9 +14,10 @@ import IconWithButton from '../button/buttonwithicon';
 
 class HomePage extends Component {
   render() {
+    console.log(this.props);
     return (
       <View style={style.mainContainer}>
-        <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
+        <CustomHeader name={this.props.username.name} isNetwork={this.props.isNetwork} onPress={() => this.props.handleSignOut()} />
         <View >
           <Text style={style.contentHeader}>
             Registration ID : {this.props.username.registration_id}

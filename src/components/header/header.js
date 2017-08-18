@@ -13,16 +13,18 @@ export default class CustomHeader extends Component {
             <Text style={style.headerTitle}>{this.props.name}</Text>
           </Title>
         </Body>
-        <Right>
-          <Button transparent>
-            <Icon
-              onPress={() => {
-                this.props.onPress();
-              }}
-              name="md-log-out"
-            />
-          </Button>
-        </Right>
+        {this.props.isNetwork ?
+          <Right>
+            <Button transparent>
+              <Icon
+                onPress={() => {
+                  this.props.onPress();
+                }}
+                name="md-log-out"
+              />
+            </Button>
+          </Right>
+        : null}
       </Header>
     );
   }

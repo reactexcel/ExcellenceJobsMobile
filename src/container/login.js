@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AlertIOS, AsyncStorage, Platform, ToastAndroid } from 'react-native';
+import { AlertIOS, AsyncStorage, Platform, ToastAndroid, NetInfo } from 'react-native';
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
+import IsConnect from '../service/connection';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -16,10 +17,18 @@ class LoginPage extends Component {
       isloading: false,
       isAvailable: true,
       registrationid: '',
+      isNetwork: true,
     };
     this._handleSubmit = this._handleSubmit.bind(this);
   }
   componentWillMount() {
+    IsConnect().then((data) => {
+      if (data) {
+        this.setState({ isNetwork: true });
+      } else {
+        this.setState({ isNetwork: false });
+      }
+    });
     FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
@@ -38,7 +47,8 @@ class LoginPage extends Component {
       }
     });
     AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
+      console.log(result);
+      if (result !== null && this.state.isNetwork) {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email, registrationid: user.registrationid });
@@ -47,7 +57,11 @@ class LoginPage extends Component {
           this.setState({ isAvailable: true });
         }
       } else {
-        this.setState({ isAvailable: true });
+        AsyncStorage.getItem('userInfo', (err, result) => {
+          const data = JSON.parse(result);
+          this.props.onOfflineData({ data });
+        });
+        // this.setState({ isAvailable: false });
       }
     });
   }
@@ -95,6 +109,7 @@ class LoginPage extends Component {
     }
   }
   render() {
+    console.log(this.state);
     return (
       <MainPage
         email={this.state.email}
@@ -115,6 +130,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onLogin: (emailId, registrationId) => dispatch(action.userLoginRequest(emailId, registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+  onOfflineData: data => dispatch(action.userLoginSuccess(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

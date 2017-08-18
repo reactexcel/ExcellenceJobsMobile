@@ -6,9 +6,10 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, ScrollView, View, Linking } from 'react-native';
+import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
+import IsConnect from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
 
@@ -24,6 +25,7 @@ class WelcomePage extends Component {
       marker: [],
       refreshing: false,
       isClicked: false,
+      isNetwork: true,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -31,6 +33,13 @@ class WelcomePage extends Component {
     this.handleEmail = this.handleEmail.bind(this);
   }
   componentWillMount() {
+    IsConnect().then((data) => {
+      if (data) {
+        this.setState({ isNetwork: true });
+      } else {
+        this.setState({ isNetwork: false });
+      }
+    });
     const ret = [];
     ret.push({
       coordinates: {
@@ -50,6 +59,9 @@ class WelcomePage extends Component {
         });
       }
     });
+    if (this.props.user.userLogin.isSuccess) {
+      AsyncStorage.setItem('userInfo', JSON.stringify(this.props.user.userLogin.data));
+    }
   }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
@@ -70,11 +82,20 @@ class WelcomePage extends Component {
     }
   }
   _handleRefresh() {
-    AsyncStorage.getItem('user', (err, result) => {
-      this.setState({ refreshing: true });
-      const user = JSON.parse(result);
-      this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
-    });
+    this.setState({ refreshing: true });
+    if (this.state.isNetwork === true) {
+      AsyncStorage.getItem('user', (err, result) => {
+        const user = JSON.parse(result);
+        this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+      });
+    } else if (this.state.isNetwork === false) {
+      this.setState({ refreshing: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('No Connection');
+      }
+    }
   }
   _onListItemPress(item) {
     const roundMark = this.state.isClicked;
@@ -109,6 +130,8 @@ class WelcomePage extends Component {
     Linking.openURL(`mailto:${email}`);
   }
   render() {
+    console.log(this.state);
+    console.log(this.props.user);
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
@@ -116,6 +139,7 @@ class WelcomePage extends Component {
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}
+            isNetwork={this.state.isNetwork}
             username={userData}
             refreshing={this.state.refreshing}
             isClicked={this.state.isClicked}
