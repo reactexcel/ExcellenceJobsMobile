@@ -6,7 +6,7 @@ class IconWithButton extends Component {
     return (
       <Button full style={this.props.style.callButton} onPress={this.props.handlePress} >
         <Icon name={this.props.iconName} style={this.props.style.contactIcon} />
-        {/* <Text style={this.props.style.contact} > {this.props.textContent}</Text> */}
+        <Text style={this.props.style.contact} >{this.props.textContent}</Text>
       </Button>
     );
   }

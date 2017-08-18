@@ -11,9 +11,12 @@ import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
+
 const DeviceInfo = require('react-native-device-info');
+
 import style from '../components/home/styles';
 import IconWithButton from '../components/button/buttonwithicon';
+
 class WelcomePage extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +43,8 @@ class WelcomePage extends Component {
     this.setState({ marker: ret });
     listenNotification().then((notif) => {
       if (notif !== undefined) {
-        handleNotification(notif).then((handle) => {
+        handleNotification(notif).then((data) => {
+          const handle = JSON.parse(data);
           this.setState({ refreshing: true });
           this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
@@ -124,8 +128,8 @@ class WelcomePage extends Component {
           />
         </ScrollView>
         <View style={style.emailContainer}>
-          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent={'Contact Us'} />
-          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent="d" />
+          <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
+          <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />
         </View>
       </View>
     );
