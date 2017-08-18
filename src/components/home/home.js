@@ -5,21 +5,21 @@
  */
 
 import React, { Component } from 'react';
-import { ListItem, Text, Fab, Body, Right, Icon, Button } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
-import CustomHeader from '../header/header';
+import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
+import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import style from './styles';
+import MapMarker from '../map/map';
+import IconWithButton from '../button/buttonwithicon';
 
 class HomePage extends Component {
   render() {
     return (
       <View style={style.mainContainer}>
-        <CustomHeader name={this.props.username.name} onPress={() => this.props.handleSignOut()} />
-        <View style={style.mainContainer}>
+        <View >
           <Text style={style.contentHeader}>
             Registration ID : {this.props.username.registration_id}
           </Text>
-          <View style={style.statusStyle}>
+          <View style={style.viewContainer}>
             <Text style={style.titleText}>
               Application Status
             </Text>
@@ -46,7 +46,7 @@ class HomePage extends Component {
                 <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                   <View style={style.viewMargin}>
                     <Text style={style.jobtitle}>
-                      Round Details
+                      Job Description
                     </Text>
                     <Text style={style.viewMargin} >{item.info}</Text>
                   </View>
@@ -54,18 +54,11 @@ class HomePage extends Component {
               </View> : null}
             </View>)}
           />
-          <View style={style.emailContainer}>
-            <Button full style={style.callButton} onPress={() => { this.props.handleCall(); }} >
-              <Icon name="ios-call-outline" style={style.contactIcon} />
-              <Text style={style.contact} > Contact Us</Text>
-            </Button>
-            <View style={style.line} />
-            <Button full style={style.callButton} onPress={() => { this.props.handleEmail(); }} >
-              <Icon name="ios-mail-outline" style={style.contactIcon} />
-              <Text style={style.contact} > Email Us</Text>
-            </Button>
-          </View>
         </View>
+        <View style={style.mapContainer}>
+          <MapMarker {...this.props} openMap={this.props.openMap} />
+        </View>
+
       </View>
     );
   }
