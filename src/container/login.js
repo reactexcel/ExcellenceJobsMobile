@@ -20,6 +20,7 @@ class LoginPage extends Component {
       isNetwork: true,
     };
     this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleNetwork = this.handleNetwork.bind(this);
   }
   componentWillMount() {
     IsConnect().then((data) => {
@@ -29,6 +30,7 @@ class LoginPage extends Component {
         this.setState({ isNetwork: false });
       }
     });
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
@@ -67,16 +69,33 @@ class LoginPage extends Component {
       }
     });
   }
+  handleNetwork(isconnect) {
+    this.setState({ isNetwork: isconnect });
+  }
   _handleSubmit() {
     this.setState({ isAvailable: false });
-    if (this.state.email !== '') {
+    if (this.state.email !== '' && this.state.registrationid !== '' && this.state.isNetwork) {
       this.props.onLogin({ email_id: this.state.email, registration_id: this.state.registrationid });
-    } else {
-      this.setState({ isAvailable: true, email: '' });
+    } else if (this.state.email === '') {
+      this.setState({ isAvailable: true });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert('Enter Your Email');
+      }
+    } else if (this.state.registrationid === '') {
+      this.setState({ isAvailable: true });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Registration Id', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Registration Id');
+      }
+    } else if (this.state.isNetwork === false) {
+      this.setState({ isAvailable: true });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('No Connection');
       }
     }
   }
