@@ -5,9 +5,10 @@ import { HEXCOLOR } from '../../style/hexcolor';
 module.exports = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
+    // margin: 5,
     marginLeft: 5,
     marginTop: 5,
-    marginBottom: 11,
+    marginBottom: 10,
     width: width - 12,
     height: height - 435.5,
     borderWidth: 0.5,
