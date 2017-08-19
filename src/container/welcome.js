@@ -23,7 +23,6 @@ class WelcomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      marker: [],
       refreshing: false,
       isClicked: false,
       isNetwork: true,
@@ -121,15 +120,6 @@ class WelcomePage extends Component {
       const device_id = DeviceInfo.getUniqueID();
       this.props.onLogOut({ email_id: user.email, device_id });
     });
-  }
-  _redirectToMap() {
-    Linking.canOpenURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`).then((supported) => {
-      if (supported) {
-        Linking.openURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`);
-      } else {
-        console.log('Don\'t know how to go');
-      }
-    }).catch(err => console.error('An error occurred', err));
   }
   handleCall() {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;

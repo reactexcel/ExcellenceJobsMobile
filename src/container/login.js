@@ -42,7 +42,7 @@ class LoginPage extends Component {
     listenNotification().then((notif) => {
       if (notif !== undefined) {
         handleNotification(notif).then((data) => {
-          const handle = JSON.parse(data);
+          const handle= JSON.parse(data);
           this.setState({ email: handle.email, registrationid: handle.registrationid });
           this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
