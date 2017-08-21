@@ -129,8 +129,7 @@ class WelcomePage extends Component {
     }else if(Platform.OS === 'android'){
      url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     }
-    console.log(url);
-        Linking.openURL(url);
+    Linking.openURL(url);
   }
   handleCall() {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
