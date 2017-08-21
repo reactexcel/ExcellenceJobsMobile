@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid } from 'react-native';
+import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect, IsConnectListener } from '../service/connection';
@@ -129,7 +129,7 @@ class WelcomePage extends Component {
     }else if(Platform.OS === 'android'){
      url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     }
-        Linking.openURL(url);
+    Linking.openURL(url);
   }
   handleCall() {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
