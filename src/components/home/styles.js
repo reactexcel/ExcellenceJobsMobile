@@ -4,7 +4,6 @@ import { HEXCOLOR } from '../../style/hexcolor';
 module.exports = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    borderWidth: 1,
     backgroundColor: 'white',
   },
   contentHeader: {

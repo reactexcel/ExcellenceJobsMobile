@@ -123,13 +123,14 @@ class WelcomePage extends Component {
     });
   }
   _redirectToMap() {
-    Linking.canOpenURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`).then((supported) => {
-      if (supported) {
-        Linking.openURL(`geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`);
-      } else {
-        console.log('Don\'t know how to go');
-      }
-    }).catch(err => console.error('An error occurred', err));
+    let url = '';
+    if(Platform.OS === 'ios'){
+     url = `http://maps.apple.com/?daddr=${this.props.user.userLogin.data.data.office_location.lat},${this.props.user.userLogin.data.data.office_location.long}`;
+    }else if(Platform.OS === 'android'){
+     url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
+    }
+    console.log(url);
+        Linking.openURL(url);
   }
   handleCall() {
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
@@ -140,7 +141,6 @@ class WelcomePage extends Component {
     Linking.openURL(`mailto:${email}`);
   }
   render() {
-    console.log(this.props.user);
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
