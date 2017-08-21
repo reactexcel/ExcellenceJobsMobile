@@ -129,7 +129,6 @@ class WelcomePage extends Component {
     }else if(Platform.OS === 'android'){
      url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     }
-    console.log(url);
         Linking.openURL(url);
   }
   handleCall() {
@@ -145,7 +144,7 @@ class WelcomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <ScrollView scrollEnabled={(Platform.OS==="ios")? this.state.isClicked:true} >
+        <ScrollView scrollEnabled={(Platform.OS === 'ios') ? this.state.isClicked : true} >
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}
