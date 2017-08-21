@@ -145,7 +145,7 @@ class WelcomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <ScrollView >
+        <ScrollView scrollEnabled={(Platform.OS==="ios")? this.state.isClicked:true} >
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}

@@ -24,7 +24,7 @@ class HomePage extends Component {
           </Text>
         </View>
       </View>
-  );
+    );
     return (
       <View style={style.mainContainer}>
         <View>
