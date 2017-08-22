@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid } from 'react-native';
+import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid,AlertIOS } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect, IsConnectListener } from '../service/connection';
@@ -144,7 +144,7 @@ class WelcomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <ScrollView scrollEnabled={(Platform.OS==="ios")? this.state.isClicked:true} >
+        {/* <ScrollVie          > */}
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}
@@ -157,7 +157,7 @@ class WelcomePage extends Component {
             handleCall={() => { this.handleCall(); }}
             handleEmail={() => { this.handleEmail(); }}
           />
-        </ScrollView>
+        {/* </ScrollView> */}
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
           <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />
