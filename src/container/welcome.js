@@ -124,10 +124,10 @@ class WelcomePage extends Component {
   }
   _redirectToMap() {
     let url = '';
-    if(Platform.OS === 'ios'){
-     url = `http://maps.apple.com/?daddr=${this.props.user.userLogin.data.data.office_location.lat},${this.props.user.userLogin.data.data.office_location.long}`;
-    }else if(Platform.OS === 'android'){
-     url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
+    if (Platform.OS === 'ios') {
+      url = `http://maps.apple.com/?daddr=${this.props.user.userLogin.data.data.office_location.lat},${this.props.user.userLogin.data.data.office_location.long}`;
+    } else if (Platform.OS === 'android') {
+      url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     }
     Linking.openURL(url);
   }
@@ -144,18 +144,18 @@ class WelcomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-          <HomePage
-            marker={this.state.marker}
-            userinfo={userData.rounds}
-            username={userData}
-            refreshing={this.state.refreshing}
-            isClicked={this.state.isClicked}
-            onListItemPress={(item) => { this._onListItemPress(item); }}
-            handleRefresh={() => { this._handleRefresh(); }}
-            openMap={() => { this._redirectToMap(); }}
-            handleCall={() => { this.handleCall(); }}
-            handleEmail={() => { this.handleEmail(); }}
-          />
+        <HomePage
+          marker={this.state.marker}
+          userinfo={userData.rounds}
+          username={userData}
+          refreshing={this.state.refreshing}
+          isClicked={this.state.isClicked}
+          onListItemPress={(item) => { this._onListItemPress(item); }}
+          handleRefresh={() => { this._handleRefresh(); }}
+          openMap={() => { this._redirectToMap(); }}
+          handleCall={() => { this.handleCall(); }}
+          handleEmail={() => { this.handleEmail(); }}
+        />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
           <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />
