@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native';
 import { HEXCOLOR } from '../../style/hexcolor';
 
-
 module.exports = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: 'white',
   },
   contentHeader: {
     alignSelf: 'center',
     marginLeft: 10,
-    marginTop: 10,
+    marginTop: 8,
     fontSize: 19.5,
     color: HEXCOLOR.GreyColor,
-    marginBottom: 10,
+    marginBottom: 8,
   },
   listitem: {
     marginLeft: 0,
@@ -47,7 +47,7 @@ module.exports = StyleSheet.create({
     color: HEXCOLOR.SanMarino,
   },
   titleText: {
-    margin: 12,
+    margin: 8,
     fontWeight: 'bold',
   },
   viewBorder: {
@@ -75,8 +75,6 @@ module.exports = StyleSheet.create({
   },
   callButton: {
     flex: 1,
-    // borderRightWidth: 1,
-    // borderColor: HEXCOLOR.GreyColor,
     backgroundColor: HEXCOLOR.CloudBurst,
   },
   emailContainer: {
@@ -97,6 +95,13 @@ module.exports = StyleSheet.create({
     justifyContent: 'center',
   },
   statusStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  mapContainer: {
+    backgroundColor: 'white',
+  },
+  viewContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AlertIOS, AsyncStorage, Platform, ToastAndroid } from 'react-native';
+import { AlertIOS, AsyncStorage, Platform, ToastAndroid, NetInfo } from 'react-native';
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
+import { IsConnect } from '../service/connection';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -16,10 +17,20 @@ class LoginPage extends Component {
       isloading: false,
       isAvailable: true,
       registrationid: '',
+      isNetwork: true,
     };
     this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleNetwork = this.handleNetwork.bind(this);
   }
   componentWillMount() {
+    IsConnect().then((data) => {
+      if (data) {
+        this.setState({ isNetwork: true });
+      } else {
+        this.setState({ isNetwork: false });
+      }
+    });
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
@@ -30,7 +41,8 @@ class LoginPage extends Component {
     this.setState({ isAvailable: false });
     listenNotification().then((notif) => {
       if (notif !== undefined) {
-        handleNotification(notif).then((handle) => {
+        handleNotification(notif).then((data) => {
+          const handle = JSON.parse(data);
           this.setState({ email: handle.email, registrationid: handle.registrationid });
           this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
         });
@@ -41,7 +53,14 @@ class LoginPage extends Component {
         const user = JSON.parse(result);
         if (user.email !== '') {
           this.setState({ email: user.email, registrationid: user.registrationid });
-          this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+          if (this.state.isNetwork) {
+            this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+          } else {
+            AsyncStorage.getItem('userInfo', (err, result) => {
+              const data = JSON.parse(result);
+              this.props.onOfflineData({ data });
+            });
+          }
         } else {
           this.setState({ isAvailable: true });
         }
@@ -50,16 +69,33 @@ class LoginPage extends Component {
       }
     });
   }
+  handleNetwork(isconnect) {
+    this.setState({ isNetwork: isconnect });
+  }
   _handleSubmit() {
     this.setState({ isAvailable: false });
-    if (this.state.email !== '') {
+    if (this.state.email !== '' && this.state.registrationid !== '' && this.state.isNetwork) {
       this.props.onLogin({ email_id: this.state.email, registration_id: this.state.registrationid });
-    } else {
-      this.setState({ isAvailable: true, email: '' });
+    } else if (this.state.email === '') {
+      this.setState({ isAvailable: true });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Your Email', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert('Enter Your Email');
+      }
+    } else if (this.state.registrationid === '') {
+      this.setState({ isAvailable: true });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Registration Id', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Registration Id');
+      }
+    } else if (this.state.isNetwork === false) {
+      this.setState({ isAvailable: true });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('No Connection');
       }
     }
   }
@@ -114,6 +150,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onLogin: (emailId, registrationId) => dispatch(action.userLoginRequest(emailId, registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+  onOfflineData: data => dispatch(action.userLoginSuccess(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
