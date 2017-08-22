@@ -6,13 +6,10 @@ import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.evollu.react.fcm.FIRMessagingPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
 
 
 import java.util.Arrays;
@@ -30,9 +27,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new MapsPackage(),
-            new FIRMessagingPackage(),
-            new RNDeviceInfo(),
 	  new MapsPackage(),
 	  new RNDeviceInfo(),
 	  new FIRMessagingPackage()
