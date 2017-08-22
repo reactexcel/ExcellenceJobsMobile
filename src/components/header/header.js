@@ -26,7 +26,7 @@ export default class CustomHeader extends Component {
               />
             </Button>
           </Right>
-        : null}
+          : Platform.OS === 'ios' ? <Right /> : null}
       </Header>
     );
   }
