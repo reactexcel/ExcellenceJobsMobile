@@ -8,6 +8,7 @@ export default class CustomHeader extends Component {
   render() {
     return (
       <Header androidStatusBarColor={HEXCOLOR.PickledBluewood} style={style.headerColor}>
+        <Left/>
         <Body>
           <Title>
             <Text style={style.headerTitle}>{this.props.name}</Text>
@@ -17,6 +18,7 @@ export default class CustomHeader extends Component {
           <Right>
             <Button transparent>
               <Icon
+                style={style.headerTitle}
                 onPress={() => {
                   this.props.onPress();
                 }}

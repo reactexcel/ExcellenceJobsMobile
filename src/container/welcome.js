@@ -144,7 +144,6 @@ class WelcomePage extends Component {
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <ScrollView>
           <HomePage
             marker={this.state.marker}
             userinfo={userData.rounds}
@@ -157,7 +156,6 @@ class WelcomePage extends Component {
             handleCall={() => { this.handleCall(); }}
             handleEmail={() => { this.handleEmail(); }}
           />
-        </ScrollView>
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
           <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />

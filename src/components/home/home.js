@@ -25,6 +25,11 @@ class HomePage extends Component {
         </View>
       </View>
     );
+    const renderFooter = () => (
+      <View style={style.mapContainer}>
+        <MapMarker {...this.props} openMap={this.props.openMap} />
+      </View>
+    );
     return (
       <View style={style.mainContainer}>
         <View>
@@ -34,6 +39,7 @@ class HomePage extends Component {
             refreshing={this.props.refreshing}
             onRefresh={() => { this.props.handleRefresh(); }}
             ListHeaderComponent={renderHeader}
+            ListFooterComponent={renderFooter}
             renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
               <View >
                 <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
@@ -60,10 +66,7 @@ class HomePage extends Component {
             </View>)}
           />
         </View>
-        <View style={style.mapContainer}>
-          <MapMarker {...this.props} openMap={this.props.openMap} />
-        </View>
-      </View>
+    </View>
     );
   }
 }
