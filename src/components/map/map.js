@@ -19,6 +19,8 @@ class MapMarker extends React.Component {
         <MapView
           style={style.map}
           mapType="standard"
+          cacheEnabled={false}
+          loadingEnabled={true}
           scrollEnabled={false}
           showsMyLocationButton
           initialRegion={{
