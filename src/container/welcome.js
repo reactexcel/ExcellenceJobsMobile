@@ -6,16 +6,14 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, ScrollView, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS } from 'react-native';
+import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import DeviceInfo from 'react-native-device-info';
 import { listenNotification, handleNotification } from '../service/notification';
-import { IsConnect, IsConnectListener } from '../service/connection';
+import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
 import CustomHeader from '../components/header/header';
-
-const DeviceInfo = require('react-native-device-info');
-
 import style from '../components/home/styles';
 import IconWithButton from '../components/button/buttonwithicon';
 
@@ -58,7 +56,7 @@ class WelcomePage extends Component {
         handleNotification(notif).then((data) => {
           const handle = JSON.parse(data);
           this.setState({ refreshing: true });
-          this.props.onLogin({ email_id: handle.email, registration_id: handle.registrationid });
+          this.props.onLogin({ registration_id: handle.registrationid });
         });
       }
     });
@@ -71,9 +69,8 @@ class WelcomePage extends Component {
       this.setState({ refreshing: false });
     }
     if (props.user.userLogout.isSuccess) {
-      const email = { email: '' };
-      const data = '';
-      AsyncStorage.setItem('user', JSON.stringify(email));
+      const data = { registrationid: '' };
+      AsyncStorage.setItem('user', JSON.stringify(data));
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -94,7 +91,7 @@ class WelcomePage extends Component {
         this.setState({ isNetwork: true });
         AsyncStorage.getItem('user', (err, result) => {
           const user = JSON.parse(result);
-          this.props.onLogin({ email_id: user.email, registration_id: user.registrationid });
+          this.props.onLogin({ registration_id: user.registrationid });
         });
       } else {
         this.setState({ isNetwork: false });
@@ -119,7 +116,7 @@ class WelcomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
       const device_id = DeviceInfo.getUniqueID();
-      this.props.onLogOut({ email_id: user.email, device_id });
+      this.props.onLogOut({ email_id: this.props.user.userLogin.data.email, device_id });
     });
   }
   _redirectToMap() {
@@ -171,7 +168,7 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = dispatch => ({
-  onLogin: (emailId, registrationId) => dispatch(action.userLoginRequest(emailId, registrationId)),
+  onLogin: registrationId => dispatch(action.userLoginRequest(registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
   onLogOut: (userId, deviceId) => dispatch(action.userLogoutRequest(userId, deviceId)),
 

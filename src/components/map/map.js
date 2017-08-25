@@ -1,16 +1,12 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
-  Text,
-  Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import MapView from 'react-native-maps';
-import { Button, Icon } from 'native-base';
+import { Icon } from 'native-base';
 import style from './styles';
 
-const { width, height } = Dimensions.get('window');
 
 class MapMarker extends React.Component {
   render() {
@@ -20,8 +16,8 @@ class MapMarker extends React.Component {
           style={style.map}
           mapType="standard"
           cacheEnabled={false}
-          loadingEnabled={true}
-          scrollEnabled={false}
+          loadingEnabled
+          scrollEnabled
           showsMyLocationButton
           initialRegion={{
             latitude: this.props.username.office_location.long,

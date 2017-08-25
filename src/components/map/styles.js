@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions,Platform } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 import { HEXCOLOR } from '../../style/hexcolor';
@@ -11,7 +11,7 @@ module.exports = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     width: width - 12,
-    height: (Platform.OS ===  'ios')? height - 390 :height - 420.5,
+    height: (Platform.OS === 'ios') ? height - 390 : 250,
     borderWidth: 0.5,
     borderColor: HEXCOLOR.GreyColor,
     borderRadius: 2,
@@ -28,7 +28,7 @@ module.exports = StyleSheet.create({
   openMap: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: (Platform.OS ===  'ios')?230:160,
+    marginTop: (Platform.OS === 'ios') ? 230 : 200,
     marginRight: 15,
   },
   mapIconColor: {

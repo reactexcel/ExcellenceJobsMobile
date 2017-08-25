@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Platform } from 'react-native';
-import { Header, Left, Body, Right, Button, Icon, Title, Thumbnail } from 'native-base';
+import { Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import style from './style';
 import { HEXCOLOR } from '../../style/hexcolor';
 
