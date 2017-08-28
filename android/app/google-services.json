@@ -1,43 +1,43 @@
 {
   "project_info": {
-    "project_number": "968117996720",
-    "firebase_url": "https://hrrecruit-8c1cc.firebaseio.com",
-    "project_id": "hrrecruit-8c1cc",
-    "storage_bucket": "hrrecruit-8c1cc.appspot.com"
+    "project_number": "47633179666",
+    "firebase_url": "https://excellene-jobs.firebaseio.com",
+    "project_id": "excellene-jobs",
+    "storage_bucket": "excellene-jobs.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:968117996720:android:d39d42f0c47d6ff9",
+        "mobilesdk_app_id": "1:47633179666:android:b589066be7304c61",
         "android_client_info": {
-          "package_name": "com.hrrecruit"
+          "package_name": "com.excellence.jobs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "968117996720-4rthpo5l7r64jidjm691f7lr7bntleka.apps.googleusercontent.com",
+          "client_id": "47633179666-ub82u47akhd9fi1rvptnbr87vecv4nfl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.hrrecruit",
+            "package_name": "com.excellence.jobs",
             "certificate_hash": "052dda60050c34c0b99738dcb0ebed0bbea1f628"
           }
         },
         {
-          "client_id": "968117996720-6div64e7pih3ni57j8f9dd0flba3d5su.apps.googleusercontent.com",
+          "client_id": "47633179666-cn6e52re1p33fbr44h3rmv6l190eonep.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.hrrecruit",
+            "package_name": "com.excellence.jobs",
             "certificate_hash": "353f0999630c04bee641af3d05ee66642366c18f"
           }
         },
         {
-          "client_id": "968117996720-onnv686oh3oic958st6dvje6k34a90gp.apps.googleusercontent.com",
+          "client_id": "47633179666-0rb4t7en8t1nafqr3557f27fogerptkn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDJU42WOdCsGw2vNbnbklK1Z3DkXV_0YgU"
+          "current_key": "AIzaSyD_TTT36TpGhDNh3xVkV5RZyB219qcy3vE"
         }
       ],
       "services": {
@@ -48,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "968117996720-onnv686oh3oic958st6dvje6k34a90gp.apps.googleusercontent.com",
+              "client_id": "47633179666-0rb4t7en8t1nafqr3557f27fogerptkn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
