@@ -1,4 +1,4 @@
-package com.hrrecruit;
+package com.excellence.jobs;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;

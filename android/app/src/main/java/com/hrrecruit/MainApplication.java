@@ -1,4 +1,4 @@
-package com.hrrecruit;
+package com.excellence.jobs;
 
 import android.app.Application;
 
