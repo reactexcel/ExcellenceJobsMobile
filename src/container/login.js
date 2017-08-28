@@ -93,7 +93,7 @@ class LoginPage extends Component {
   }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
-      this.props.onDeviceSave({ email_id: props.user.userLogin.data.email, device_id: this.state.deviceId, token: this.state.token });
+      this.props.onDeviceSave({ email_id: props.user.userLogin.data.data.email, device_id: this.state.deviceId, token: this.state.token });
       const success = props.user.userLogin.data.data;
       AsyncStorage.setItem('user', JSON.stringify({ registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));

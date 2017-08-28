@@ -116,7 +116,7 @@ class WelcomePage extends Component {
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
       const device_id = DeviceInfo.getUniqueID();
-      this.props.onLogOut({ email_id: this.props.user.userLogin.data.email, device_id });
+      this.props.onLogOut({ email_id: this.props.user.userLogin.data.data.email, device_id });
     });
   }
   _redirectToMap() {
