@@ -5,22 +5,21 @@
  */
 
 import React, { Component } from 'react';
-import { ListItem, Text, Body, Right, Icon, Card, CardItem } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { ListItem, Text, Body, Right, Icon } from 'native-base';
+import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import style from './styles';
 import MapMarker from '../map/map';
-import IconWithButton from '../button/buttonwithicon';
 
 class HomePage extends Component {
   render() {
     const renderHeader = () => (
       <View>
         <Text style={style.contentHeader}>
-        Registration ID : {this.props.username.registration_id}
+           Registration ID : {this.props.username.registration_id}
         </Text>
         <View style={style.viewContainer}>
           <Text style={style.titleText}>
-        Application Status
+         Application Status
           </Text>
         </View>
       </View>
@@ -57,7 +56,7 @@ class HomePage extends Component {
                 <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                   <View style={style.viewMargin}>
                     <Text style={style.jobtitle}>
-                      Job Description
+                       Job Description
                     </Text>
                     <Text style={style.viewMargin} >{item.info}</Text>
                   </View>
@@ -66,7 +65,7 @@ class HomePage extends Component {
             </View>)}
           />
         </View>
-    </View>
+      </View>
     );
   }
 }
