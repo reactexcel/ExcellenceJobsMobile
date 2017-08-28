@@ -26,7 +26,7 @@
     </service>
     <meta-data
        android:name="com.google.android.geo.API_KEY"
-       android:value="AIzaSyBgp5Kbn36m2zq2r70Qe5RNR96lM7w9KKo"/>
+       android:value="AIzaSyBCaOV7p1VEyg3dx0SPWrOAiUvg9Z-TJ6E"/>
 
     <service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
       <intent-filter>
