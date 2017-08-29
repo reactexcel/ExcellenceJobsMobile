@@ -86,23 +86,20 @@ class WelcomePage extends Component {
   }
   _handleRefresh() {
     this.setState({ refreshing: true });
-    IsConnect().then((data) => {
-      if (data) {
-        this.setState({ isNetwork: true });
-        AsyncStorage.getItem('user', (err, result) => {
-          const user = JSON.parse(result);
-          this.props.onLogin({ registration_id: user.registrationid });
-        });
-      } else {
-        this.setState({ isNetwork: false });
-        this.setState({ refreshing: false });
-        if (Platform.OS === 'android') {
-          ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-        } else if (Platform.OS === 'ios') {
-          AlertIOS.alert('No Connection');
-        }
+    if (this.state.isNetwork) {
+      this.setState({ isNetwork: true });
+      AsyncStorage.getItem('user', (err, result) => {
+        const user = JSON.parse(result);
+        this.props.onLogin({ registration_id: user.registrationid });
+      });
+    } else {
+      this.setState({ refreshing: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('No Connection', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('No Connection');
       }
-    });
+    }
   }
   _onListItemPress(item) {
     const roundMark = this.state.isClicked;
