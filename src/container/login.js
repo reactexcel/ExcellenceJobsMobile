@@ -98,7 +98,7 @@ class LoginPage extends Component {
       AsyncStorage.setItem('user', JSON.stringify({ registrationid: this.state.registrationid }));
       AsyncStorage.setItem('userdata', JSON.stringify(success));
       if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity(`welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+        ToastAndroid.showWithGravity(`Welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
