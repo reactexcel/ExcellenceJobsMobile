@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS } from 'react-native';
+import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
 import { listenNotification, handleNotification } from '../service/notification';
@@ -31,8 +31,10 @@ class WelcomePage extends Component {
     this.handleCall = this.handleCall.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
+    this.handleAppStatus = this.handleAppStatus.bind(this);
   }
   componentWillMount() {
+    AppState.addEventListener('change', this.handleAppStatus);
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -51,15 +53,6 @@ class WelcomePage extends Component {
       description: 'C-86 B, Second Floor, sector 8, Noida',
     });
     this.setState({ marker: ret });
-    listenNotification().then((notif) => {
-      if (notif !== undefined) {
-        handleNotification(notif).then((data) => {
-          const handle = JSON.parse(data);
-          this.setState({ refreshing: true });
-          this.props.onLogin({ registration_id: handle.registrationid });
-        });
-      }
-    });
     if (this.props.user.userLogin.isSuccess) {
       AsyncStorage.setItem('userInfo', JSON.stringify(this.props.user.userLogin.data));
     }
@@ -79,6 +72,29 @@ class WelcomePage extends Component {
         key: null,
       });
       this.props.navigation.dispatch(resetAction);
+    }
+  }
+  handleAppStatus() {
+    if (AppState.currentState === 'active') {
+      listenNotification().then((notif) => {
+        if (notif !== undefined) {
+          handleNotification(notif).then((data) => {
+            const handle = JSON.parse(data);
+            this.setState({ refreshing: true });
+            this.props.onLogin({ registration_id: handle.registrationid });
+          });
+        }
+      });
+    } else {
+      listenNotification().then((notif) => {
+        if (notif !== undefined) {
+          handleNotification(notif).then((data) => {
+            const handle = JSON.parse(data);
+            this.setState({ refreshing: true });
+            this.props.onLogin({ registration_id: handle.registrationid });
+          });
+        }
+      });
     }
   }
   handleNetwork(isconnect) {
