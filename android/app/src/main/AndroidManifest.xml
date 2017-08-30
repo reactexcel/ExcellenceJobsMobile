@@ -47,7 +47,24 @@
       <category android:name="android.intent.category.DEFAULT" />
     </intent-filter>
       </activity>
+      <activity
+        android:name="com.yourapp.SplashActivity"
+        android:label="@string/app_name"
+        android:launchMode="singleTask">
+        <intent-filter>
+           <data android:scheme="excellencejobs" android:host="open" />
+           <action android:name="android.intent.action.VIEW" />
+           <category android:name="android.intent.category.DEFAULT" />
+           <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+      </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_govrZ3vSnGFLZI2jCC0SlcfcEwdWvD3t" />
+      <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        <intent-filter>
+          <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+      </receiver>
     </application>
 
 </manifest>

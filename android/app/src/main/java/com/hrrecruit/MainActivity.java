@@ -2,8 +2,8 @@ package com.excellence.jobs;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
-
-
+import android.content.Intent;
+import io.branch.rnbranch.*;
 
 public class MainActivity extends ReactActivity {
 
@@ -16,8 +16,13 @@ public class MainActivity extends ReactActivity {
         return "HrRecruit";
     }
     @Override
+    protected void onStart() {
+        super.onStart();
+        RNBranchModule.initSession(this.getIntent().getData(), this);
+    }
+    @Override
     public void onNewIntent (Intent intent) {
       super.onNewIntent(intent);
        setIntent(intent);
-    }  
+    }
 }
