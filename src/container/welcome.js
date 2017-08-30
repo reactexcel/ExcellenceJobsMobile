@@ -119,7 +119,7 @@ class WelcomePage extends Component {
   _redirectToMap() {
     let url = '';
     if (Platform.OS === 'ios') {
-      url = `http://maps.apple.com/?daddr=${this.props.user.userLogin.data.data.office_location.lat},${this.props.user.userLogin.data.data.office_location.long}`;
+      url = `http://maps.apple.com/maps?q=${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     } else if (Platform.OS === 'android') {
       url = `geo:${this.props.user.userLogin.data.data.office_location.long},${this.props.user.userLogin.data.data.office_location.lat}`;
     }
