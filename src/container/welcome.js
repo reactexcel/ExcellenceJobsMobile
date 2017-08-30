@@ -48,7 +48,7 @@ class WelcomePage extends Component {
         longitude: this.props.user.userLogin.data.data.office_location.lat,
       },
       title: 'Excellence Technologies',
-      description: 'C 84, 3rd Floor sector 8, Noida',
+      description: 'C-86 B, Second Floor, sector 8, Noida',
     });
     this.setState({ marker: ret });
     listenNotification().then((notif) => {
