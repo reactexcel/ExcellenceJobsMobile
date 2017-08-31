@@ -6,22 +6,37 @@
 
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, Modal } from 'react-native';
 import style from './styles';
 import MapMarker from '../map/map';
+import EditForm from '../modal/modal';
 
 class HomePage extends Component {
   render() {
     const renderHeader = () => (
       <View>
         <Text style={style.contentHeader}>
-           Registration ID : {this.props.username.registration_id}
+          Registration ID : {this.props.username.registration_id}
         </Text>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Text style={{ fontSize: 19 }}>Mobile No. :- </Text>
+          <Text style={{ fontSize: 16, marginTop: 3 }}>
+            {this.props.username.mobile_no !== null ? this.props.username.mobile_no : 'Update Your Mobile Number'}
+          </Text>
+          <Icon style={{ marginLeft: 5 }} onPress={() => { this.props.showModal(); }} name="ios-create-outline" />
+        </View>
         <View style={style.viewContainer}>
           <Text style={style.titleText}>
-         Application Status
+            Application Status
           </Text>
         </View>
+        <EditForm
+          modal={this.props.modal}
+          closeModal={this.props.closeModal}
+          numberSubmit={this.props.numberSubmit}
+          handleNumberChange={this.props.handleNumberChange}
+          number={this.props.number}
+        />
       </View>
     );
     const renderFooter = () => (

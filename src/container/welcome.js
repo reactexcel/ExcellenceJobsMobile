@@ -22,9 +22,11 @@ class WelcomePage extends Component {
     super(props);
     this.state = {
       marker: [],
+      mobileNumber: '',
       refreshing: false,
       isClicked: false,
       isNetwork: true,
+      showModal: false,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -32,6 +34,10 @@ class WelcomePage extends Component {
     this.handleEmail = this.handleEmail.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
     this.handleAppStatus = this.handleAppStatus.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.numberSubmit = this.numberSubmit.bind(this);
   }
   componentWillMount() {
     AppState.addEventListener('change', this.handleAppStatus);
@@ -60,6 +66,9 @@ class WelcomePage extends Component {
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
       this.setState({ refreshing: false });
+    }
+    if (props.user.mobile.isSuccess) {
+      this.props.onLogin({ registration_id: props.user.userLogin.data.data.registration_id });
     }
     if (props.user.userLogout.isSuccess) {
       const data = { registrationid: '' };
@@ -149,6 +158,31 @@ class WelcomePage extends Component {
     const email = this.props.user.userLogin.data.data.app_hr_contact_email;
     Linking.openURL(`mailto:${email}`);
   }
+  showModal() {
+    this.setState({ showModal: true });
+  }
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+  handleNumberChange(number) {
+    this.setState({ mobileNumber: number });
+  }
+  numberSubmit(number) {
+    this.setState({ showModal: false });
+    if (number.length !== 10) {
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Vaild Mobile Number');
+      }
+    } else {
+      const newnumber = `+91${number}`;
+      this.props.onMobileNumberUpdate({
+        email_id: this.props.user.userLogin.data.data.email,
+        registration_id: this.props.user.userLogin.data.data.registration_id,
+        mobile_no: newnumber });
+    }
+  }
   render() {
     const userData = this.props.user.userLogin.data.data;
     return (
@@ -165,6 +199,12 @@ class WelcomePage extends Component {
           openMap={() => { this._redirectToMap(); }}
           handleCall={() => { this.handleCall(); }}
           handleEmail={() => { this.handleEmail(); }}
+          modal={this.state.showModal}
+          showModal={this.showModal}
+          closeModal={this.closeModal}
+          handleNumberChange={this.handleNumberChange}
+          numberSubmit={this.numberSubmit}
+          number={this.state.mobileNumber}
         />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
@@ -183,6 +223,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   onLogin: registrationId => dispatch(action.userLoginRequest(registrationId)),
   onDeviceSave: (emailId, deviceId, token) => dispatch(action.deviceDataRequest(emailId, deviceId, token)),
+  onMobileNumberUpdate: (emailId, registrationId, mobileNumber) => dispatch(action.mobileNumberUpdateRequest(emailId, registrationId, mobileNumber)),
   onLogOut: (userId, deviceId) => dispatch(action.userLogoutRequest(userId, deviceId)),
 
 });
