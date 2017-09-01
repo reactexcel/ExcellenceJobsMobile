@@ -41,7 +41,6 @@ class WelcomePage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.numberSubmit = this.numberSubmit.bind(this);
-    // this.rateus = this.rateus.bind(this);
   }
   componentWillMount() {
     AppState.addEventListener('change', this.handleAppStatus);
