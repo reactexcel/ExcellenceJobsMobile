@@ -23,8 +23,11 @@ class LoginPage extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
   }
-  componentWillMount() {
+  componentWillMount(props) {
     this.setState({ isAvailable: false });
+    if (this.props.user.userLogin.isSuccess) {
+      this.setState({ isAvailable: true });
+    }
     FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
@@ -50,8 +53,8 @@ class LoginPage extends Component {
       }
     });
     branch.subscribe((bundle) => {
-      if (bundle && bundle.params && !bundle.error && bundle.params.$userID) {
-        const registrationid = bundle.params.$userID;
+      if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
+        const registrationid = bundle.params.$deeplink_path;
         this.setState({ registrationid });
         this.props.onLogin({ registration_id: registrationid });
       } else {
