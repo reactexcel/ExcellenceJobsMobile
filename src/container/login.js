@@ -4,10 +4,12 @@ import { AlertIOS, AsyncStorage, Platform, ToastAndroid, NetInfo } from 'react-n
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import branch from 'react-native-branch';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect } from '../service/connection';
+
 
 class LoginPage extends Component {
   constructor(props) {
@@ -22,14 +24,7 @@ class LoginPage extends Component {
     this.handleNetwork = this.handleNetwork.bind(this);
   }
   componentWillMount() {
-    IsConnect().then((data) => {
-      if (data) {
-        this.setState({ isNetwork: true });
-      } else {
-        this.setState({ isNetwork: false });
-      }
-    });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+    this.setState({ isAvailable: false });
     FCM.requestPermissions();
     FCM.getFCMToken().then((token) => {
       this.setState({
@@ -37,7 +32,6 @@ class LoginPage extends Component {
         deviceId: DeviceInfo.getUniqueID(),
       });
     });
-    this.setState({ isAvailable: false });
     listenNotification().then((notif) => {
       if (notif !== undefined) {
         handleNotification(notif).then((data) => {
@@ -47,24 +41,40 @@ class LoginPage extends Component {
         });
       }
     });
-    AsyncStorage.getItem('user', (err, result) => {
-      if (result !== null) {
-        const user = JSON.parse(result);
-        if (user.registrationid !== '') {
-          this.setState({ registrationid: user.registrationid });
-          if (this.state.isNetwork) {
-            this.props.onLogin({ registration_id: user.registrationid });
-          } else {
-            AsyncStorage.getItem('userInfo', (err, result) => {
-              const data = JSON.parse(result);
-              this.props.onOfflineData({ data });
-            });
-          }
-        } else {
-          this.setState({ isAvailable: true });
-        }
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+    IsConnect().then((data) => {
+      if (data) {
+        this.setState({ isNetwork: true });
       } else {
-        this.setState({ isAvailable: true });
+        this.setState({ isNetwork: false });
+      }
+    });
+    branch.subscribe((bundle) => {
+      if (bundle && bundle.params && !bundle.error && bundle.params.$userID) {
+        const registrationid = bundle.params.$userID;
+        this.setState({ registrationid });
+        this.props.onLogin({ registration_id: registrationid });
+      } else {
+        AsyncStorage.getItem('user', (err, result) => {
+          if (result !== null) {
+            const user = JSON.parse(result);
+            if (user.registrationid !== '') {
+              this.setState({ registrationid: user.registrationid });
+              if (this.state.isNetwork) {
+                this.props.onLogin({ registration_id: user.registrationid });
+              } else {
+                AsyncStorage.getItem('userInfo', (err, result) => {
+                  const data = JSON.parse(result);
+                  this.props.onOfflineData({ data });
+                });
+              }
+            } else {
+              this.setState({ isAvailable: true });
+            }
+          } else {
+            this.setState({ isAvailable: true });
+          }
+        });
       }
     });
   }
