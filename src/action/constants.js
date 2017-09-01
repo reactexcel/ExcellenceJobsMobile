@@ -12,3 +12,8 @@ export const USER_LOGOUT_FAILED = 'auth/logout/failed';
 export const DEVICE_DATA_REQUEST = 'auth/deviceData/request';
 export const DEVICE_DATA_SUCCESS = 'auth/deviceData/success';
 export const DEVICE_DATA_FAILED = 'auth/deviceData/failed';
+
+// Mobile Number Update
+export const MOBILE_UPDATE_REQUEST = 'auth/mobileUpdate/request';
+export const MOBILE_UPDATE_SUCCESS = 'auth/mobileUpdate/success';
+export const MOBILE_UPDATE_FAILED = 'auth/mobileUpdate/failed';

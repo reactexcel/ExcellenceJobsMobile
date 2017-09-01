@@ -22,11 +22,18 @@ export const initialState = {
     isSuccess: false,
     isError: false,
   },
+  mobile: {
+    data: [],
+    error: [],
+    isSuccess: false,
+    isError: false,
+  },
 };
 
 const userLoginSuccess = (state, action) => update(state, {
   userLogin: { $setRequestSuccess: action.payload },
   userLogout: { $setRequestFailed: [] },
+  mobile: { $setRequestFailed: [] },
 });
 
 const userLoginFailed = (state, action) => update(state, {
@@ -49,6 +56,14 @@ const userLogoutFailed = (state, action) => update(state, {
   userLogout: { $setRequestFailed: action.payload },
 });
 
+const mobileUpdateSuccess = (state, action) => update(state, {
+  mobile: { $setRequestSuccess: action.payload },
+});
+
+const mobileUpdateFailed = (state, action) => update(state, {
+  mobile: { $setRequestFailed: action.payload },
+});
+
 
 export default handleActions({
   [constants.USER_LOGIN_SUCCESS]: userLoginSuccess,
@@ -59,4 +74,7 @@ export default handleActions({
 
   [constants.DEVICE_DATA_SUCCESS]: deviceDataSuccess,
   [constants.DEVICE_DATA_FAILED]: deviceDataFailed,
+
+  [constants.MOBILE_UPDATE_SUCCESS]: mobileUpdateSuccess,
+  [constants.MOBILE_UPDATE_FAILED]: mobileUpdateFailed,
 }, initialState);
