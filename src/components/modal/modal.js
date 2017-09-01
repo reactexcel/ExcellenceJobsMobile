@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Modal } from 'react-native';
 import { Text, Button, Icon, Item, Input, Label, Form } from 'native-base';
+import styles from './style';
 
 class EditForm extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class EditForm extends Component {
   }
   render() {
     return (
-      <View style={{ marginTop: 30 }}>
+      <View style={styles.mainContainer}>
         <Modal
           animationType={'fade'}
           transparent
@@ -27,24 +28,16 @@ class EditForm extends Component {
           onRequestClose={() => { this.props.closeModal(); }}
         >
           <View
-            style={{
-              marginTop: 220,
-              marginBottom: 90,
-              marginLeft: 10,
-              marginRight: 10,
-              borderRadius: 5,
-              backgroundColor: 'white',
-            }}
+            style={styles.form}
             elevation={3}
           >
-            <Text style={{ alignSelf: 'center', marginTop: 5, fontSize: 18, marginBottom: 5 }}>Update Mobile Number</Text>
-            {/* <View > */}
+            <Text style={styles.title}>Update Mobile Number</Text>
             <Form>
               <Item floatingLabel >
                 <Label style={{ marginLeft: 5, justifyContent: 'center', paddingTop: 5 }}> Mobile Number</Label>
                 <Input keyboardType="numeric" value={this.state.number} onChangeText={(number) => { this.setState({ number }); }} />
               </Item>
-              <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <View style={styles.buttonContainer}>
                 <Button transparent onPress={() => { this.props.numberSubmit(this.state.number); }}>
                   <Text >Submit</Text>
                 </Button>
@@ -53,7 +46,6 @@ class EditForm extends Component {
                 </Button>
               </View>
             </Form>
-            {/* </View> */}
           </View>
         </Modal>
       </View>
