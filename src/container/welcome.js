@@ -71,6 +71,11 @@ class WelcomePage extends Component {
       this.setState({ refreshing: false });
     }
     if (props.user.mobile.isSuccess) {
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity(props.user.mobile.data.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert(props.user.mobile.data.message);
+      }
       this.props.onLogin({ registration_id: props.user.userLogin.data.data.registration_id });
     }
     if (props.user.userLogout.isSuccess) {
@@ -171,7 +176,6 @@ class WelcomePage extends Component {
     this.setState({ mobileNumber: number });
   }
   numberSubmit(number) {
-    this.setState({ showModal: false });
     if (number.length !== 10) {
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
@@ -179,6 +183,7 @@ class WelcomePage extends Component {
         AlertIOS.alert('Enter Vaild Mobile Number');
       }
     } else {
+      this.setState({ showModal: false });
       const newnumber = `+91${number}`;
       this.props.onMobileNumberUpdate({
         email_id: this.props.user.userLogin.data.data.email,
