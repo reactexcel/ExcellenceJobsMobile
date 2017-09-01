@@ -9,6 +9,14 @@ class EditForm extends Component {
       number: '',
     };
   }
+  componentWillMount() {
+    const number = this.props.number;
+    if (number !== null && number.length === 13) {
+      this.setState({ number: number.substr(3, 10) });
+    } else {
+      this.setState({ number });
+    }
+  }
   render() {
     return (
       <View style={{ marginTop: 30 }}>
@@ -29,11 +37,12 @@ class EditForm extends Component {
             }}
             elevation={3}
           >
-            <Text style={{ alignSelf: 'center', marginTop: 5, fontSize: 18 }}>Update Mobile Number</Text>
+            <Text style={{ alignSelf: 'center', marginTop: 5, fontSize: 18, marginBottom: 5 }}>Update Mobile Number</Text>
+            {/* <View > */}
             <Form>
               <Item floatingLabel >
-                <Label style={{ marginLeft: 5, justifyContent: 'center' }}> Mobile Number</Label>
-                <Input keyboardType="numeric" maxLength={10} value={this.state.number} onChangeText={(number) => { this.setState({ number }); }} />
+                <Label style={{ marginLeft: 5, justifyContent: 'center', paddingTop: 5 }}> Mobile Number</Label>
+                <Input keyboardType="numeric" value={this.state.number} onChangeText={(number) => { this.setState({ number }); }} />
               </Item>
               <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <Button transparent onPress={() => { this.props.numberSubmit(this.state.number); }}>
@@ -44,7 +53,7 @@ class EditForm extends Component {
                 </Button>
               </View>
             </Form>
-
+            {/* </View> */}
           </View>
         </Modal>
       </View>

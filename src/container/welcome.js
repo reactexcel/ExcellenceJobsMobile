@@ -60,11 +60,14 @@ class WelcomePage extends Component {
     });
     this.setState({ marker: ret });
     if (this.props.user.userLogin.isSuccess) {
+      console.log(this.props.user.userLogin.data.data.mobile_no);
+      this.setState({ mobileNumber: this.props.user.userLogin.data.data.mobile_no });
       AsyncStorage.setItem('userInfo', JSON.stringify(this.props.user.userLogin.data));
     }
   }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
+      this.setState({ mobileNumber: props.user.userLogin.data.data.mobile_no });
       this.setState({ refreshing: false });
     }
     if (props.user.mobile.isSuccess) {
