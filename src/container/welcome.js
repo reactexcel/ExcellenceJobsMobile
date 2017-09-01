@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import RatingRequestor from 'react-native-rating-requestor';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
@@ -23,10 +24,12 @@ class WelcomePage extends Component {
     this.state = {
       marker: [],
       mobileNumber: '',
+      RatingTracker: new RatingRequestor('com.excellence.jobs'),
       refreshing: false,
       isClicked: false,
       isNetwork: true,
       showModal: false,
+      refresh: false,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -60,7 +63,6 @@ class WelcomePage extends Component {
     });
     this.setState({ marker: ret });
     if (this.props.user.userLogin.isSuccess) {
-      console.log(this.props.user.userLogin.data.data.mobile_no);
       this.setState({ mobileNumber: this.props.user.userLogin.data.data.mobile_no });
       AsyncStorage.setItem('userInfo', JSON.stringify(this.props.user.userLogin.data));
     }
@@ -79,6 +81,7 @@ class WelcomePage extends Component {
       this.props.onLogin({ registration_id: props.user.userLogin.data.data.registration_id });
     }
     if (props.user.userLogout.isSuccess) {
+      this.setState({ refresh: false });
       const data = { registrationid: '' };
       AsyncStorage.setItem('user', JSON.stringify(data));
       const resetAction = NavigationActions.reset({
@@ -143,6 +146,7 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
+    this.setState({ refresh: true });
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
       const device_id = DeviceInfo.getUniqueID();
@@ -191,7 +195,11 @@ class WelcomePage extends Component {
         mobile_no: newnumber });
     }
   }
+  rateus() {
+    this.state.RatingTracker.handlePositiveEvent();
+  }
   render() {
+    this.rateus();
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
@@ -213,6 +221,7 @@ class WelcomePage extends Component {
           handleNumberChange={this.handleNumberChange}
           numberSubmit={this.numberSubmit}
           number={this.state.mobileNumber}
+          refresh={this.state.refresh}
         />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
