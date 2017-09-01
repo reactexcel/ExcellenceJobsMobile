@@ -1,7 +1,8 @@
 package com.excellence.jobs;
 
 import android.app.Application;
-
+import io.branch.rnbranch.*;
+import io.branch.referral.Branch;
 import com.facebook.react.ReactApplication;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
@@ -29,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
 	  new MapsPackage(),
 	  new RNDeviceInfo(),
-	  new FIRMessagingPackage()
+	  new FIRMessagingPackage(),
+    new RNBranchPackage()
       );
     }
   };
@@ -42,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Branch.getAutoInstance(this);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
