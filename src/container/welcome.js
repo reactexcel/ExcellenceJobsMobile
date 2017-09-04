@@ -147,6 +147,7 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
+    this.rateus();
     this.setState({ refresh: true });
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
@@ -164,10 +165,12 @@ class WelcomePage extends Component {
     Linking.openURL(url);
   }
   handleCall() {
+    this.rateus();
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
   }
   handleEmail() {
+    this.rateus();
     const email = this.props.user.userLogin.data.data.app_hr_contact_email;
     Linking.openURL(`mailto:${email}`);
   }
@@ -182,21 +185,7 @@ class WelcomePage extends Component {
   }
   numberSubmit(number) {
     this.setState({ isSubmit: true });
-    if (number === null) {
-      this.setState({ isSubmit: false });
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Mobile Number');
-      }
-    } else if (number.length !== 10) {
-      this.setState({ isSubmit: false });
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Vaild Mobile Number');
-      }
-    } else {
+    if (/^[0-9]{10}$/.test(+number)) {
       this.setState({ isSubmit: false });
       this.setState({ showModal: false });
       const newnumber = `+91${number}`;
@@ -204,13 +193,20 @@ class WelcomePage extends Component {
         email_id: this.props.user.userLogin.data.data.email,
         registration_id: this.props.user.userLogin.data.data.registration_id,
         mobile_no: newnumber });
+    } else {
+      this.setState({ isSubmit: false });
+      this.setState({ showModal: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Vaild Mobile Number');
+      }
     }
   }
   rateus() {
-    this.state.RatingTracker.handlePositiveEvent();
+    this.state.RatingTracker.showRatingDialog();
   }
   render() {
-    this.rateus();
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
