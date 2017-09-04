@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback, Modal, ActivityIndicator } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
 import style from './styles';
 import MapMarker from '../map/map';
 import EditForm from '../modal/modal';
@@ -20,7 +20,7 @@ class HomePage extends Component {
           Registration ID : {this.props.username.registration_id}
         </Text>
         <View style={style.emailContainer}>
-          <Text style={style.mobileTitleText}>Mobile No. :- </Text>
+          <Text style={style.mobileTitleText}>Mobile No. :  </Text>
           <Text style={style.mobilleNumberText}>
             {this.props.username.mobile_no !== null ? this.props.username.mobile_no : 'Update Your Mobile Number'}
           </Text>
@@ -57,6 +57,7 @@ class HomePage extends Component {
             <FlatList
               keyExtractor={item => item.text}
               data={this.props.userinfo}
+              keyboardShouldPersistTaps="always"
               refreshing={this.props.refreshing}
               onRefresh={() => { this.props.handleRefresh(); }}
               ListHeaderComponent={renderHeader}

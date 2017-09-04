@@ -5,7 +5,7 @@ module.exports = StyleSheet.create({
     marginTop: 30,
   },
   form: {
-    marginTop: 220,
+    marginTop: 200,
     marginBottom: 90,
     marginLeft: 10,
     marginRight: 10,
