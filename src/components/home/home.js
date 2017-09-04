@@ -14,7 +14,6 @@ import { HEXCOLOR } from '../../style/hexcolor';
 
 class HomePage extends Component {
   render() {
-    console.log(this.props);
     const renderHeader = () => (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
