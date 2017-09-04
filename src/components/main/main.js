@@ -20,8 +20,14 @@ class MainPage extends Component {
                   name="ios-contact-outline"
                   style={{ color: 'white' }}
                 />
-                <Label style={{ marginLeft: 5, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
-                <Input style={style.inputStyle} value={this.props.registrationid} onChangeText={(text) => { this.props.changeId(text); }} />
+                <Label style={{ marginLeft: 5, paddingTop: 2, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Input
+                  style={style.inputStyle}
+                  value={this.props.registrationid}
+                  onSubmitEditing={() => { this.props.handleKeyboardSubmit(); }}
+                  onChangeText={(text) => { this.props.changeId(text); }}
+                />
+
               </Item>
               <Button rounded style={style.button} onPress={() => { this.props.handleSubmit(); }} >
                 <Text style={style.buttonText}>Go</Text>

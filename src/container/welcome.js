@@ -31,6 +31,7 @@ class WelcomePage extends Component {
       showModal: false,
       refresh: false,
       isSubmit: false,
+      jobTitle: false,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -42,6 +43,7 @@ class WelcomePage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.numberSubmit = this.numberSubmit.bind(this);
+    this._handleJobTitlePress = this._handleJobTitlePress.bind(this);
   }
   componentWillMount() {
     AppState.addEventListener('change', this.handleAppStatus);
@@ -206,6 +208,9 @@ class WelcomePage extends Component {
   rateus() {
     this.state.RatingTracker.showRatingDialog();
   }
+  _handleJobTitlePress() {
+    this.setState({ jobTitle: !this.state.jobTitle });
+  }
   render() {
     const userData = this.props.user.userLogin.data.data;
     return (
@@ -230,6 +235,8 @@ class WelcomePage extends Component {
           number={this.state.mobileNumber}
           refresh={this.state.refresh}
           isSubmit={this.state.isSubmit}
+          onJobTitlePress={() => { this._handleJobTitlePress(); }}
+          jobTitle={this.state.jobTitle}
         />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />

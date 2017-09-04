@@ -140,6 +140,7 @@ class LoginPage extends Component {
         isAvailable={this.state.isAvailable}
         registrationid={this.state.registrationid}
         handleSubmit={() => { this._handleSubmit(); }}
+        handleKeyboardSubmit={() => { this._handleSubmit(); }}
         changeId={(text) => { this.setState({ registrationid: text }); }}
       />
     );

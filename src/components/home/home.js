@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity } from 'react-native';
 import style from './styles';
 import MapMarker from '../map/map';
 import EditForm from '../modal/modal';
@@ -16,11 +16,31 @@ class HomePage extends Component {
   render() {
     const renderHeader = () => (
       <View>
-        <Text style={style.contentHeader}>
-          Registration ID : {this.props.username.registration_id}
-        </Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Text style={style.contentHeader}>
+            Registration ID :
+          </Text>
+          <Text style={style.contentHeaderTitles} >
+            {this.props.username.registration_id}
+          </Text>
+        </View>
+        <TouchableOpacity onPress={() => { this.props.onJobTitlePress(); }} >
+          <View style={style.headerContent} >
+            <Text style={style.contentTitle}>
+              Job Title :
+            </Text>
+            <Text style={style.contentTitles}>
+              {this.props.username.job_title}
+            </Text>
+          </View>
+        </TouchableOpacity>
+        {this.props.jobTitle ? <View style={style.jobTitleDescp}>
+          <Text style={style.viewMargin}>
+            {this.props.username.job_description}
+          </Text>
+        </View> : null}
         <View style={style.emailContainer}>
-          <Text style={style.mobileTitleText}>Mobile No. :  </Text>
+          <Text style={style.mobileTitleText}>Mobile No :  </Text>
           <Text style={style.mobilleNumberText}>
             {this.props.username.mobile_no !== null ? this.props.username.mobile_no : 'Update Your Mobile Number'}
           </Text>

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
   mainContainer: {
-    marginTop: 30,
+    marginTop: 5,
   },
   form: {
     marginTop: 200,
