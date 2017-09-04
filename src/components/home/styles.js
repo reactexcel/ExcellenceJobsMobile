@@ -8,21 +8,31 @@ module.exports = StyleSheet.create({
   },
   headerContent: {
     margin: 10,
+    marginBottom: 8,
     flexDirection: 'row',
+  },
+  jobTitleDescp: {
+    margin: 5,
+  },
+  contentHeaderTitles: {
+    paddingTop: 10,
+    paddingLeft: 8,
+    fontSize: 18.5,
+    color: HEXCOLOR.GreyColor,
   },
   contentHeader: {
     alignSelf: 'center',
     marginLeft: 10,
     marginTop: 8,
     fontSize: 19.5,
-    color: HEXCOLOR.GreyColor,
+    fontWeight: 'bold',
   },
   contentTitle: {
     fontSize: 18.5,
     fontWeight: 'bold',
   },
   contentTitles: {
-    paddingLeft: 4,
+    paddingLeft: 8,
     fontSize: 18.5,
     color: HEXCOLOR.GreyColor,
   },
@@ -60,7 +70,23 @@ module.exports = StyleSheet.create({
   },
   titleText: {
     margin: 8,
+    fontSize: 17.5,
     fontWeight: 'bold',
+  },
+  mobileTitleText: {
+    marginLeft: 8,
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  mobilleNumberText: {
+    fontSize: 16,
+    paddingTop: 1,
+    color: HEXCOLOR.GreyColor,
+  },
+  editIcon: {
+    paddingTop: 2,
+    marginLeft: 10,
+    fontSize: 18.5,
   },
   viewBorder: {
     borderWidth: 3,
@@ -90,11 +116,8 @@ module.exports = StyleSheet.create({
     backgroundColor: HEXCOLOR.CloudBurst,
   },
   emailContainer: {
-    // flex: 1,
-    // paddingBottom: 20,
+    marginTop: 2,
     flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'flex-end',
   },
   emailButton: {
     marginRight: 10,
@@ -114,7 +137,12 @@ module.exports = StyleSheet.create({
     backgroundColor: 'white',
   },
   viewContainer: {
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  refresh: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });

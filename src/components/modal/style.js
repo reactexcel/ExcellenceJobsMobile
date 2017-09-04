@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
   mainContainer: {
-    marginTop: 10,
+    marginTop: 5,
   },
   form: {
-    marginTop: 220,
+    marginTop: 200,
     marginBottom: 90,
     marginLeft: 10,
     marginRight: 10,
@@ -25,6 +25,10 @@ module.exports = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  buttonStyle: {
+    flex: 1,
     justifyContent: 'center',
   },
 });
