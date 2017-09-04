@@ -19,12 +19,12 @@ class HomePage extends Component {
         <Text style={style.contentHeader}>
           Registration ID : {this.props.username.registration_id}
         </Text>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Text style={{ fontSize: 19 }}>Mobile No. :- </Text>
-          <Text style={{ fontSize: 16, marginTop: 3 }}>
+        <View style={style.emailContainer}>
+          <Text style={style.mobileTitleText}>Mobile No. :- </Text>
+          <Text style={style.mobilleNumberText}>
             {this.props.username.mobile_no !== null ? this.props.username.mobile_no : 'Update Your Mobile Number'}
           </Text>
-          <Icon style={{ marginLeft: 5 }} onPress={() => { this.props.showModal(); }} name="ios-create-outline" />
+          <Icon style={style.editIcon} onPress={() => { this.props.showModal(); }} name="md-create" />
         </View>
         <View style={style.viewContainer}>
           <Text style={style.titleText}>
