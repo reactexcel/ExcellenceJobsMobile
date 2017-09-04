@@ -36,6 +36,7 @@ class HomePage extends Component {
           numberSubmit={this.props.numberSubmit}
           handleNumberChange={this.props.handleNumberChange}
           number={this.props.number}
+          isSubmit={this.props.isSubmit}
         />
       </View>
     );

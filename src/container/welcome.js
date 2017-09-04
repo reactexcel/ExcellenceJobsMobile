@@ -30,6 +30,7 @@ class WelcomePage extends Component {
       isNetwork: true,
       showModal: false,
       refresh: false,
+      isSubmit: false,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -180,13 +181,23 @@ class WelcomePage extends Component {
     this.setState({ mobileNumber: number });
   }
   numberSubmit(number) {
-    if (number.length !== 10) {
+    this.setState({ isSubmit: true });
+    if (number === null) {
+      this.setState({ isSubmit: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Mobile Number');
+      }
+    } else if (number.length !== 10) {
+      this.setState({ isSubmit: false });
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert('Enter Vaild Mobile Number');
       }
     } else {
+      this.setState({ isSubmit: false });
       this.setState({ showModal: false });
       const newnumber = `+91${number}`;
       this.props.onMobileNumberUpdate({
@@ -222,6 +233,7 @@ class WelcomePage extends Component {
           numberSubmit={this.numberSubmit}
           number={this.state.mobileNumber}
           refresh={this.state.refresh}
+          isSubmit={this.state.isSubmit}
         />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
