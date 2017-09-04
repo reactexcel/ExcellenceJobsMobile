@@ -44,10 +44,10 @@ class EditForm extends Component {
                 </View>
                 :
                 <View style={styles.buttonContainer}>
-                  <Button transparent onPress={() => { this.props.numberSubmit(this.state.number); }}>
+                  <Button transparent style={styles.buttonStyle} onPress={() => { this.props.numberSubmit(this.state.number); }}>
                     <Text >Submit</Text>
                   </Button>
-                  <Button transparent onPress={() => { this.props.closeModal(); }}>
+                  <Button transparent style={styles.buttonStyle} onPress={() => { this.props.closeModal(); }}>
                     <Text >Cancel</Text>
                   </Button>
                 </View>

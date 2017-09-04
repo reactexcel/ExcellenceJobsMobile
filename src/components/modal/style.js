@@ -27,4 +27,8 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  buttonStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
