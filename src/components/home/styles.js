@@ -105,4 +105,8 @@ module.exports = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  refresh: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
