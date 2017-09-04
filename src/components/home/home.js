@@ -13,11 +13,20 @@ import EditForm from '../modal/modal';
 
 class HomePage extends Component {
   render() {
+    console.log(this.props);
     const renderHeader = () => (
       <View>
         <Text style={style.contentHeader}>
           Registration ID : {this.props.username.registration_id}
         </Text>
+        <View style={style.headerContent} >
+          <Text style={style.contentTitle}>
+            Job Title :
+          </Text>
+          <Text style={style.contentTitles}>
+            {this.props.username.job_title}
+          </Text>
+        </View>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Text style={{ fontSize: 19 }}>Mobile No. :- </Text>
           <Text style={{ fontSize: 16, marginTop: 3 }}>
@@ -71,7 +80,7 @@ class HomePage extends Component {
                 <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                   <View style={style.viewMargin}>
                     <Text style={style.jobtitle}>
-                       Job Description
+                      Description
                     </Text>
                     <Text style={style.viewMargin} >{item.info}</Text>
                   </View>

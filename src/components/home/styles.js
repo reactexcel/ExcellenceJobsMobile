@@ -6,13 +6,25 @@ module.exports = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  headerContent: {
+    margin: 10,
+    flexDirection: 'row',
+  },
   contentHeader: {
     alignSelf: 'center',
     marginLeft: 10,
     marginTop: 8,
     fontSize: 19.5,
     color: HEXCOLOR.GreyColor,
-    marginBottom: 8,
+  },
+  contentTitle: {
+    fontSize: 18.5,
+    fontWeight: 'bold',
+  },
+  contentTitles: {
+    paddingLeft: 4,
+    fontSize: 18.5,
+    color: HEXCOLOR.GreyColor,
   },
   listitem: {
     marginLeft: 0,

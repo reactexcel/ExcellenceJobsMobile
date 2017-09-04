@@ -2,7 +2,7 @@ import { StackNavigator } from 'react-navigation';
 import LoginPage from './login';
 import WelcomePage from './welcome';
 
-const App = StackNavigator({
+const Root = StackNavigator({
   Main: { screen: LoginPage },
   Drawer: { screen: WelcomePage },
 },
@@ -13,4 +13,4 @@ const App = StackNavigator({
     },
   },
 );
-export default App;
+export default Root;
