@@ -50,6 +50,19 @@ module.exports = StyleSheet.create({
     margin: 8,
     fontWeight: 'bold',
   },
+  mobileTitleText: {
+    marginLeft: 8,
+    fontSize: 17,
+  },
+  mobilleNumberText: {
+    fontSize: 16,
+    paddingTop: 2,
+  },
+  editIcon: {
+    paddingTop: 2,
+    marginLeft: 10,
+    fontSize: 20,
+  },
   viewBorder: {
     borderWidth: 3,
     borderColor: HEXCOLOR.SilverSand,
@@ -104,5 +117,9 @@ module.exports = StyleSheet.create({
   viewContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  refresh: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });

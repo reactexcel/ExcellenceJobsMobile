@@ -30,6 +30,7 @@ class WelcomePage extends Component {
       isNetwork: true,
       showModal: false,
       refresh: false,
+      isSubmit: false,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -146,6 +147,7 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
+    this.rateus();
     this.setState({ refresh: true });
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
@@ -163,10 +165,12 @@ class WelcomePage extends Component {
     Linking.openURL(url);
   }
   handleCall() {
+    this.rateus();
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
   }
   handleEmail() {
+    this.rateus();
     const email = this.props.user.userLogin.data.data.app_hr_contact_email;
     Linking.openURL(`mailto:${email}`);
   }
@@ -180,26 +184,29 @@ class WelcomePage extends Component {
     this.setState({ mobileNumber: number });
   }
   numberSubmit(number) {
-    if (number.length !== 10) {
-      if (Platform.OS === 'android') {
-        ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-      } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Vaild Mobile Number');
-      }
-    } else {
+    this.setState({ isSubmit: true });
+    if (/^[0-9]{10}$/.test(+number)) {
+      this.setState({ isSubmit: false });
       this.setState({ showModal: false });
       const newnumber = `+91${number}`;
       this.props.onMobileNumberUpdate({
         email_id: this.props.user.userLogin.data.data.email,
         registration_id: this.props.user.userLogin.data.data.registration_id,
         mobile_no: newnumber });
+    } else {
+      this.setState({ isSubmit: false });
+      this.setState({ showModal: false });
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+      } else if (Platform.OS === 'ios') {
+        AlertIOS.alert('Enter Vaild Mobile Number');
+      }
     }
   }
   rateus() {
-    this.state.RatingTracker.handlePositiveEvent();
+    this.state.RatingTracker.showRatingDialog();
   }
   render() {
-    this.rateus();
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
@@ -222,6 +229,7 @@ class WelcomePage extends Component {
           numberSubmit={this.numberSubmit}
           number={this.state.mobileNumber}
           refresh={this.state.refresh}
+          isSubmit={this.state.isSubmit}
         />
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
