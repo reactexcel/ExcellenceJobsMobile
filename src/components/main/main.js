@@ -18,9 +18,9 @@ class MainPage extends Component {
               <Item floatingLabel >
                 <Icon
                   name="ios-contact-outline"
-                  style={{ color: 'white' }}
+                  style={{ color: 'white', marginTop: 2.5 }}
                 />
-                <Label style={{ marginLeft: 5, paddingTop: 2, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration Id </Label>
+                <Label style={{ marginLeft: 5, paddingTop: 1.8, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration No </Label>
                 <Input
                   style={style.inputStyle}
                   value={this.props.registrationid}
