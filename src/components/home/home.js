@@ -92,7 +92,9 @@ class HomePage extends Component {
                     {item.status == '1' ?
                       <Right style={style.listright}>
                         <Icon name="star" active style={style.selected} />
-                      </Right> : null}
+                      </Right> : <Right style={style.listright}>
+                        <Icon name="md-checkmark-circle-outline" active style={style.selected} />
+                      </Right> }
                   </ListItem>
                 </View>
                 {this.props.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
