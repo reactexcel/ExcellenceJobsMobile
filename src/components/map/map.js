@@ -37,7 +37,7 @@ class MapMarker extends React.Component {
         </MapView>
         <View style={style.openMap}>
           <TouchableOpacity onPress={() => { this.props.openMap(); }}>
-            <Icon name="md-map" style={style.mapIconColor} />
+            <Icon name="md-locate" style={style.mapIconColor} />
           </TouchableOpacity>
         </View>
       </View>

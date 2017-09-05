@@ -1,6 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { HEXCOLOR } from '../../style/hexcolor';
 
+const { width, height } = Dimensions.get('window');
 const style = StyleSheet.create({
   outerContainer: {
     flex: 1,
@@ -9,9 +10,19 @@ const style = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
+    alignItems: 'center',
+  },
+  newInnerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   viewHeight: {
     height: 140,
+  },
+  imageHeight: {
+    width,
+    flex: 0,
   },
   textinputLabel: {
     marginLeft: 5,
@@ -42,6 +53,7 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     width: 300,
     justifyContent: 'center',
+    marginLeft: 10,
     marginTop: 30,
     marginBottom: 20,
   },
