@@ -26,7 +26,7 @@ class WelcomePage extends Component {
       mobileNumber: '',
       RatingTracker: new RatingRequestor('com.excellence.jobs'),
       refreshing: false,
-      isClicked: false,
+      isClicked: true,
       isNetwork: true,
       showModal: false,
       refresh: false,

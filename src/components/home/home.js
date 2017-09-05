@@ -101,7 +101,7 @@ class HomePage extends Component {
                   <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
                     <View style={style.viewMargin}>
                       <Text style={style.jobtitle}>
-                      Job Description
+                        Interview Details
                       </Text>
                       <Text style={style.viewMargin} >{item.info}</Text>
                     </View>
