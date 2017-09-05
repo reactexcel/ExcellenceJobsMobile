@@ -38,6 +38,13 @@
 		2DCD954D1E0B4F2C00145EB5 /* HrRecruitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HrRecruitTests.m */; };
 		2F83510B29434621ABB00383 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2A6D4C016804249BAAB2916 /* EvilIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		602BD9841F5E81F500CEFB43 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 602BD9831F5E81F500CEFB43 /* GoogleService-Info.plist */; };
+		602BD9EA1F5E93F100CEFB43 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 602BD9E91F5E93F100CEFB43 /* main.jsbundle */; };
+		602BD9F81F5EA2B300CEFB43 /* Branch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9F71F5EA2B300CEFB43 /* Branch.framework */; };
+		602BD9FB1F5EA3B100CEFB43 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9FA1F5EA3B100CEFB43 /* AdSupport.framework */; };
+		602BD9FD1F5EA3BD00CEFB43 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9FC1F5EA3BD00CEFB43 /* CoreSpotlight.framework */; };
+		602BD9FF1F5EA3C700CEFB43 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9FE1F5EA3C700CEFB43 /* MobileCoreServices.framework */; };
+		602BDA011F5EA3CF00CEFB43 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BDA001F5EA3CF00CEFB43 /* iAd.framework */; };
 		605B38631F482555009E6CF1 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605B38431F48251B009E6CF1 /* libAirMaps.a */; };
 		60654D881F2898560074FEC9 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654D871F2898550074FEC9 /* FirebaseAnalytics.framework */; };
 		60654D9C1F28993E0074FEC9 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654D9B1F28993E0074FEC9 /* FirebaseCore.framework */; };
@@ -48,7 +55,6 @@
 		60654DA61F2899560074FEC9 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA11F2899560074FEC9 /* nanopb.framework */; };
 		60654DA91F28996C0074FEC9 /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */; };
 		60654DAA1F28996C0074FEC9 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654DA81F28996C0074FEC9 /* Protobuf.framework */; };
-		608BFBF61F53F2D600CCE541 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 608BFBF51F53F2D600CCE541 /* GoogleService-Info.plist */; };
 		805945610269422F9268D8E3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F052DBA0681D420BA35FF911 /* MaterialIcons.ttf */; };
 		82086A4E1B0A48A291B09BAD /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52125B6B4F0346B3B5FB086A /* libRNFIRMessaging.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -239,6 +245,13 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		602BD9F51F5E9B2100CEFB43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 602BD9F11F5E9B2000CEFB43 /* RNBranch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3A3CC361C5B0A070016AC52;
+			remoteInfo = RNBranch;
+		};
 		605B38421F48251B009E6CF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 605B383E1F48251A009E6CF1 /* AirMaps.xcodeproj */;
@@ -305,7 +318,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -333,6 +345,14 @@
 		4C3BB0700A764D75AFDD3E77 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		52125B6B4F0346B3B5FB086A /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		602BD9831F5E81F500CEFB43 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "HrRecruit/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		602BD9E91F5E93F100CEFB43 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		602BD9F11F5E9B2000CEFB43 /* RNBranch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = RNBranch.xcodeproj; sourceTree = "<group>"; };
+		602BD9F71F5EA2B300CEFB43 /* Branch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Branch.framework; sourceTree = "<group>"; };
+		602BD9FA1F5EA3B100CEFB43 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		602BD9FC1F5EA3BD00CEFB43 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		602BD9FE1F5EA3C700CEFB43 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		602BDA001F5EA3CF00CEFB43 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		605B383E1F48251A009E6CF1 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		60654D5D1F2891EA0074FEC9 /* HrRecruit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HrRecruit.entitlements; path = HrRecruit/HrRecruit.entitlements; sourceTree = "<group>"; };
 		60654D871F2898550074FEC9 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
@@ -344,7 +364,6 @@
 		60654DA11F2899560074FEC9 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
 		60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseMessaging.framework; sourceTree = "<group>"; };
 		60654DA81F28996C0074FEC9 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Protobuf.framework; sourceTree = "<group>"; };
-		608BFBF51F53F2D600CCE541 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/excellence jobs/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		81CC6584D35846B6B567E08B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -372,6 +391,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				602BDA011F5EA3CF00CEFB43 /* iAd.framework in Frameworks */,
+				602BD9FF1F5EA3C700CEFB43 /* MobileCoreServices.framework in Frameworks */,
+				602BD9FD1F5EA3BD00CEFB43 /* CoreSpotlight.framework in Frameworks */,
+				602BD9FB1F5EA3B100CEFB43 /* AdSupport.framework in Frameworks */,
 				605B38631F482555009E6CF1 /* libAirMaps.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -382,6 +405,7 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				602BD9F81F5EA2B300CEFB43 /* Branch.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				60654DA41F2899560074FEC9 /* FirebaseNanoPB.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -504,10 +528,10 @@
 			isa = PBXGroup;
 			children = (
 				60654D5D1F2891EA0074FEC9 /* HrRecruit.entitlements */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				602BD9E91F5E93F100CEFB43 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				608BFBF51F53F2D600CCE541 /* GoogleService-Info.plist */,
+				602BD9831F5E81F500CEFB43 /* GoogleService-Info.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -542,6 +566,25 @@
 				5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		602BD9F21F5E9B2000CEFB43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				602BD9F61F5E9B2100CEFB43 /* libreact-native-branch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		602BD9F91F5EA3B000CEFB43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				602BDA001F5EA3CF00CEFB43 /* iAd.framework */,
+				602BD9FE1F5EA3C700CEFB43 /* MobileCoreServices.framework */,
+				602BD9FC1F5EA3BD00CEFB43 /* CoreSpotlight.framework */,
+				602BD9FA1F5EA3B100CEFB43 /* AdSupport.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		605B383F1F48251A009E6CF1 /* Products */ = {
@@ -599,6 +642,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				602BD9F11F5E9B2000CEFB43 /* RNBranch.xcodeproj */,
 				605B383E1F48251A009E6CF1 /* AirMaps.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -629,6 +673,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				602BD9F71F5EA2B300CEFB43 /* Branch.framework */,
 				60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */,
 				60654DA81F28996C0074FEC9 /* Protobuf.framework */,
 				60654D9D1F2899560074FEC9 /* FirebaseCoreDiagnostics.framework */,
@@ -643,6 +688,7 @@
 				00E356EF1AD99517003FC87E /* HrRecruitTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				7F54941DBBFB49039C070433 /* Resources */,
+				602BD9F91F5EA3B000CEFB43 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -835,6 +881,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 602BD9F21F5E9B2000CEFB43 /* Products */;
+					ProjectRef = 602BD9F11F5E9B2000CEFB43 /* RNBranch.xcodeproj */;
+				},
+				{
 					ProductGroup = 60654D211F288B350074FEC9 /* Products */;
 					ProjectRef = AB76E1CCE6464B0098634464 /* RNDeviceInfo.xcodeproj */;
 				},
@@ -1015,6 +1065,13 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		602BD9F61F5E9B2100CEFB43 /* libreact-native-branch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libreact-native-branch.a";
+			remoteRef = 602BD9F51F5E9B2100CEFB43 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		605B38431F48251B009E6CF1 /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1094,13 +1151,14 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				608BFBF61F53F2D600CCE541 /* GoogleService-Info.plist in Resources */,
 				B07033B2B1274A96931B40B9 /* Entypo.ttf in Resources */,
 				2F83510B29434621ABB00383 /* EvilIcons.ttf in Resources */,
 				AAB3A9424AE5433698F661AD /* FontAwesome.ttf in Resources */,
 				949DC97AE5AB4D2D9C91333F /* Foundation.ttf in Resources */,
 				94996B27A2314873B5E50892 /* Ionicons.ttf in Resources */,
 				805945610269422F9268D8E3 /* MaterialIcons.ttf in Resources */,
+				602BD9841F5E81F500CEFB43 /* GoogleService-Info.plist in Resources */,
+				602BD9EA1F5E93F100CEFB43 /* main.jsbundle in Resources */,
 				E4BAA5507A6F427D868A631B /* Octicons.ttf in Resources */,
 				261230698B3E442AACC952B5 /* Roboto_medium.ttf in Resources */,
 				2290AF8B887743B899542AFB /* Roboto.ttf in Resources */,
@@ -1297,6 +1355,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"${PODS_ROOT}/../node_modules/react-native/ReactCommon/**",
+					"$(PROJECT_DIR)/Branch.framework/Header",
 				);
 				INFOPLIST_FILE = HrRecruit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1327,6 +1386,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 					"${PODS_ROOT}/../node_modules/react-native/ReactCommon/**",
+					"$(PROJECT_DIR)/Branch.framework/Header",
 				);
 				INFOPLIST_FILE = HrRecruit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

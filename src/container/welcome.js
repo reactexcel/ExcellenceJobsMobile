@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
-import RatingRequestor from 'react-native-rating-requestor';
+// import RatingRequestor from 'react-native-rating-requestor';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
@@ -24,7 +24,7 @@ class WelcomePage extends Component {
     this.state = {
       marker: [],
       mobileNumber: '',
-      RatingTracker: new RatingRequestor('com.excellence.jobs'),
+      // RatingTracker: new RatingRequestor('com.excellence.jobs'),
       refreshing: false,
       isClicked: false,
       isNetwork: true,
@@ -149,7 +149,7 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
-    this.rateus();
+    // this.rateus();
     this.setState({ refresh: true });
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
@@ -167,12 +167,12 @@ class WelcomePage extends Component {
     Linking.openURL(url);
   }
   handleCall() {
-    this.rateus();
+    // this.rateus();
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
   }
   handleEmail() {
-    this.rateus();
+    // this.rateus();
     const email = this.props.user.userLogin.data.data.app_hr_contact_email;
     Linking.openURL(`mailto:${email}`);
   }
@@ -205,9 +205,9 @@ class WelcomePage extends Component {
       }
     }
   }
-  rateus() {
-    this.state.RatingTracker.showRatingDialog();
-  }
+  // rateus() {
+  //   this.state.RatingTracker.showRatingDialog();
+  // }
   _handleJobTitlePress() {
     this.setState({ jobTitle: !this.state.jobTitle });
   }

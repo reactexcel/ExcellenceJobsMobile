@@ -4,7 +4,7 @@ import { AlertIOS, AsyncStorage, Platform, ToastAndroid, NetInfo } from 'react-n
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
-import branch from 'react-native-branch';
+// import branch from 'react-native-branch';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
@@ -52,12 +52,12 @@ class LoginPage extends Component {
         this.setState({ isNetwork: false });
       }
     });
-    branch.subscribe((bundle) => {
-      if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
-        const registrationid = bundle.params.$deeplink_path;
-        this.setState({ registrationid });
-        this.props.onLogin({ registration_id: registrationid });
-      } else {
+    // branch.subscribe((bundle) => {
+    //   if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
+    //     const registrationid = bundle.params.$deeplink_path;
+    //     this.setState({ registrationid });
+    //     this.props.onLogin({ registration_id: registrationid });
+    //   } else {
         AsyncStorage.getItem('user', (err, result) => {
           if (result !== null) {
             const user = JSON.parse(result);
@@ -78,8 +78,8 @@ class LoginPage extends Component {
             this.setState({ isAvailable: true });
           }
         });
-      }
-    });
+      // }
+    // });
   }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });
