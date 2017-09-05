@@ -11,7 +11,7 @@ class MainPage extends Component {
         <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
           <View style={style.viewHeight} >
-            <Image source={require('../../image/logo.jpg')} resizeMode="contain" style={style.logo} />
+            <Image source={require('../../image/logo.png')} resizeMode="contain" style={style.logo} />
           </View>
           {this.props.isAvailable ? (<View style={style.content}>
             <Form>
