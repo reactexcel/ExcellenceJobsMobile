@@ -28,7 +28,7 @@ module.exports = StyleSheet.create({
   openMap: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: (Platform.OS === 'ios') ? 230 : 200,
+    marginTop: (Platform.OS === 'ios') ? 230 : 205,
     marginRight: 15,
   },
   mapIconColor: {
