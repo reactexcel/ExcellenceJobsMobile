@@ -19,6 +19,7 @@ class LoginPage extends Component {
       isAvailable: true,
       registrationid: '',
       isNetwork: true,
+      bundle: false,
     };
     this._handleSubmit = this._handleSubmit.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
@@ -44,7 +45,6 @@ class LoginPage extends Component {
         });
       }
     });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -54,6 +54,7 @@ class LoginPage extends Component {
     });
     branch.subscribe((bundle) => {
       if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
+        this.setState({ isAvailable: false, bundle: true });
         const registrationid = bundle.params.$deeplink_path;
         this.setState({ registrationid });
         this.props.onLogin({ registration_id: registrationid });
@@ -80,6 +81,12 @@ class LoginPage extends Component {
         });
       }
     });
+  }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
   }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });
@@ -115,7 +122,6 @@ class LoginPage extends Component {
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      this.setState({ isAvailable: true, registrationid: '' });
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -124,6 +130,7 @@ class LoginPage extends Component {
         key: 'Drawer',
       });
       this.props.navigation.dispatch(resetAction);
+      this.setState({ isAvailable: true, registrationid: '' });
     } else if (props.user.userLogin.isError) {
       this.setState({ isAvailable: true });
       const error = props.user.userLogin.error;
@@ -138,6 +145,7 @@ class LoginPage extends Component {
     return (
       <MainPage
         isAvailable={this.state.isAvailable}
+        bundle={this.state.bundle}
         registrationid={this.state.registrationid}
         handleSubmit={() => { this._handleSubmit(); }}
         handleKeyboardSubmit={() => { this._handleSubmit(); }}

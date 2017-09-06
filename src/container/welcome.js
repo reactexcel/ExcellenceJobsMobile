@@ -54,7 +54,6 @@ class WelcomePage extends Component {
         this.setState({ isNetwork: false });
       }
     });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     const ret = [];
     ret.push({
       coordinates: {
@@ -119,6 +118,12 @@ class WelcomePage extends Component {
         }
       });
     }
+  }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
   }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });
