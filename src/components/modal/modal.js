@@ -13,7 +13,7 @@ class EditForm extends Component {
   }
   componentWillMount() {
     const number = this.props.number;
-    if (number !== null && number.length === 13) {
+    if (number !== null && number !== undefined && number.length === 13) {
       this.setState({ number: number.substr(3, 10) });
     } else {
       this.setState({ number });

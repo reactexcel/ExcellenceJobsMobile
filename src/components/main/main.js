@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, ActivityIndicator, StatusBar, Animated, Easing, TouchableHighlight } from 'react-native';
+import { Image, View, ActivityIndicator, StatusBar, Animated, Easing } from 'react-native';
 import { Text, Button, Item, Input, Label, Form, Icon } from 'native-base';
 import style from './styles';
 import { HEXCOLOR } from '../../style/hexcolor';
@@ -53,18 +53,16 @@ class MainPage extends Component {
         <StatusBar backgroundColor={HEXCOLOR.PickledBluewood} barStyle="light-content" />
         <View style={style.innerContainer}>
           <Animated.View style={{ top: introButton, position: 'absolute' }}>
-            <TouchableHighlight onPress={() => { this.animate(); }} >
-              <Animated.Image
-                resizeMode="contain"
-                style={{
-                  flex: 1,
-                  height: 150,
-                  width: 220,
-                  alignSelf: 'center',
-                }}
-                source={require('../../image/logo.png')}
-              />
-            </TouchableHighlight>
+            <Animated.Image
+              resizeMode="contain"
+              style={{
+                flex: 1,
+                height: 150,
+                width: 220,
+                alignSelf: 'center',
+              }}
+              source={require('../../image/logo.png')}
+            />
           </Animated.View>
           {this.props.isAvailable ? (<Animated.View style={{ transform: [{ scale: scaleText }], marginLeft: 10, marginRight: 20, marginTop: 128 }}>
             <Form>
