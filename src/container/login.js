@@ -81,6 +81,9 @@ class LoginPage extends Component {
       }
     });
   }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
+  }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });
   }

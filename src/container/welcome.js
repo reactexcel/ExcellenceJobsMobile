@@ -24,7 +24,7 @@ class WelcomePage extends Component {
     this.state = {
       marker: [],
       mobileNumber: '',
-      RatingTracker: new RatingRequestor('com.excellence.jobs'),
+      RatingTracker: '',
       refreshing: false,
       isClicked: true,
       isNetwork: true,
@@ -32,6 +32,9 @@ class WelcomePage extends Component {
       refresh: false,
       isSubmit: false,
       jobTitle: false,
+      rateDecline: false,
+      rateDelay: true,
+      rateAccept: 0,
     };
     this._handleSignOut = this._handleSignOut.bind(this);
     this._handleRefresh = this._handleRefresh.bind(this);
@@ -44,8 +47,22 @@ class WelcomePage extends Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.numberSubmit = this.numberSubmit.bind(this);
     this._handleJobTitlePress = this._handleJobTitlePress.bind(this);
+    this.rateus = this.rateus.bind(this);
   }
   componentWillMount() {
+    if (Platform.OS === 'android') {
+      const rate = new RatingRequestor('com.excellence.jobs', [{
+        title: 'string',
+        message: 'string',
+        actionLabels: {
+        	decline: 'Never',
+        	delay: 'Maybe Later',
+        	accept: 'Rate Us',
+        },
+        timingFunction: {},
+      }]);
+      this.setState({ RatingTracker: rate });
+    }
     AppState.addEventListener('change', this.handleAppStatus);
     IsConnect().then((data) => {
       if (data) {
@@ -74,6 +91,12 @@ class WelcomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       this.setState({ mobileNumber: props.user.userLogin.data.data.mobile_no });
       this.setState({ refreshing: false });
+      AsyncStorage.getItem('rateus', (err, result) => {
+        if (result !== null) {
+          const rate = JSON.parse(result);
+          this.setState({ rateDelay: rate.rateDelay, rateAccept: rate.rateAccept, rateDecline: rate.rateDecline });
+        }
+      });
     }
     if (props.user.mobile.isSuccess) {
       if (Platform.OS === 'android') {
@@ -87,6 +110,7 @@ class WelcomePage extends Component {
       this.setState({ refresh: false });
       const data = { registrationid: '' };
       AsyncStorage.setItem('user', JSON.stringify(data));
+      AsyncStorage.setItem('rateus', JSON.stringify({ rateDecline: false, rateDelay: true, rateAccept: 0 }));
       const resetAction = NavigationActions.reset({
         index: 0,
         actions: [
@@ -96,6 +120,12 @@ class WelcomePage extends Component {
       });
       this.props.navigation.dispatch(resetAction);
     }
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
+  }
+  handleNetwork(isconnect) {
+    this.setState({ isNetwork: isconnect });
   }
   handleAppStatus() {
     if (AppState.currentState === 'active') {
@@ -119,9 +149,6 @@ class WelcomePage extends Component {
         }
       });
     }
-  }
-  handleNetwork(isconnect) {
-    this.setState({ isNetwork: isconnect });
   }
   _handleRefresh() {
     this.setState({ refreshing: true });
@@ -149,7 +176,6 @@ class WelcomePage extends Component {
     }
   }
   _handleSignOut() {
-    this.rateus();
     this.setState({ refresh: true });
     AsyncStorage.getItem('user', (err, result) => {
       const user = JSON.parse(result);
@@ -167,12 +193,10 @@ class WelcomePage extends Component {
     Linking.openURL(url);
   }
   handleCall() {
-    this.rateus();
     const phoneNumber = this.props.user.userLogin.data.data.app_hr_contact_number;
     Linking.openURL(`tel:${phoneNumber}`);
   }
   handleEmail() {
-    this.rateus();
     const email = this.props.user.userLogin.data.data.app_hr_contact_email;
     Linking.openURL(`mailto:${email}`);
   }
@@ -206,12 +230,32 @@ class WelcomePage extends Component {
     }
   }
   rateus() {
-    this.state.RatingTracker.showRatingDialog();
+    this.state.RatingTracker.handlePositiveEvent((didAppear, userDecision) => {
+      if (didAppear) {
+        switch (userDecision) {
+          case 'decline':
+            AsyncStorage.setItem('rateus', JSON.stringify({ rateDecline: true, rateDelay: false, rateAccept: this.state.rateAccept }));
+            this.setState({ rateDecline: true, rateDelay: false });
+            break;
+          case 'delay' :
+            AsyncStorage.setItem('rateus', JSON.stringify({ rateDecline: this.state.rateDecline, rateDelay: true, rateAccept: this.state.rateAccept }));
+            this.setState({ rateDelay: true });
+            break;
+          case 'accept' :
+            AsyncStorage.setItem('rateus', JSON.stringify({ rateDecline: this.state.rateDecline, rateDelay: this.state.rateDelay, rateAccept: this.state.rateAccept + 1 }));
+            this.setState({ rateAccept: this.state.rateAccept + 1 });
+            break;
+        }
+      }
+    });
   }
   _handleJobTitlePress() {
     this.setState({ jobTitle: !this.state.jobTitle });
   }
   render() {
+    if (!this.state.rateDecline && this.state.rateDelay) {
+      setInterval(() => { this.rateus(); }, 50000);
+    }
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>

@@ -15,12 +15,14 @@ export default class CustomHeader extends Component {
         </Body>
         {this.props.isNetwork ?
           <Right>
-            <Button transparent>
+            <Button
+              transparent
+              onPress={() => {
+                this.props.onPress();
+              }}
+            >
               <Icon
                 style={style.headerTitle}
-                onPress={() => {
-                  this.props.onPress();
-                }}
                 name="md-log-out"
               />
             </Button>
