@@ -16,10 +16,10 @@ export default class CustomHeader extends Component {
         {this.props.isNetwork ?
           <Right>
             <Button
-              transparent
               onPress={() => {
                 this.props.onPress();
               }}
+              transparent
             >
               <Icon
                 style={style.headerTitle}

@@ -119,14 +119,6 @@ class WelcomePage extends Component {
       this.props.navigation.dispatch(resetAction);
     }
   }
-  componentDidMount() {
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
-    AppState.addEventListener('change', this.handleAppStatus);
-  }
-  componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
-    AppState.removeEventListener('change', this.handleAppStatus);
-  }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });
   }
@@ -152,6 +144,15 @@ class WelcomePage extends Component {
         }
       });
     }
+  }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
+  }
+  handleNetwork(isconnect) {
+    this.setState({ isNetwork: isconnect });
   }
   _handleRefresh() {
     this.setState({ refreshing: true });
