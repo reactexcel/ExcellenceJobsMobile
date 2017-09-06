@@ -54,7 +54,6 @@ class WelcomePage extends Component {
         this.setState({ isNetwork: false });
       }
     });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     const ret = [];
     ret.push({
       coordinates: {
@@ -98,8 +97,10 @@ class WelcomePage extends Component {
     }
   }
   handleAppStatus() {
+    console.log('dsadsadsadsad');
     if (AppState.currentState === 'active') {
       listenNotification().then((notif) => {
+        console.log(notif);
         if (notif !== undefined) {
           handleNotification(notif).then((data) => {
             const handle = JSON.parse(data);
@@ -119,6 +120,12 @@ class WelcomePage extends Component {
         }
       });
     }
+  }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
   }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });

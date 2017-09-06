@@ -23,7 +23,7 @@ class MainPage extends Component {
   animate() {
     this.animatedValue1.setValue(0);
     this.animatedValue2.setValue(0);
-    const createAnimation = function (value, duration, easing, delay = 0) {
+    const createAnimation = function (value, duration, easing, delay = 1200) {
       return Animated.timing(
         value,
         {
@@ -36,7 +36,7 @@ class MainPage extends Component {
     };
     Animated.parallel([
       createAnimation(this.animatedValue1, 1000, Easing.ease),
-      createAnimation(this.animatedValue2, 50, Easing.ease, 3130),
+      createAnimation(this.animatedValue2, 50, Easing.ease, 2000),
     ]).start();
   }
   render() {
@@ -75,7 +75,7 @@ class MainPage extends Component {
                 />
                 <Label style={{ marginLeft: 5, paddingTop: 1.8, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration No </Label>
                 <Input
-                  style={style.inputStyle}
+                  style={style.inputS_handleSubmittyle}
                   value={this.props.registrationid}
                   onSubmitEditing={() => { this.props.handleKeyboardSubmit(); }}
                   onChangeText={(text) => { this.props.changeId(text); }}
@@ -86,11 +86,17 @@ class MainPage extends Component {
                 <Text style={style.buttonText}>Go</Text>
               </Button>
             </Form>
-          </Animated.View>) : (
-            <View style={[{ marginTop: 320 }, this.state.call && { marginTop: 150 }]}>
-              <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
-            </View>
-          )}
+          </Animated.View>) :
+            (
+              this.props.bundle ?
+                <View style={{ marginTop: 320 }}>
+                  <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
+                </View> :
+                <View style={[{ marginTop: 320 }, this.state.call && { marginTop: 150 }]}>
+                  <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
+                </View>
+            )
+          }
         </View>
       </View>
     );
