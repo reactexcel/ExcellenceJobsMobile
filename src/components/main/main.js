@@ -75,7 +75,7 @@ class MainPage extends Component {
                 />
                 <Label style={{ marginLeft: 5, paddingTop: 1.8, justifyContent: 'center', color: HEXCOLOR.WhiteColor }}> Registration No </Label>
                 <Input
-                  style={style.inputS_handleSubmittyle}
+                  style={style.inputStyle}
                   value={this.props.registrationid}
                   onSubmitEditing={() => { this.props.handleKeyboardSubmit(); }}
                   onChangeText={(text) => { this.props.changeId(text); }}
