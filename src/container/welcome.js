@@ -97,10 +97,8 @@ class WelcomePage extends Component {
     }
   }
   handleAppStatus() {
-    console.log('dsadsadsadsad');
     if (AppState.currentState === 'active') {
       listenNotification().then((notif) => {
-        console.log(notif);
         if (notif !== undefined) {
           handleNotification(notif).then((data) => {
             const handle = JSON.parse(data);
