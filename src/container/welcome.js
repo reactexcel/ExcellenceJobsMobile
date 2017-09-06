@@ -63,7 +63,6 @@ class WelcomePage extends Component {
       }]);
       this.setState({ RatingTracker: rate });
     }
-    AppState.addEventListener('change', this.handleAppStatus);
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -71,7 +70,6 @@ class WelcomePage extends Component {
         this.setState({ isNetwork: false });
       }
     });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     const ret = [];
     ret.push({
       coordinates: {
@@ -121,8 +119,13 @@ class WelcomePage extends Component {
       this.props.navigation.dispatch(resetAction);
     }
   }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
+    AppState.addEventListener('change', this.handleAppStatus);
+  }
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
+    AppState.removeEventListener('change', this.handleAppStatus);
   }
   handleNetwork(isconnect) {
     this.setState({ isNetwork: isconnect });

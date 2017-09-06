@@ -44,7 +44,6 @@ class LoginPage extends Component {
         });
       }
     });
-    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -80,6 +79,9 @@ class LoginPage extends Component {
         });
       }
     });
+  }
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener('change', this.handleNetwork);
   }
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
