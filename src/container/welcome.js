@@ -151,17 +151,12 @@ class WelcomePage extends Component {
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
   }
-  handleNetwork(isconnect) {
-    this.setState({ isNetwork: isconnect });
-  }
   _handleRefresh() {
+    const userId = this.props.user.userLogin.data.data.registration_id;
     this.setState({ refreshing: true });
     if (this.state.isNetwork) {
       this.setState({ isNetwork: true });
-      AsyncStorage.getItem('user', (err, result) => {
-        const user = JSON.parse(result);
-        this.props.onLogin({ registration_id: user.registrationid });
-      });
+      this.props.onLogin({ registration_id: userId });
     } else {
       this.setState({ refreshing: false });
       if (Platform.OS === 'android') {
@@ -257,9 +252,6 @@ class WelcomePage extends Component {
     this.setState({ jobTitle: !this.state.jobTitle });
   }
   render() {
-    if (!this.state.rateDecline && this.state.rateDelay) {
-      setInterval(() => { this.rateus(); }, 50000);
-    }
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
