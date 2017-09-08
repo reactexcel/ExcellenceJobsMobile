@@ -11,7 +11,6 @@ import style from './styles';
 
 class MapMarker extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <View style={style.mainContainer}>
         <MapView
