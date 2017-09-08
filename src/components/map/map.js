@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { Icon } from 'native-base';
@@ -10,15 +11,14 @@ import style from './styles';
 
 class MapMarker extends React.Component {
   render() {
+    const osCheck = (Platform.OS === 'ios');
     return (
       <View style={style.mainContainer}>
         <MapView
           style={style.map}
           mapType="standard"
-          cacheEnabled={false}
-          loadingEnabled
           scrollEnabled
-          showsMyLocationButton
+          liteMode={!osCheck}
           initialRegion={{
             latitude: this.props.username.office_location.long,
             longitude: this.props.username.office_location.lat,
