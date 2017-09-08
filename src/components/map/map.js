@@ -11,14 +11,13 @@ import style from './styles';
 
 class MapMarker extends React.Component {
   render() {
-    const osCheck = (Platform.OS === 'ios');
     return (
       <View style={style.mainContainer}>
         <MapView
           style={style.map}
           mapType="standard"
+          loadingEnabled
           scrollEnabled
-          liteMode={!osCheck}
           initialRegion={{
             latitude: this.props.username.office_location.long,
             longitude: this.props.username.office_location.lat,

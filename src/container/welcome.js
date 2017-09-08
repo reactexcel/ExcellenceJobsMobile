@@ -6,17 +6,20 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState } from 'react-native';
+import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState, ScrollView, RefreshControl, ActivityIndicator } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
+import MapMarker from '../components/map/map';
 import RatingRequestor from 'react-native-rating-requestor';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
+import HomePageIos from '../components/home/homeios';
 import CustomHeader from '../components/header/header';
 import style from '../components/home/styles';
 import IconWithButton from '../components/button/buttonwithicon';
+import { HEXCOLOR } from '../style/hexcolor';
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -152,11 +155,10 @@ class WelcomePage extends Component {
     NetInfo.isConnected.removeEventListener('change', this.handleNetwork);
   }
   _handleRefresh() {
-    const userId = this.props.user.userLogin.data.data.registration_id;
     this.setState({ refreshing: true });
     if (this.state.isNetwork) {
       this.setState({ isNetwork: true });
-      this.props.onLogin({ registration_id: userId });
+      this.props.onLogin({ registration_id: this.props.user.userLogin.data.data.registration_id });
     } else {
       this.setState({ refreshing: false });
       if (Platform.OS === 'android') {
@@ -252,32 +254,74 @@ class WelcomePage extends Component {
     this.setState({ jobTitle: !this.state.jobTitle });
   }
   render() {
+    // if (!this.state.rateDecline && this.state.rateDelay) {
+    //   setInterval(() => { this.rateus(); }, 1000);
+    // }
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <HomePage
-          marker={this.state.marker}
-          userinfo={userData.rounds}
-          username={userData}
-          refreshing={this.state.refreshing}
-          isClicked={this.state.isClicked}
-          onListItemPress={(item) => { this._onListItemPress(item); }}
-          handleRefresh={() => { this._handleRefresh(); }}
-          openMap={() => { this._redirectToMap(); }}
-          handleCall={() => { this.handleCall(); }}
-          handleEmail={() => { this.handleEmail(); }}
-          modal={this.state.showModal}
-          showModal={this.showModal}
-          closeModal={this.closeModal}
-          handleNumberChange={this.handleNumberChange}
-          numberSubmit={this.numberSubmit}
-          number={this.state.mobileNumber}
-          refresh={this.state.refresh}
-          isSubmit={this.state.isSubmit}
-          onJobTitlePress={() => { this._handleJobTitlePress(); }}
-          jobTitle={this.state.jobTitle}
-        />
+        {Platform.OS === 'ios' ?
+          <HomePageIos
+            marker={this.state.marker}
+            userinfo={userData.rounds}
+            username={userData}
+            refreshing={this.state.refreshing}
+            isClicked={this.state.isClicked}
+            onListItemPress={(item) => { this._onListItemPress(item); }}
+            handleRefresh={() => { this._handleRefresh(); }}
+            openMap={() => { this._redirectToMap(); }}
+            handleCall={() => { this.handleCall(); }}
+            handleEmail={() => { this.handleEmail(); }}
+            modal={this.state.showModal}
+            showModal={this.showModal}
+            closeModal={this.closeModal}
+            handleNumberChange={this.handleNumberChange}
+            numberSubmit={this.numberSubmit}
+            number={this.state.mobileNumber}
+            refresh={this.state.refresh}
+            isSubmit={this.state.isSubmit}
+            onJobTitlePress={() => { this._handleJobTitlePress(); }}
+            jobTitle={this.state.jobTitle}
+          />
+          :
+          (this.state.refresh ?
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <ActivityIndicator animating color={HEXCOLOR.BahamaBlue} size="large" />
+            </View>
+            :
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={() => { this._handleRefresh(); }}
+                />
+              }
+            >
+              <HomePage
+                marker={this.state.marker}
+                userinfo={userData.rounds}
+                username={userData}
+                refreshing={this.state.refreshing}
+                isClicked={this.state.isClicked}
+                onListItemPress={(item) => { this._onListItemPress(item); }}
+                handleRefresh={() => { this._handleRefresh(); }}
+                openMap={() => { this._redirectToMap(); }}
+                handleCall={() => { this.handleCall(); }}
+                handleEmail={() => { this.handleEmail(); }}
+                modal={this.state.showModal}
+                showModal={this.showModal}
+                closeModal={this.closeModal}
+                handleNumberChange={this.handleNumberChange}
+                numberSubmit={this.numberSubmit}
+                number={this.state.mobileNumber}
+                refresh={this.state.refresh}
+                isSubmit={this.state.isSubmit}
+                onJobTitlePress={() => { this._handleJobTitlePress(); }}
+                jobTitle={this.state.jobTitle}
+              />
+            </ScrollView>
+          ) }
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
           <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />
