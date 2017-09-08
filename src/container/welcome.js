@@ -14,6 +14,7 @@ import { listenNotification, handleNotification } from '../service/notification'
 import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
 import HomePage from '../components/home/home';
+import HomePageIos from '../components/home/homeios';
 import CustomHeader from '../components/header/header';
 import style from '../components/home/styles';
 import IconWithButton from '../components/button/buttonwithicon';
@@ -47,22 +48,22 @@ class WelcomePage extends Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.numberSubmit = this.numberSubmit.bind(this);
     this._handleJobTitlePress = this._handleJobTitlePress.bind(this);
-    this.rateus = this.rateus.bind(this);
+    // this.rateus = this.rateus.bind(this);
   }
   componentWillMount() {
-    if (Platform.OS === 'android') {
-      const rate = new RatingRequestor('com.excellence.jobs', [{
-        title: 'string',
-        message: 'string',
-        actionLabels: {
-        	decline: 'Never',
-        	delay: 'Maybe Later',
-        	accept: 'Rate Us',
-        },
-        timingFunction: {},
-      }]);
-      this.setState({ RatingTracker: rate });
-    }
+    // if (Platform.OS === 'android') {
+    //   const rate = new RatingRequestor('com.excellence.jobs', [{
+    //     title: 'string',
+    //     message: 'string',
+    //     actionLabels: {
+    //     	decline: 'Never',
+    //     	delay: 'Maybe Later',
+    //     	accept: 'Rate Us',
+    //     },
+    //     timingFunction: {},
+    //   }]);
+    //   this.setState({ RatingTracker: rate });
+    // }
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -89,12 +90,12 @@ class WelcomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       this.setState({ mobileNumber: props.user.userLogin.data.data.mobile_no });
       this.setState({ refreshing: false });
-      AsyncStorage.getItem('rateus', (err, result) => {
-        if (result !== null) {
-          const rate = JSON.parse(result);
-          this.setState({ rateDelay: rate.rateDelay, rateAccept: rate.rateAccept, rateDecline: rate.rateDecline });
-        }
-      });
+      // AsyncStorage.getItem('rateus', (err, result) => {
+      //   if (result !== null) {
+      //     const rate = JSON.parse(result);
+      //     this.setState({ rateDelay: rate.rateDelay, rateAccept: rate.rateAccept, rateDecline: rate.rateDecline });
+      //   }
+      // });
     }
     if (props.user.mobile.isSuccess) {
       if (Platform.OS === 'android') {
@@ -155,13 +156,11 @@ class WelcomePage extends Component {
     this.setState({ isNetwork: isconnect });
   }
   _handleRefresh() {
+    // const userId = this.props.user.userLogin.data.data.registration_id;
     this.setState({ refreshing: true });
     if (this.state.isNetwork) {
       this.setState({ isNetwork: true });
-      AsyncStorage.getItem('user', (err, result) => {
-        const user = JSON.parse(result);
-        this.props.onLogin({ registration_id: user.registrationid });
-      });
+      this.props.onLogin({ registration_id: this.props.user.userLogin.data.data.registration_id });
     } else {
       this.setState({ refreshing: false });
       if (Platform.OS === 'android') {
@@ -257,35 +256,60 @@ class WelcomePage extends Component {
     this.setState({ jobTitle: !this.state.jobTitle });
   }
   render() {
-    if (!this.state.rateDecline && this.state.rateDelay) {
-      setInterval(() => { this.rateus(); }, 50000);
-    }
+    // if (!this.state.rateDecline && this.state.rateDelay) {
+    //   setInterval(() => { this.rateus(); }, 50000);
+    // }
     const userData = this.props.user.userLogin.data.data;
     return (
       <View style={{ flex: 1 }}>
         <CustomHeader name={userData.name} onPress={() => this._handleSignOut()} isNetwork={this.state.isNetwork} />
-        <HomePage
-          marker={this.state.marker}
-          userinfo={userData.rounds}
-          username={userData}
-          refreshing={this.state.refreshing}
-          isClicked={this.state.isClicked}
-          onListItemPress={(item) => { this._onListItemPress(item); }}
-          handleRefresh={() => { this._handleRefresh(); }}
-          openMap={() => { this._redirectToMap(); }}
-          handleCall={() => { this.handleCall(); }}
-          handleEmail={() => { this.handleEmail(); }}
-          modal={this.state.showModal}
-          showModal={this.showModal}
-          closeModal={this.closeModal}
-          handleNumberChange={this.handleNumberChange}
-          numberSubmit={this.numberSubmit}
-          number={this.state.mobileNumber}
-          refresh={this.state.refresh}
-          isSubmit={this.state.isSubmit}
-          onJobTitlePress={() => { this._handleJobTitlePress(); }}
-          jobTitle={this.state.jobTitle}
-        />
+        {Platform.OS === 'ios' ?
+          <HomePageIos
+            marker={this.state.marker}
+            userinfo={userData.rounds}
+            username={userData}
+            refreshing={this.state.refreshing}
+            isClicked={this.state.isClicked}
+            onListItemPress={(item) => { this._onListItemPress(item); }}
+            handleRefresh={() => { this._handleRefresh(); }}
+            openMap={() => { this._redirectToMap(); }}
+            handleCall={() => { this.handleCall(); }}
+            handleEmail={() => { this.handleEmail(); }}
+            modal={this.state.showModal}
+            showModal={this.showModal}
+            closeModal={this.closeModal}
+            handleNumberChange={this.handleNumberChange}
+            numberSubmit={this.numberSubmit}
+            number={this.state.mobileNumber}
+            refresh={this.state.refresh}
+            isSubmit={this.state.isSubmit}
+            onJobTitlePress={() => { this._handleJobTitlePress(); }}
+            jobTitle={this.state.jobTitle}
+          />
+          :
+          <HomePage
+            marker={this.state.marker}
+            userinfo={userData.rounds}
+            username={userData}
+            refreshing={this.state.refreshing}
+            isClicked={this.state.isClicked}
+            onListItemPress={(item) => { this._onListItemPress(item); }}
+            handleRefresh={() => { this._handleRefresh(); }}
+            openMap={() => { this._redirectToMap(); }}
+            handleCall={() => { this.handleCall(); }}
+            handleEmail={() => { this.handleEmail(); }}
+            modal={this.state.showModal}
+            showModal={this.showModal}
+            closeModal={this.closeModal}
+            handleNumberChange={this.handleNumberChange}
+            numberSubmit={this.numberSubmit}
+            number={this.state.mobileNumber}
+            refresh={this.state.refresh}
+            isSubmit={this.state.isSubmit}
+            onJobTitlePress={() => { this._handleJobTitlePress(); }}
+            jobTitle={this.state.jobTitle}
+          />
+        }
         <View style={style.emailContainer}>
           <IconWithButton style={style} handlePress={() => { this.handleCall(); }} iconName="ios-call-outline" textContent=" Contact Us" />
           <IconWithButton style={style} handlePress={() => { this.handleEmail(); }} iconName="ios-mail-outline" textContent=" Email Us" />

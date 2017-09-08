@@ -6,13 +6,13 @@
 
 import React, { Component } from 'react';
 import { ListItem, Text, Body, Right, Icon } from 'native-base';
-import { View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity } from 'react-native';
 import style from './styles';
 import MapMarker from '../map/map';
 import EditForm from '../modal/modal';
 import { HEXCOLOR } from '../../style/hexcolor';
 
-class HomePage extends Component {
+class HomePageIos extends Component {
   render() {
     const renderHeader = () => (
       <View>
@@ -61,6 +61,11 @@ class HomePage extends Component {
         />
       </View>
     );
+    const renderFooter = () => (
+      <View style={style.mapContainer}>
+        <MapMarker {...this.props} openMap={this.props.openMap} />
+      </View>
+    );
     return (
       <View style={style.mainContainer}>
         {this.props.refresh ?
@@ -69,45 +74,41 @@ class HomePage extends Component {
           </View>
           :
           <View>
-            <ScrollView>
-              <FlatList
-                keyExtractor={item => item.text}
-                data={this.props.userinfo}
-                keyboardShouldPersistTaps="always"
-                refreshing={this.props.refreshing}
-                onRefresh={() => { this.props.handleRefresh(); }}
-                ListHeaderComponent={renderHeader}
-                renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
-                  <View >
-                    <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
-                      <Body>
-                        <Text>{item.text}</Text>
-                        <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
-                      </Body>
-                      {item.status == '1' ?
-                        <Right style={style.listright}>
-                          <Icon name="star" active style={style.selected} />
-                        </Right> : <Right style={style.listright}>
-                          <Icon name="md-checkmark-circle-outline" active style={style.selected} />
-                        </Right> }
-                    </ListItem>
-                  </View>
-                  {this.props.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
-                      <View style={style.viewMargin}>
-                        <Text style={style.jobtitle}>
-                        Interview Details
-                        </Text>
-                        <Text style={style.viewMargin} >{item.info}</Text>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </View> : null}
-                </View>)}
-              />
-              <View style={style.mapContainer}>
-                <MapMarker {...this.props} openMap={this.props.openMap} />
-              </View>
-            </ScrollView>
+            <FlatList
+              keyExtractor={item => item.text}
+              data={this.props.userinfo}
+              keyboardShouldPersistTaps="always"
+              refreshing={this.props.refreshing}
+              onRefresh={() => { this.props.handleRefresh(); }}
+              ListHeaderComponent={renderHeader}
+              ListFooterComponent={renderFooter}
+              renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
+                <View >
+                  <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
+                    <Body>
+                      <Text>{item.text}</Text>
+                      <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
+                    </Body>
+                    {item.status == '1' ?
+                      <Right style={style.listright}>
+                        <Icon name="star" active style={style.selected} />
+                      </Right> : <Right style={style.listright}>
+                        <Icon name="md-checkmark-circle-outline" active style={style.selected} />
+                      </Right> }
+                  </ListItem>
+                </View>
+                {this.props.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
+                  <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
+                    <View style={style.viewMargin}>
+                      <Text style={style.jobtitle}>
+                      Interview Details
+                      </Text>
+                      <Text style={style.viewMargin} >{item.info}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View> : null}
+              </View>)}
+            />
           </View>
         }
       </View>
@@ -115,4 +116,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default HomePageIos;
