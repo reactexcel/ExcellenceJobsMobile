@@ -31,7 +31,6 @@
     <meta-data
        android:name="com.google.android.geo.API_KEY"
        android:value="AIzaSyBCaOV7p1VEyg3dx0SPWrOAiUvg9Z-TJ6E"/>
-
     <service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
       <intent-filter>
        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
