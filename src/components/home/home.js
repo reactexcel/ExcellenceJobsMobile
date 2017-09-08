@@ -69,47 +69,43 @@ class HomePage extends Component {
           </View>
           :
           <View>
-            <ScrollView>
-              <FlatList
-                keyExtractor={item => item.text}
-                data={this.props.userinfo}
-                keyboardShouldPersistTaps="always"
-                refreshing={this.props.refreshing}
-                onRefresh={() => { this.props.handleRefresh(); }}
-                ListHeaderComponent={renderHeader}
-                renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
-                  <View >
-                    <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
-                      <Body>
-                        <Text>{item.text}</Text>
-                        <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
-                      </Body>
-                      {item.status == '1' ?
-                        <Right style={style.listright}>
-                          <Icon name="star" active style={style.selected} />
-                        </Right> : <Right style={style.listright}>
-                          <Icon name="md-checkmark-circle-outline" active style={style.selected} />
-                        </Right> }
-                    </ListItem>
-                  </View>
-                  {this.props.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
-                      <View style={style.viewMargin}>
-                        <Text style={style.jobtitle}>
-                        Interview Details
-                        </Text>
-                        <Text style={style.viewMargin} >{item.info}</Text>
-                      </View>
-                    </TouchableWithoutFeedback>
-                  </View> : null}
-                </View>)}
-              />
-              <View style={style.mapContainer}>
-                <MapMarker {...this.props} openMap={this.props.openMap} />
-              </View>
-            </ScrollView>
+            <FlatList
+              keyExtractor={item => item.text}
+              data={this.props.userinfo}
+              keyboardShouldPersistTaps="always"
+              ListHeaderComponent={renderHeader}
+              renderItem={({ item, index }) => (<View style={{ flex: 1 }}>
+                <View >
+                  <ListItem key={index} onPress={() => { this.props.onListItemPress(item); }} style={item.status == '1' ? style.selectedlistitem : style.listitem} >
+                    <Body>
+                      <Text>{item.text}</Text>
+                      <Text note>{item.scheduled_date} {item.scheduled_date.length > 0 ? 'at' : null } {item.scheduled_time}</Text>
+                    </Body>
+                    {item.status == '1' ?
+                      <Right style={style.listright}>
+                        <Icon name="star" active style={style.selected} />
+                      </Right> : <Right style={style.listright}>
+                        <Icon name="md-checkmark-circle-outline" active style={style.selected} />
+                      </Right> }
+                  </ListItem>
+                </View>
+                {this.props.isClicked == true && item.status == '1' ? <View style={style.itemDetails}>
+                  <TouchableWithoutFeedback onPress={() => { this.props.onListItemPress(item); }}>
+                    <View style={style.viewMargin}>
+                      <Text style={style.jobtitle}>
+                      Interview Details
+                      </Text>
+                      <Text style={style.viewMargin} >{item.info}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View> : null}
+              </View>)}
+            />
           </View>
         }
+        <View style={style.mapContainer}>
+          <MapMarker {...this.props} openMap={this.props.openMap} />
+        </View>
       </View>
     );
   }
