@@ -49,22 +49,22 @@ class WelcomePage extends Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.numberSubmit = this.numberSubmit.bind(this);
     this._handleJobTitlePress = this._handleJobTitlePress.bind(this);
-    // this.rateus = this.rateus.bind(this);
+    this.rateus = this.rateus.bind(this);
   }
   componentWillMount() {
-    // if (Platform.OS === 'android') {
-    //   const rate = new RatingRequestor('com.excellence.jobs', [{
-    //     title: 'string',
-    //     message: 'string',
-    //     actionLabels: {
-    //     	decline: 'Never',
-    //     	delay: 'Maybe Later',
-    //     	accept: 'Rate Us',
-    //     },
-    //     timingFunction: {},
-    //   }]);
-    //   this.setState({ RatingTracker: rate });
-    // }
+    if (Platform.OS === 'android') {
+      const rate = new RatingRequestor('com.excellence.jobs', [{
+        title: 'string',
+        message: 'string',
+        actionLabels: {
+        	decline: 'Never',
+        	delay: 'Maybe Later',
+        	accept: 'Rate Us',
+        },
+        timingFunction: {},
+      }]);
+      this.setState({ RatingTracker: rate });
+    }
     IsConnect().then((data) => {
       if (data) {
         this.setState({ isNetwork: true });
@@ -91,12 +91,12 @@ class WelcomePage extends Component {
     if (props.user.userLogin.isSuccess) {
       this.setState({ mobileNumber: props.user.userLogin.data.data.mobile_no });
       this.setState({ refreshing: false });
-      // AsyncStorage.getItem('rateus', (err, result) => {
-      //   if (result !== null) {
-      //     const rate = JSON.parse(result);
-      //     this.setState({ rateDelay: rate.rateDelay, rateAccept: rate.rateAccept, rateDecline: rate.rateDecline });
-      //   }
-      // });
+      AsyncStorage.getItem('rateus', (err, result) => {
+        if (result !== null) {
+          const rate = JSON.parse(result);
+          this.setState({ rateDelay: rate.rateDelay, rateAccept: rate.rateAccept, rateDecline: rate.rateDecline });
+        }
+      });
     }
     if (props.user.mobile.isSuccess) {
       if (Platform.OS === 'android') {
