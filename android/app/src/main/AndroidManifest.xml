@@ -25,6 +25,10 @@
       </intent-filter>
     </service>
     <meta-data
+    android:name="io.fabric.ApiKey"
+    android:value="dda13f7a8cbd6a4448d85a1ca9e907d678b32963"
+/>
+    <meta-data
        android:name="com.google.android.geo.API_KEY"
        android:value="AIzaSyBCaOV7p1VEyg3dx0SPWrOAiUvg9Z-TJ6E"/>
 

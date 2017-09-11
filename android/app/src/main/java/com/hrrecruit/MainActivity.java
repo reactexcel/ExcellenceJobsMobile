@@ -4,6 +4,8 @@ import com.facebook.react.ReactActivity;
 import android.content.Intent;
 import android.content.Intent;
 import io.branch.rnbranch.*;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends ReactActivity {
 
@@ -17,6 +19,7 @@ public class MainActivity extends ReactActivity {
     }
     @Override
     protected void onStart() {
+        Fabric.with(this, new Crashlytics());
         super.onStart();
         RNBranchModule.initSession(this.getIntent().getData(), this);
     }
