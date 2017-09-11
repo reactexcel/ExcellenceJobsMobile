@@ -5,7 +5,7 @@ import {
   Platform,
 } from 'react-native';
 import MapView from 'react-native-maps';
-import { Icon } from 'native-base';
+import { Icon, Button } from 'native-base';
 import style from './styles';
 
 
@@ -36,7 +36,9 @@ class MapMarker extends React.Component {
         </MapView>
         <View style={style.openMap}>
           <TouchableOpacity onPress={() => { this.props.openMap(); }}>
-            <Icon name="md-locate" style={style.mapIconColor} />
+            <View style={style.iconCricle}>
+              <Icon name="md-locate" style={style.mapIconColor} />
+            </View>
           </TouchableOpacity>
         </View>
       </View>

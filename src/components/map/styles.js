@@ -25,13 +25,23 @@ module.exports = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
   },
+  iconCricle: {
+    borderRadius: 40,
+    paddingTop: 10.5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: 45,
+    height: 45,
+    backgroundColor: 'white',
+  },
   openMap: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: (Platform.OS === 'ios') ? 230 : 205,
-    marginRight: 15,
+    marginTop: (Platform.OS === 'ios') ? 230 : 195,
+    marginRight: 8,
   },
   mapIconColor: {
     color: HEXCOLOR.CloudBurst,
+    fontSize: 23,
   },
 });

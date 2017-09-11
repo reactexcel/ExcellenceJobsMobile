@@ -4,8 +4,10 @@ import * as url from '../config';
 import fireApi from '../generic';
 
 export default function* createLoginRequest(action) {
+  console.log(action, 'action');
   try {
     const response = yield call(fireApi, 'POST', url.login, action.payload);
+    console.log(response, 'response');
     if (response.data.error === 0) {
       yield put(actions.userLoginSuccess(response));
     } else if (response.data.error === 1) {

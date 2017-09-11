@@ -31,7 +31,6 @@
     <meta-data
        android:name="com.google.android.geo.API_KEY"
        android:value="AIzaSyBCaOV7p1VEyg3dx0SPWrOAiUvg9Z-TJ6E"/>
-
     <service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
       <intent-filter>
        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
@@ -61,10 +60,10 @@
       <action android:name="android.intent.action.VIEW" />
       <category android:name="android.intent.category.DEFAULT" />
       <category android:name="android.intent.category.BROWSABLE" />
-      <data android:scheme="https" android:host="x6vm.app.link" />
-      <data android:scheme="https" android:host="x6vm-alternate.app.link" />
-      <data android:scheme="https" android:host="x6vm.test-app.link" />
-      <data android:scheme="https" android:host="x6vm-alternate.test-app.link" />
+      <data android:scheme="https" android:host="etech.app.link" />
+      <data android:scheme="https" android:host="etech-alternate.app.link" />
+      <data android:scheme="https" android:host="etech.test-app.link" />
+      <data android:scheme="https" android:host="etech-alternate.test-app.link" />
     </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
