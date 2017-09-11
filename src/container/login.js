@@ -19,7 +19,7 @@ class LoginPage extends Component {
       isAvailable: true,
       registrationid: '',
       isNetwork: true,
-      bundle: false,
+      // bundle: false,
     };
     this._handleSubmit = this._handleSubmit.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
@@ -120,7 +120,7 @@ class LoginPage extends Component {
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity(`Welcome ${success.name}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
-        AlertIOS.alert(`welcome ${success.name}`);
+        AlertIOS.alert(`Welcome ${success.name}`);
       }
       const resetAction = NavigationActions.reset({
         index: 0,
@@ -145,7 +145,7 @@ class LoginPage extends Component {
     return (
       <MainPage
         isAvailable={this.state.isAvailable}
-        bundle={this.state.bundle}
+        // bundle={this.state.bundle}
         registrationid={this.state.registrationid}
         handleSubmit={() => { this._handleSubmit(); }}
         handleKeyboardSubmit={() => { this._handleSubmit(); }}
