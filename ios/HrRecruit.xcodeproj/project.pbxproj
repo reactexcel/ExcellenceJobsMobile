@@ -45,6 +45,8 @@
 		602BD9FD1F5EA3BD00CEFB43 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9FC1F5EA3BD00CEFB43 /* CoreSpotlight.framework */; };
 		602BD9FF1F5EA3C700CEFB43 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BD9FE1F5EA3C700CEFB43 /* MobileCoreServices.framework */; };
 		602BDA011F5EA3CF00CEFB43 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BDA001F5EA3CF00CEFB43 /* iAd.framework */; };
+		602BDA041F665F4600CEFB43 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BDA021F665F4500CEFB43 /* Crashlytics.framework */; };
+		602BDA051F665F4600CEFB43 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602BDA031F665F4600CEFB43 /* Fabric.framework */; };
 		605B38631F482555009E6CF1 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605B38431F48251B009E6CF1 /* libAirMaps.a */; };
 		60654D881F2898560074FEC9 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654D871F2898550074FEC9 /* FirebaseAnalytics.framework */; };
 		60654D9C1F28993E0074FEC9 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60654D9B1F28993E0074FEC9 /* FirebaseCore.framework */; };
@@ -353,6 +355,8 @@
 		602BD9FC1F5EA3BD00CEFB43 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		602BD9FE1F5EA3C700CEFB43 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		602BDA001F5EA3CF00CEFB43 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		602BDA021F665F4500CEFB43 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		602BDA031F665F4600CEFB43 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		605B383E1F48251A009E6CF1 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		60654D5D1F2891EA0074FEC9 /* HrRecruit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HrRecruit.entitlements; path = HrRecruit/HrRecruit.entitlements; sourceTree = "<group>"; };
 		60654D871F2898550074FEC9 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
@@ -402,6 +406,7 @@
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				60654D881F2898560074FEC9 /* FirebaseAnalytics.framework in Frameworks */,
+				602BDA051F665F4600CEFB43 /* Fabric.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
@@ -416,6 +421,7 @@
 				60654DA91F28996C0074FEC9 /* FirebaseMessaging.framework in Frameworks */,
 				60654DA31F2899560074FEC9 /* FirebaseInstanceID.framework in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				602BDA041F665F4600CEFB43 /* Crashlytics.framework in Frameworks */,
 				60654DA21F2899560074FEC9 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				90494C93B5AD4DFD9610F078 /* libRNDeviceInfo.a in Frameworks */,
 				82086A4E1B0A48A291B09BAD /* libRNFIRMessaging.a in Frameworks */,
@@ -673,6 +679,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				602BDA021F665F4500CEFB43 /* Crashlytics.framework */,
+				602BDA031F665F4600CEFB43 /* Fabric.framework */,
 				602BD9F71F5EA2B300CEFB43 /* Branch.framework */,
 				60654DA71F28996C0074FEC9 /* FirebaseMessaging.framework */,
 				60654DA81F28996C0074FEC9 /* Protobuf.framework */,
@@ -734,6 +742,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				602BDA061F665FDC00CEFB43 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1213,6 +1222,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		602BDA061F665FDC00CEFB43 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/Fabric.framework/run\" dda13f7a8cbd6a4448d85a1ca9e907d678b32963 a5090deba47b0cfad23958ced77cc3ce33b357ecd1f0e5ec3244bafe3790b117";
 		};
 /* End PBXShellScriptBuildPhase section */
 

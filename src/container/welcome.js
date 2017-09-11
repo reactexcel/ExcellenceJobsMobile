@@ -9,12 +9,8 @@ import { connect } from 'react-redux';
 import { AsyncStorage, View, Linking, NetInfo, Platform, ToastAndroid, AlertIOS, AppState, ScrollView, RefreshControl, ActivityIndicator } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
-<<<<<<< HEAD
-// import RatingRequestor from 'react-native-rating-requestor';
-=======
 import MapMarker from '../components/map/map';
-import RatingRequestor from 'react-native-rating-requestor';
->>>>>>> d4bb6e924398bd48a803f2c5d772513d5393dc3c
+// import RatingRequestor from 'react-native-rating-requestor';
 import { listenNotification, handleNotification } from '../service/notification';
 import { IsConnect } from '../service/connection';
 import * as action from '../action/actions';
