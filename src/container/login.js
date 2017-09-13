@@ -47,11 +47,7 @@ class LoginPage extends Component {
       }
     });
     IsConnect().then((data) => {
-      if (data) {
-        this.setState({ isNetwork: true });
-      } else {
-        this.setState({ isNetwork: false });
-      }
+      this.setState({ isNetwork: data });
     });
     branch.subscribe((bundle) => {
       if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {

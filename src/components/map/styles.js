@@ -7,10 +7,10 @@ module.exports = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
     // margin: 5,
+    flex: 1,
     marginLeft: 5,
     marginTop: 10,
     marginBottom: 10,
-    width: width - 12,
     height: (Platform.OS === 'ios') ? height - 390 : 250,
     borderWidth: 0.5,
     borderColor: HEXCOLOR.GreyColor,
@@ -37,7 +37,7 @@ module.exports = StyleSheet.create({
   openMap: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: (Platform.OS === 'ios') ? 230 : 195,
+    marginTop: (Platform.OS === 'ios') ? (height - 390) - 55 : 195,
     marginRight: 8,
   },
   mapIconColor: {
