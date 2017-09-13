@@ -1,29 +1,21 @@
 {
   "project_info": {
-    "project_number": "47633179666",
-    "firebase_url": "https://excellene-jobs.firebaseio.com",
-    "project_id": "excellene-jobs",
-    "storage_bucket": "excellene-jobs.appspot.com"
+    "project_number": "965853849192",
+    "firebase_url": "https://excellence-jobs-b45cc.firebaseio.com",
+    "project_id": "excellence-jobs-b45cc",
+    "storage_bucket": "excellence-jobs-b45cc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:47633179666:android:b589066be7304c61",
+        "mobilesdk_app_id": "1:965853849192:android:b589066be7304c61",
         "android_client_info": {
           "package_name": "com.excellence.jobs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "47633179666-ub82u47akhd9fi1rvptnbr87vecv4nfl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.excellence.jobs",
-            "certificate_hash": "052dda60050c34c0b99738dcb0ebed0bbea1f628"
-          }
-        },
-        {
-          "client_id": "47633179666-cn6e52re1p33fbr44h3rmv6l190eonep.apps.googleusercontent.com",
+          "client_id": "965853849192-0f443uempmruv81dni9cjge7cbektr35.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.excellence.jobs",
@@ -31,13 +23,21 @@
           }
         },
         {
-          "client_id": "47633179666-0rb4t7en8t1nafqr3557f27fogerptkn.apps.googleusercontent.com",
+          "client_id": "965853849192-7cialiu25qcsjncdta25ut1jg04j7m4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.excellence.jobs",
+            "certificate_hash": "052dda60050c34c0b99738dcb0ebed0bbea1f628"
+          }
+        },
+        {
+          "client_id": "965853849192-8ru5rri3atgc6ebbul7k97re2knkcc9m.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD_TTT36TpGhDNh3xVkV5RZyB219qcy3vE"
+          "current_key": "AIzaSyBM7bGjtCvJcdONDc4avsDIRSH6ER7EfSc"
         }
       ],
       "services": {
@@ -48,8 +48,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "47633179666-0rb4t7en8t1nafqr3557f27fogerptkn.apps.googleusercontent.com",
+              "client_id": "965853849192-8ru5rri3atgc6ebbul7k97re2knkcc9m.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "965853849192-d7k6ak5g08g5hg5b1tkpmodg7f6rdhft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.excellence.jobs"
+              }
             }
           ]
         },
