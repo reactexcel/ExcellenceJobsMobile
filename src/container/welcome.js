@@ -226,7 +226,9 @@ class WelcomePage extends Component {
       if (Platform.OS === 'android') {
         ToastAndroid.showWithGravity('Enter Vaild Mobile Number', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
       } else if (Platform.OS === 'ios') {
-        AlertIOS.alert('Enter Vaild Mobile Number');
+        setTimeout(() => {
+          AlertIOS.alert('Enter Vaild Mobile Number');
+        }, 500);
       }
     }
   }

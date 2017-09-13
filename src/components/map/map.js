@@ -17,7 +17,7 @@ class MapMarker extends React.Component {
           style={style.map}
           mapType="standard"
           loadingEnabled
-          scrollEnabled
+          scrollEnabled={false}
           initialRegion={{
             latitude: this.props.username.office_location.long,
             longitude: this.props.username.office_location.lat,
