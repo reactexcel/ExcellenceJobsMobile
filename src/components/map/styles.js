@@ -35,9 +35,9 @@ module.exports = StyleSheet.create({
     backgroundColor: 'white',
   },
   openMap: {
-    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    marginTop: (Platform.OS === 'ios') ? (height - 390) - 55 : 195,
     marginRight: 8,
   },
   mapIconColor: {
