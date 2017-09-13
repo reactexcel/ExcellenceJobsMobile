@@ -3,8 +3,8 @@
 # How to setup this project on system ?
 * git clone https://github.com/reactexcel/HrRecruit.git.
 * npm install.
-* For Android run command react-native run-android inside the project folder.
-* For IOS run command react-native run-ios inside the project folder.
+* For Android run command ```react-native run-android ``` inside  the project folder.
+* For IOS run command ```react-native run-ios```  inside the project folder.
 
 # Configuration of Project !
 * Firebase Push Notification used ```manish@excellencetechnologies.in```.
