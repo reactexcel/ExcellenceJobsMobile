@@ -6,19 +6,17 @@ const style = StyleSheet.create({
   slide: {
     flex: 1,
     justifyContent: 'flex-end',
-    // alignItems: 'center',
     backgroundColor: '#9DD6EB',
   },
   headerText: {
-    color: '#fff',
+    color: HEXCOLOR.WhiteColor,
     alignSelf: 'center',
     fontSize: 24,
     fontWeight: 'bold',
   },
   contentText: {
-    color: '#fff',
+    color: HEXCOLOR.WhiteColor,
     textAlign: 'center',
-    // justifyContent: 'center',
     fontSize: 17,
     alignSelf: 'center',
     padding: 5,
@@ -33,7 +31,7 @@ const style = StyleSheet.create({
     height: 63 * 2,
   },
   text: {
-    color: '#fff',
+    color: HEXCOLOR.WhiteColor,
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -44,12 +42,12 @@ const style = StyleSheet.create({
     // padding: 40,
   },
   title: {
-    color: '#fff',
+    color: HEXCOLOR.WhiteColor,
     fontSize: 30,
     paddingBottom: 20,
   },
   description: {
-    color: '#fff',
+    color: HEXCOLOR.WhiteColor,
     fontSize: 20,
   },
 });

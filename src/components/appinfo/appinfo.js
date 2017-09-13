@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, View, Text, Dimensions, Image, StatusBar } from 'react-native';
 import AppIntro from 'react-native-app-intro';
 import style from './styles';
+import { HEXCOLOR } from '../../style/hexcolor';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,7 +17,7 @@ class AppInfo extends Component {
           onSlideChange={this.props.onSlideChangeHandle}
           defaultIndex={this.props.index}
         >
-          <View style={[style.slide, { backgroundColor: '#F2784B' }]}>
+          <View style={[style.slide, { backgroundColor: HEXCOLOR.Orange }]}>
             <View
               style={{
                 position: 'absolute',
@@ -58,7 +59,7 @@ class AppInfo extends Component {
               </View>
             </View>
           </View>
-          <View style={[style.slide, { backgroundColor: '#1E8BC3' }]}>
+          <View style={[style.slide, { backgroundColor: HEXCOLOR.Blue }]}>
             <View
               style={{
                 position: 'absolute',
@@ -84,7 +85,7 @@ class AppInfo extends Component {
               </View>
             </View>
           </View>
-          <View style={[style.slide, { backgroundColor: '#1abc9c' }]}>
+          <View style={[style.slide, { backgroundColor: HEXCOLOR.LightGreen }]}>
 
             <View
               style={{
@@ -111,7 +112,7 @@ class AppInfo extends Component {
               </View>
             </View>
           </View>
-          <View style={[style.slide, { backgroundColor: '#1e3750' }]}>
+          <View style={[style.slide, { backgroundColor: HEXCOLOR.CloudBurst }]}>
             <View
               style={{
                 position: 'absolute',
