@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AppInfo from '../components/appinfo/appinfo';
 import { StatusBar, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { HEXCOLOR } from '../style/hexcolor';
 
 export default class AppIntro extends Component {
   constructor(props) {
@@ -29,13 +30,13 @@ export default class AppIntro extends Component {
   }
   onSlideChangeHandle(index) {
     if (index === 0) {
-      this.setState({ statusBarColor: '#D35400', index });
+      this.setState({ statusBarColor: HEXCOLOR.DarkOrange, index });
     } else if (index === 1) {
-      this.setState({ statusBarColor: '#3498DB', index });
+      this.setState({ statusBarColor: HEXCOLOR.DarkBlue, index });
     } else if (index === 2) {
-      this.setState({ statusBarColor: '#00B16A', index });
+      this.setState({ statusBarColor: HEXCOLOR.DarkGreen, index });
     } else if (index === 3) {
-      this.setState({ statusBarColor: '#34495e', index });
+      this.setState({ statusBarColor: HEXCOLOR.PickledBluewood, index });
     }
   }
   render() {

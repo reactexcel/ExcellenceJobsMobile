@@ -10,4 +10,7 @@ export const HEXCOLOR = {
   Orange: '#F2784B',
   Blue: '#1E8BC3',
   LightGreen: '#1abc9c',
+  DarkOrange: '#D35400',
+  DarkBlue: '#3498DB',
+  DarkGreen: '#00B16A',
 };
