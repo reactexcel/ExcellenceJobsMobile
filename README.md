@@ -22,7 +22,7 @@
 * Universal Link Configuration from ```arun@excellencetechnologies.in```.
   * Configure on [this](https://branch.io/) (For Android Only).
   * Copy the Branch Key from [here](https://dashboard.branch.io/account-settings/app) have to change in android core files.
-* Crashlytics Configuration from ```arun@excellencetechnologies.in```.
+* Crashlytics Configuration from ```arun.etech2011@gmail.com```.
   * Login in [here](https://www.fabric.io/) (For Android & IOS) .
   * Open [this](https://fabric.io/kits/android/crashlytics/install).
   * Copy the API key from ```Add Your API Key``` for both (IOS & Android) need to change in the android and IOS files.
