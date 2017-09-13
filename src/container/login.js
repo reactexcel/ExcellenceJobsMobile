@@ -23,6 +23,7 @@ class LoginPage extends Component {
     };
     this._handleSubmit = this._handleSubmit.bind(this);
     this.handleNetwork = this.handleNetwork.bind(this);
+    this.routesReset = this.routesReset.bind(this);
   }
   componentWillMount(props) {
     this.setState({ isAvailable: false });
@@ -107,6 +108,16 @@ class LoginPage extends Component {
       }
     }
   }
+  routesReset(routeName) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName }),
+      ],
+      key: routeName,
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
   componentWillReceiveProps(props) {
     if (props.user.userLogin.isSuccess) {
       this.props.onDeviceSave({ email_id: props.user.userLogin.data.data.email, device_id: this.state.deviceId, token: this.state.token });
@@ -118,14 +129,15 @@ class LoginPage extends Component {
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      const resetAction = NavigationActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Drawer' }),
-        ],
-        key: 'Drawer',
+      AsyncStorage.getItem('AppIntro', (err, result) => {
+        if (result !== null) {
+          this.routesReset('Drawer');
+        } else {
+          const value = true;
+          this.routesReset('AppIntro');
+          AsyncStorage.setItem('AppIntro', JSON.stringify(value));
+        }
       });
-      this.props.navigation.dispatch(resetAction);
       this.setState({ isAvailable: true, registrationid: '' });
     } else if (props.user.userLogin.isError) {
       this.setState({ isAvailable: true });
