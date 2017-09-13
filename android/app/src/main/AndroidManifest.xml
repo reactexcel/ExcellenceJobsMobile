@@ -26,7 +26,7 @@
     </service>
     <meta-data
     android:name="io.fabric.ApiKey"
-    android:value="dda13f7a8cbd6a4448d85a1ca9e907d678b32963"
+    android:value="1aa16432e94d98ed283a9311cdc9369d5cbcfcf0"
 />
     <meta-data
        android:name="com.google.android.geo.API_KEY"
