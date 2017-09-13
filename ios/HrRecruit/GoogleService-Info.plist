@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>47633179666-l8oi1ab01rdrg4gqta8nqsq37ho213qf.apps.googleusercontent.com</string>
+	<string>965853849192-d7k6ak5g08g5hg5b1tkpmodg7f6rdhft.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.47633179666-l8oi1ab01rdrg4gqta8nqsq37ho213qf</string>
+	<string>com.googleusercontent.apps.965853849192-d7k6ak5g08g5hg5b1tkpmodg7f6rdhft</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCNWq65Fmrl95f-S7ADumb7pwwlE91SFGk</string>
+	<string>AIzaSyBEvjU-6BPWPVLb2mpVrwEjdpq6etUvX7o</string>
 	<key>GCM_SENDER_ID</key>
-	<string>47633179666</string>
+	<string>965853849192</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.excellence.jobs</string>
 	<key>PROJECT_ID</key>
-	<string>excellene-jobs</string>
+	<string>excellence-jobs-b45cc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>excellene-jobs.appspot.com</string>
+	<string>excellence-jobs-b45cc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:47633179666:ios:b589066be7304c61</string>
+	<string>1:965853849192:ios:b589066be7304c61</string>
 	<key>DATABASE_URL</key>
-	<string>https://excellene-jobs.firebaseio.com</string>
+	<string>https://excellence-jobs-b45cc.firebaseio.com</string>
 </dict>
 </plist>
