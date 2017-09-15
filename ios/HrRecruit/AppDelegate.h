@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @import UserNotifications;
+@import FirebasePerformance;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UNUserNotificationCenterDelegate>
 

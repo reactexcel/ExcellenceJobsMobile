@@ -4,7 +4,6 @@ import * as url from '../config';
 import fireApi from '../generic';
 
 export default function* createLoginRequest(action) {
-  console.log(action, 'action');
   try {
     const response = yield call(fireApi, 'POST', url.login, action.payload);
     console.log(response, 'response');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AppInfo from '../components/appinfo/appinfo';
 import { StatusBar, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import AppInfo from '../components/appinfo/appinfo';
 import { HEXCOLOR } from '../style/hexcolor';
 
 export default class AppIntro extends Component {
