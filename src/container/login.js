@@ -4,7 +4,7 @@ import { AlertIOS, AsyncStorage, Platform, ToastAndroid, NetInfo } from 'react-n
 import FCM from 'react-native-fcm';
 import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
-import branch from 'react-native-branch';
+// import branch from 'react-native-branch';
 import MainPage from '../components/main/main';
 import * as action from '../action/actions';
 import { listenNotification, handleNotification } from '../service/notification';
@@ -49,35 +49,58 @@ class LoginPage extends Component {
     IsConnect().then((data) => {
       this.setState({ isNetwork: data });
     });
-    branch.subscribe((bundle) => {
-      if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
-        this.setState({ isAvailable: false, bundle: true });
-        const registrationid = bundle.params.$deeplink_path;
-        this.setState({ registrationid });
-        this.props.onLogin({ registration_id: registrationid });
-      } else {
-        AsyncStorage.getItem('user', (err, result) => {
-          if (result !== null) {
-            const user = JSON.parse(result);
-            if (user.registrationid !== '') {
-              this.setState({ registrationid: user.registrationid });
-              if (this.state.isNetwork) {
-                this.props.onLogin({ registration_id: user.registrationid });
-              } else {
-                AsyncStorage.getItem('userInfo', (err, result) => {
-                  const data = JSON.parse(result);
-                  this.props.onOfflineData({ data });
-                });
-              }
-            } else {
-              this.setState({ isAvailable: true });
-            }
+    //   if(Platform.OS === 'android'){
+    //   branch.subscribe((bundle) => {
+    //     if (bundle && bundle.params && !bundle.error && bundle.params.$deeplink_path) {
+    //       this.setState({ isAvailable: false, bundle: true });
+    //       const registrationid = bundle.params.$deeplink_path;
+    //       this.setState({ registrationid });
+    //       this.props.onLogin({ registration_id: registrationid });
+    //     } else {
+    //       AsyncStorage.getItem('user', (err, result) => {
+    //         if (result !== null) {
+    //           const user = JSON.parse(result);
+    //           if (user.registrationid !== '') {
+    //             this.setState({ registrationid: user.registrationid });
+    //             if (this.state.isNetwork) {
+    //               this.props.onLogin({ registration_id: user.registrationid });
+    //             } else {
+    //               AsyncStorage.getItem('userInfo', (err, result) => {
+    //                 const data = JSON.parse(result);
+    //                 this.props.onOfflineData({ data });
+    //               });
+    //             }
+    //           } else {
+    //             this.setState({ isAvailable: true });
+    //           }
+    //         } else {
+    //           this.setState({ isAvailable: true });
+    //         }
+    //       });
+    //     }
+    //   });
+    // } else if(Platform.OS === 'ios') {
+    AsyncStorage.getItem('user', (err, result) => {
+      if (result !== null) {
+        const user = JSON.parse(result);
+        if (user.registrationid !== '') {
+          this.setState({ registrationid: user.registrationid });
+          if (this.state.isNetwork) {
+            this.props.onLogin({ registration_id: user.registrationid });
           } else {
-            this.setState({ isAvailable: true });
+            AsyncStorage.getItem('userInfo', (err, result) => {
+              const data = JSON.parse(result);
+              this.props.onOfflineData({ data });
+            });
           }
-        });
+        } else {
+          this.setState({ isAvailable: true });
+        }
+      } else {
+        this.setState({ isAvailable: true });
       }
     });
+  // }
   }
   componentDidMount() {
     NetInfo.isConnected.addEventListener('change', this.handleNetwork);
@@ -129,15 +152,17 @@ class LoginPage extends Component {
       } else if (Platform.OS === 'ios') {
         AlertIOS.alert(`welcome ${success.name}`);
       }
-      AsyncStorage.getItem('AppIntro', (err, result) => {
-        if (result !== null) {
-          this.routesReset('Drawer');
-        } else {
-          const value = true;
-          this.routesReset('AppIntro');
-          AsyncStorage.setItem('AppIntro', JSON.stringify(value));
-        }
-      });
+      // AsyncStorage.getItem('AppIntro', (err, result) => {
+      //   console.log(result, 'app');
+      //   if (result !== null) {
+      //     this.routesReset('Drawer');
+      //   } else {
+      //     const value = true;
+      //     this.routesReset('AppIntro');
+      //     AsyncStorage.setItem('AppIntro', JSON.stringify(value));
+      //   }
+      // });
+      this.routesReset('Drawer');
       this.setState({ isAvailable: true, registrationid: '' });
     } else if (props.user.userLogin.isError) {
       this.setState({ isAvailable: true });
